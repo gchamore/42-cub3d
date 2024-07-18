@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/18 15:37:04 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:49:46 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_print_map(int **map, int map_width, int map_height)
         j = 0;
         while (j < map_width)
         {
-            printf("%d ", map[i][j]);
+            printf("%d", map[i][j]);
             j++;
         }
         printf("\n");
@@ -199,10 +199,8 @@ int	**ft_fill_tab(int fd, t_cub *cub)
 		while (y < cub->parse->map_width)
 		{
 			cub->map[i][y] = ft_atoi(split[y]);
-			printf("%d", cub->map[i][y]);
 			y++;
 		}
-		printf("\n");
 		free(line);
 		ft_free_split(split);
 		line = ft_get_next_line(fd);

@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/18 14:50:41 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:53:08 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,10 @@ typedef struct s_cub
 }	t_cub;
 
 char	**ft_mod_split(char *str, t_cub *cub);
-void	*ft_verif_str(char **split, char *str);
 int	ft_is_delimiter(char c);
 int	ft_words_count(char *str);
 int	ft_one_word_len(char *str);
 void	ft_free_split(char **split);
-int	ft_count_rows(char	**tab);
 void	ft_free_cub(t_cub *cub);
 int	ft_fill_utility(t_cub *cub, char *line);
 void	ft_free_map(int **map, int map_height);
