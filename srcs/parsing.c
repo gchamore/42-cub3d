@@ -6,14 +6,40 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/17 18:43:55 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:37:04 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	ft_error(t_cub *cub, char *str, char c)
+{
+	printf("Error : %s on %c\n", str, c);
+	ft_free_map(cub->map, cub->parse->map_height);
+	exit(1);
+}
+
+void	ft_check_line(t_cub *cub, char *line)
+{
+	size_t	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (!ft_is_delimiter(line[i]) && line[i] != '1' \
+			&& line[i] != '0' && line[i] != 'N' && line[i] \
+			!= 'S' && line[i] != 'W' && line[i] != 'E')
+		{
+			ft_error(cub, "Invalid map", line[i]);
+			exit(1);
+		}
+		i++;
+	}
+}
+
 void	ft_init_structs(t_cub *cub)
 {
+	cub->map = NULL;
 	cub->parse->NO = NULL;
 	cub->parse->SO = NULL;
 	cub->parse->WE = NULL;
@@ -21,7 +47,7 @@ void	ft_init_structs(t_cub *cub)
 	cub->parse->F = NULL;
 	cub->parse->C = NULL;
 	cub->parse->map_height = 0;
-	cub->parse->map_width = -1;
+	cub->parse->map_width = 0;
 	cub->parse->total_height = 0;
 }
 
@@ -47,13 +73,17 @@ void	ft_print_map(int **map, int map_width, int map_height)
 char	*ft_if_blanks(char *str)
 {
 	int	i;
+	char *tmp;
 
 	i = 0;
-	while (str[i])
+	tmp = str;
+	while (tmp[i])
 	{
-		if (ft_is_delimiter(str[i]))
+		if (ft_is_delimiter(tmp[i]))
 		{
-			str = ft_strtrim(str, &str[i]);
+			str = ft_strtrim(tmp, &tmp[i]);
+			free(tmp);
+			tmp = str;
 			i = 0;
 			continue ;
 		}
@@ -81,9 +111,12 @@ int	ft_get_size(char *file, t_cub *cub)
 		line = ft_get_next_line(fd);
 	}
 	close(fd);
-	// printf("map_width = %zu\n", cub->parse->map_width);
-	// printf("map_height = %zu\n", cub->parse->map_height);
-	// printf("total_height = %zu\n", cub->parse->total_height);
+	if (cub->parse->map_height == 0 || cub->parse->map_width == 0)
+		return (1);
+	cub->parse->map_width--;
+	printf("map_width = %zu\n", cub->parse->map_width);
+	printf("map_height = %zu\n", cub->parse->map_height);
+	printf("total_height = %zu\n", cub->parse->total_height);
 	// printf("NO = %s\n", cub->parse->NO);
 	// printf("SO = %s\n", cub->parse->SO);
 	// printf("WE = %s\n", cub->parse->WE);
@@ -130,13 +163,14 @@ int	**ft_fill_tab(int fd, t_cub *cub)
 	size_t		j;
 	size_t		y;
 
-	printf("HEY\n\n");
 	i = 0;
 	j = 0;
 	line = ft_get_next_line(fd);
 	if (!line)
 		return (NULL);
-	cub->map = malloc(sizeof(int *) * cub->parse->map_height);
+	// printf("cub->parse->map_width = %zu\n", cub->parse->map_width);
+	// printf("cub->parse->map_height = %zu\n", cub->parse->map_height);
+	cub->map = malloc(sizeof(int *) * cub->parse->map_height + 1);
 	if (!cub->map)
 		return (NULL);
 	while (j < cub->parse->total_height - cub->parse->map_height)
@@ -147,26 +181,37 @@ int	**ft_fill_tab(int fd, t_cub *cub)
 		if (!line)
 			return (NULL);
 	}
-	while (j < cub->parse->total_height)
+	while (j <= cub->parse->total_height)
 	{
-		printf("line = %s\n", line);
-		// printf("i = %zu\n", i);
+		// printf("j = %zu\n", j);
+		// printf("cub->parse->total_height = %zu\n", cub->parse->total_height);
+		// printf("line = %s\n", line);
+		ft_check_line(cub, line);
 		y = 0;
-		split = ft_mod_split(line);
+		split = ft_mod_split(line, cub);
+		if (split == NULL)
+    		return (NULL);
+		// printf("cub->parse->map_width = %zu\n", cub->parse->map_width);
+		// printf("cub->parse->map_height = %zu\n", cub->parse->map_height);
 		cub->map[i] = malloc(sizeof(int) * cub->parse->map_width);
 		if (!cub->map[i])
 			return (NULL);
 		while (y < cub->parse->map_width)
 		{
 			cub->map[i][y] = ft_atoi(split[y]);
+			printf("%d", cub->map[i][y]);
 			y++;
 		}
+		printf("\n");
 		free(line);
 		ft_free_split(split);
 		line = ft_get_next_line(fd);
+		if (!line)
+			break ;
 		j++;
 		i++;
 	}
+	// free(line);
 	return (cub->map);
 }
 
@@ -197,7 +242,7 @@ void	ft_free_map(int **map, int map_height)
 	int	i;
 
 	i = 0;
-	if (map)
+	if (map && map_height > 0)
 	{
 		while (i < map_height)
 		{
@@ -226,6 +271,36 @@ void	ft_free_cub(t_cub *cub)
 		}
 		if (cub->parse)
 		{
+			if (cub->parse->NO)
+			{
+				free(cub->parse->NO);
+				cub->parse->NO = NULL;
+			}
+			if (cub->parse->SO)
+			{
+				free(cub->parse->SO);
+				cub->parse->SO = NULL;
+			}
+			if (cub->parse->WE)
+			{
+				free(cub->parse->WE);
+				cub->parse->WE = NULL;
+			}
+			if (cub->parse->EA)
+			{
+				free(cub->parse->EA);
+				cub->parse->EA = NULL;
+			}
+			if (cub->parse->F)
+			{
+				free(cub->parse->F);
+				cub->parse->F = NULL;
+			}
+			if (cub->parse->C)
+			{
+				free(cub->parse->C);
+				cub->parse->C = NULL;
+			}
 			free(cub->parse);
 			cub->parse = NULL;
 		}
@@ -250,6 +325,7 @@ int	main(int argc, char **argv)
 	cub->map = ft_fill_tab(fd, cub);
 	if (!cub->map)
 		return (ft_free_cub(cub), 0);
+	printf("map = \n");
 	ft_print_map(cub->map, cub->parse->map_width, cub->parse->map_height);
 	close(fd);
 	ft_free_cub(cub);

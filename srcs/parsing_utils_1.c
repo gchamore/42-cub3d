@@ -6,24 +6,30 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/17 18:44:13 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:46:22 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	**ft_mod_split(char *str)
+char	**ft_mod_split(char *str, t_cub *cub)
 {
-    int		i;
+    size_t		i;
     char	**split;
     size_t	len;
+	int		tmp;
 
 	i = 0;
-    len = ft_strlen(str);
+	tmp = 0;
+    len = cub->parse->map_width;
+	// printf("len = %zu\n", len);
     split = (char **)malloc(sizeof(char *) * (len + 1));
     if (!split)
+	{
         return (NULL);
-    while (i < (int)len)
+	}
+	ft_memset(split, 0, sizeof(char *) * (len + 1));
+    while (i <= len)
     {
         split[i] = (char *)malloc(sizeof(char) * 2);
         if (!split[i])
@@ -33,8 +39,12 @@ char	**ft_mod_split(char *str)
             free(split);
             return (NULL);
         }
-        split[i][0] = str[i];
-        split[i][1] = '\0';
+		memset(split[i], '0', 1);
+    	split[i][1] = '\0';
+		if (((i == ft_strlen(str)) && (i < cub->parse->map_width)) || tmp == 1)
+			tmp = 1;
+		else
+			split[i][0] = str[i];
 		i++;
     }
     split[len] = NULL;
