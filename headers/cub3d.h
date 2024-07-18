@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/18 15:53:08 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:56:45 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,20 @@
 # include <math.h> // Pour tan, cos, sin, atan2, sqrt
 # include <stdbool.h> // Pour les booleens
 
+// map_height = nombre de lignes de la map
+// map_width = nombre de colonnes de la map
+// total_infos = nombre de lignes d'infos dans le fichier avant map
+// total_height = nombre de lignes total
+// total_newline = nombre de lignes vides
 
 typedef struct s_parse
 {
 	size_t			map_height;
 	size_t			map_width;
+	size_t			total_infos;
 	size_t			total_height;
+	size_t			total_newline;
+	size_t			ct;
 	char			*NO;
 	char			*SO;
 	char			*WE;

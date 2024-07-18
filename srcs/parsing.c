@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/18 15:49:46 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:21:14 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ void	ft_error(t_cub *cub, char *str, char c)
 	exit(1);
 }
 
-void	ft_check_line(t_cub *cub, char *line)
+int	ft_check_line(t_cub *cub, char *line)
 {
 	size_t	i;
+	int		check;
 
 	i = 0;
+	check = 0;
 	while (line[i])
 	{
 		if (!ft_is_delimiter(line[i]) && line[i] != '1' \
@@ -33,8 +35,13 @@ void	ft_check_line(t_cub *cub, char *line)
 			ft_error(cub, "Invalid map", line[i]);
 			exit(1);
 		}
+		if (line[i] == '1')
+			check = 1;
 		i++;
 	}
+	if (check == 1)
+		return (1);
+	return (0);
 }
 
 void	ft_init_structs(t_cub *cub)
@@ -49,6 +56,9 @@ void	ft_init_structs(t_cub *cub)
 	cub->parse->map_height = 0;
 	cub->parse->map_width = 0;
 	cub->parse->total_height = 0;
+	cub->parse->total_newline = 0;
+	cub->parse->total_infos = 0;
+	cub->parse->ct = 0;
 }
 
 void	ft_print_map(int **map, int map_width, int map_height)
@@ -92,6 +102,20 @@ char	*ft_if_blanks(char *str)
 	return (str);
 }
 
+int	ft_search(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	ft_get_size(char *file, t_cub *cub)
 {
 	int		fd;
@@ -105,8 +129,18 @@ int	ft_get_size(char *file, t_cub *cub)
 		return (1);
 	while (line != NULL)
 	{
-		ft_fill_utility(cub, line);
+		if (cub->parse->ct == 6 && ft_strchr(line, '1'))
+		{
+			cub->parse->total_infos = cub->parse->total_height;
+			cub->parse->ct = 0;
+		}
 		cub->parse->total_height++;
+		ft_fill_utility(cub, line);
+		// printf("line = %s", line);
+		// printf("cub->parse->ct = %zu\n", cub->parse->ct);
+		// printf("cub->parse->total_height = %zu\n", cub->parse->total_height);
+		// printf("cub->parse->total_infos = %zu\n", cub->parse->total_infos);
+		// printf("\n");
 		free(line);
 		line = ft_get_next_line(fd);
 	}
@@ -114,9 +148,12 @@ int	ft_get_size(char *file, t_cub *cub)
 	if (cub->parse->map_height == 0 || cub->parse->map_width == 0)
 		return (1);
 	cub->parse->map_width--;
-	printf("map_width = %zu\n", cub->parse->map_width);
-	printf("map_height = %zu\n", cub->parse->map_height);
-	printf("total_height = %zu\n", cub->parse->total_height);
+	// printf("map_width = %zu\n", cub->parse->map_width);
+	// printf("map_height = %zu\n", cub->parse->map_height);
+	// printf("total_height = %zu\n", cub->parse->total_height);
+	printf("total_newline = %zu\n", cub->parse->total_newline);
+	// printf("total_infos = %zu\n", cub->parse->total_infos);
+	// printf("ct = %zu\n", cub->parse->ct);
 	// printf("NO = %s\n", cub->parse->NO);
 	// printf("SO = %s\n", cub->parse->SO);
 	// printf("WE = %s\n", cub->parse->WE);
@@ -130,22 +167,24 @@ int	ft_fill_utility(t_cub *cub, char *line)
 {
 	if (ft_strnstr(line, "NO ", ft_strlen(line)))
 		return (cub->parse->NO = ft_if_blanks(ft_substr(ft_strnstr(line, "NO ", \
-			ft_strlen(line)), 3, ft_strlen(line) - 3)), 1);
+			ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
 	else if (ft_strnstr(line, "SO ", ft_strlen(line)))
 		return (cub->parse->SO = ft_if_blanks(ft_substr(ft_strnstr(line, "SO ", \
-			ft_strlen(line)), 3, ft_strlen(line) - 3)), 1);
+			ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
 	else if (ft_strnstr(line, "WE ", ft_strlen(line)))
 		return (cub->parse->WE = ft_if_blanks(ft_substr(ft_strnstr(line, "WE ", \
-			ft_strlen(line)), 3, ft_strlen(line) - 3)), 1);
+			ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
 	else if (ft_strnstr(line, "EA ", ft_strlen(line)))
 		return (cub->parse->EA = ft_if_blanks(ft_substr(ft_strnstr(line, "EA ", \
-			ft_strlen(line)), 3, ft_strlen(line) - 3)), 1);
+			ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
 	else if (ft_strnstr(line, "F ", ft_strlen(line)))
 		return (cub->parse->F = ft_if_blanks(ft_substr(ft_strnstr(line, "F ", \
-			ft_strlen(line)), 2, ft_strlen(line) - 2)), 1);
+			ft_strlen(line)), 2, ft_strlen(line) - 2)), cub->parse->ct++, 1);
 	else if (ft_strnstr(line, "C ", ft_strlen(line)))
 		return (cub->parse->C = ft_if_blanks(ft_substr(ft_strnstr(line, "C ", \
-			ft_strlen(line)), 2, ft_strlen(line) - 2)), 1);
+			ft_strlen(line)), 2, ft_strlen(line) - 2)), cub->parse->ct++, 1);
+	else if (line[0] == '\n')
+		cub->parse->total_newline++;
 	else if (line[0] != '\n')
 	{
 		if (cub->parse->map_width < ft_strlen(line) && ft_strlen(line) != 0)
@@ -173,7 +212,7 @@ int	**ft_fill_tab(int fd, t_cub *cub)
 	cub->map = malloc(sizeof(int *) * cub->parse->map_height + 1);
 	if (!cub->map)
 		return (NULL);
-	while (j < cub->parse->total_height - cub->parse->map_height)
+	while (j < cub->parse->total_infos)
 	{
 		j++;
 		free(line);
@@ -186,28 +225,32 @@ int	**ft_fill_tab(int fd, t_cub *cub)
 		// printf("j = %zu\n", j);
 		// printf("cub->parse->total_height = %zu\n", cub->parse->total_height);
 		// printf("line = %s\n", line);
-		ft_check_line(cub, line);
-		y = 0;
-		split = ft_mod_split(line, cub);
-		if (split == NULL)
-    		return (NULL);
-		// printf("cub->parse->map_width = %zu\n", cub->parse->map_width);
-		// printf("cub->parse->map_height = %zu\n", cub->parse->map_height);
-		cub->map[i] = malloc(sizeof(int) * cub->parse->map_width);
-		if (!cub->map[i])
-			return (NULL);
-		while (y < cub->parse->map_width)
+		if (ft_check_line(cub, line) == 1)
 		{
-			cub->map[i][y] = ft_atoi(split[y]);
-			y++;
+			y = 0;
+			split = ft_mod_split(line, cub);
+			if (split == NULL)
+				return (NULL);
+			// printf("cub->parse->map_width = %zu\n", cub->parse->map_width);
+			// printf("cub->parse->map_height = %zu\n", cub->parse->map_height);
+			cub->map[i] = malloc(sizeof(int) * cub->parse->map_width);
+			if (!cub->map[i])
+				return (NULL);
+			while (y < cub->parse->map_width)
+			{
+				cub->map[i][y] = ft_atoi(split[y]);
+				// printf ("%d", cub->map[i][y]);
+				y++;
+			}
+			// printf("\n");
+			ft_free_split(split);
+			i++;
 		}
 		free(line);
-		ft_free_split(split);
 		line = ft_get_next_line(fd);
 		if (!line)
 			break ;
 		j++;
-		i++;
 	}
 	// free(line);
 	return (cub->map);
