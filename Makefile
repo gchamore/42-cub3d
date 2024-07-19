@@ -6,7 +6,7 @@
 #    By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 09:49:54 by gchamore          #+#    #+#              #
-#    Updated: 2024/07/17 15:25:41 by gchamore         ###   ########.fr        #
+#    Updated: 2024/07/19 12:40:25 by gchamore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,15 +24,25 @@ SRCS_DIR = srcs
 SRCS_DIR_BONUS = srcs
 
 SRCS = $(addprefix $(SRCS_DIR)/,	\
+	main.c							\
+	init.c							\
 	parsing.c						\
+	parsing_verif.c					\
 	parsing_utils_1.c               \
 	parsing_utils_2.c               \
+	destroy.c						\
+	error.c							\
 	)
 
 SRCS_BONUS = $(addprefix $(SRCS_DIR_BONUS)/,	\
+	main.c							\
+	init.c							\
 	parsing.c						\
+	parsing_verif.c					\
 	parsing_utils_1.c               \
 	parsing_utils_2.c               \
+	destroy.c						\
+	error.c							\
 	)
 
 OBJ_DIR = objs

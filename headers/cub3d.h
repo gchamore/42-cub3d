@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/18 17:49:18 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:59:07 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,59 @@ typedef struct s_cub
 	t_parse		*parse;
 }	t_cub;
 
-char	**ft_mod_split(char *str, t_cub *cub);
-int	ft_is_delimiter(char c);
-int	ft_words_count(char *str);
-int	ft_one_word_len(char *str);
-void	ft_free_split(char **split);
-void	ft_free_cub(t_cub *cub);
+//////////////////////////
+//         MAIN         //
+//////////////////////////
+
+//main.c
+int	main(int argc, char **argv);
+
+//////////////////////////
+//         INIT         //
+//////////////////////////
+
+//init.c
+void	ft_create_cub(t_cub **cub);
+void	ft_init_structs(t_cub *cub);
+
+//////////////////////////
+//        PARSING       //
+//////////////////////////
+
+//parsing.c
+int	ft_parsing(int fd, t_cub *cub, char **argv);
+int	ft_get_size(char *file, t_cub *cub);
 int	ft_fill_utility(t_cub *cub, char *line);
+char	**ft_fill_tab(int fd, t_cub *cub);
+
+//parsing_verif.c
+int ft_check_close_map(t_cub *cub, char **map, int x, int y);
+char **ft_verif_map(t_cub *cub, char **map);
+int	ft_check_line(t_cub *cub, char *line);
+
+//parsing_utils_1.c
+void	ft_print_map(char **map, int map_width, int map_height);
+char	**ft_mod_split(char *str, t_cub *cub);
+char	*ft_if_only_blanks(char *str);
+char	*ft_if_blanks(char *str);
+
+//parsing_utils_2.c
+int	ft_is_delimiter(char c);
+
+//////////////////////////
+//        DESTROY       //
+//////////////////////////
+
+//destroy.c
+void	ft_free_cub(t_cub *cub);
 void	ft_free_map(char **map, int map_height);
+void	ft_free_split(char **split);
+
+//////////////////////////
+//        ERROR         //
+//////////////////////////
+
+//error.c
+void	ft_error(t_cub *cub, char *str, char c);
 
 #endif

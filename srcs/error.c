@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils_2.c                                  :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/07 13:30:03 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 12:38:04 by gchamore         ###   ########.fr       */
+/*   Created: 2024/07/19 12:21:46 by gchamore          #+#    #+#             */
+/*   Updated: 2024/07/19 13:00:29 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_is_delimiter(char c)
+void	ft_error(t_cub *cub, char *str, char c)
 {
-	return (c == ' ' || c == '\n' || c == '\t');
+	if (c == ' ')
+		printf("Error : %s\n", str);
+	else
+		printf("Error : %s on %c\n", str, c);
+	ft_free_cub(cub);
+	exit(1);
 }
