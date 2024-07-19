@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/18 16:56:45 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:49:18 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_data
 
 typedef struct s_cub
 {
-	int			**map;
+	char		**map;
 	t_data		*data;
 	t_parse		*parse;
 }	t_cub;
@@ -92,6 +92,6 @@ int	ft_one_word_len(char *str);
 void	ft_free_split(char **split);
 void	ft_free_cub(t_cub *cub);
 int	ft_fill_utility(t_cub *cub, char *line);
-void	ft_free_map(int **map, int map_height);
+void	ft_free_map(char **map, int map_height);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/18 15:53:32 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:50:53 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ char	**ft_mod_split(char *str, t_cub *cub)
 	tmp = 0;
     len = cub->parse->map_width;
 	// printf("len = %zu\n", len);
+	// printf("str = %s\n", str);
     split = (char **)malloc(sizeof(char *) * (len + 1));
     if (!split)
 	{
         return (NULL);
 	}
-	ft_memset(split, 0, sizeof(char *) * (len + 1));
     while (i < len)
     {
         split[i] = (char *)malloc(sizeof(char) * 2);
@@ -39,15 +39,17 @@ char	**ft_mod_split(char *str, t_cub *cub)
             free(split);
             return (NULL);
         }
-		memset(split[i], '0', 1);
-    	split[i][1] = '\0';
-		if (((i == ft_strlen(str)) && (i < cub->parse->map_width)) || tmp == 1)
+		if (((i >= ft_strlen(str) || str[i] == '\n' || str[i] == '\0') && (i < len)) || tmp == 1)
+		{
+			split[i][0] = ' ';
 			tmp = 1;
+		}
 		else
 			split[i][0] = str[i];
+    	split[i][1] = '\0';
 		i++;
     }
     split[len] = NULL;
-    return (split);
+	return (split);
 }
 
