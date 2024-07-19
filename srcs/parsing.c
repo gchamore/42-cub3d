@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 12:59:22 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:45:58 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ int	ft_get_size(char *file, t_cub *cub)
 		return (ft_error(cub, "NULL line", ' '), EXIT_FAILURE);
 	while (line != NULL)
 	{
-		// printf("line %d avant = &%s&\n", i, line);
 		line = ft_if_only_blanks(line);
-		// printf("line %d arpes = &%s&\n\n", i, line);
 		if (cub->parse->ct == 6 && ft_strchr(line, '1'))
 		{
 			cub->parse->total_infos = cub->parse->total_height;
@@ -44,36 +42,19 @@ int	ft_get_size(char *file, t_cub *cub)
 		}
 		cub->parse->total_height++;
 		ft_fill_utility(cub, line);
-		// printf("line = %s", line);
-		// printf("cub->parse->ct = %zu\n", cub->parse->ct);
-		// printf("cub->parse->total_height = %zu\n", cub->parse->total_height);
-		// printf("cub->parse->total_infos = %zu\n", cub->parse->total_infos);
-		// printf("\n");
 		free(line);
 		line = ft_get_next_line(fd);
 	}
 	close(fd);
 	if (cub->parse->map_height == 0 || cub->parse->map_width == 0)
 		return (ft_error(cub, "map size = 0", ' '), EXIT_FAILURE);
-	cub->parse->map_width--;
-	// cub->parse->map_height--;
-	// printf("map_width = %zu\n", cub->parse->map_width);
-	// printf("map_height = %zu\n", cub->parse->map_height);
-	// printf("total_height = %zu\n", cub->parse->total_height);
-	// printf("total_newline = %zu\n", cub->parse->total_newline);
-	// printf("total_infos = %zu\n", cub->parse->total_infos);
-	// printf("ct = %zu\n", cub->parse->ct);
-	// printf("NO = %s\n", cub->parse->NO);
-	// printf("SO = %s\n", cub->parse->SO);
-	// printf("WE = %s\n", cub->parse->WE);
-	// printf("EA = %s\n", cub->parse->EA);
-	// printf("F = %s\n", cub->parse->F);
-	// printf("C = %s\n", cub->parse->C);
+	// cub->parse->map_width--;
 	return (EXIT_SUCCESS);
 }
 
 int	ft_fill_utility(t_cub *cub, char *line)
 {
+	char *tmp;
 	if (ft_strnstr(line, "NO ", ft_strlen(line)))
 		return (cub->parse->NO = ft_if_blanks(ft_substr(ft_strnstr(line, "NO ", \
 			ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
@@ -96,9 +77,11 @@ int	ft_fill_utility(t_cub *cub, char *line)
 		cub->parse->total_newline++;
 	else if (line[0] != '\n')
 	{
-		if (cub->parse->map_width < ft_strlen(line) && ft_strlen(line) != 0)
-			cub->parse->map_width = ft_strlen(line);
+		tmp = ft_if_blanks(ft_strdup(line));
+		if (cub->parse->map_width < ft_strlen(tmp) && ft_strlen(tmp) != 0)
+			cub->parse->map_width = ft_strlen(tmp);
 		cub->parse->map_height++;
+		free(tmp);
 	}
 	return (0);
 }
@@ -116,8 +99,6 @@ char	**ft_fill_tab(int fd, t_cub *cub)
 	line = ft_get_next_line(fd);
 	if (!line)
 		return (ft_error(cub, "NULL line", ' '), NULL);
-	// printf("cub->parse->map_width = %zu\n", cub->parse->map_width);
-	// printf("cub->parse->map_height = %zu\n", cub->parse->map_height);
 	cub->map = malloc(sizeof(char *) * (cub->parse->map_height + 1));
 	if (!cub->map)
 		return (ft_error(cub, "Map Alloc failed", ' '), NULL);
@@ -131,29 +112,20 @@ char	**ft_fill_tab(int fd, t_cub *cub)
 	}
 	while (j <= cub->parse->total_height)
 	{
-		// printf("j = %zu\n", j);
-		// printf("cub->parse->total_height = %zu\n", cub->parse->total_height);
-		// printf("line = %s\n", line);
 		if (ft_check_line(cub, line) == 1)
 		{
 			y = 0;
-			// printf("line = %s\n", line);
 			split = ft_mod_split(line, cub);
 			if (split == NULL)
 				return (ft_error(cub, "Split Alloc failed", ' '), NULL);
-			// printf("cub->parse->map_width = %zu\n", cub->parse->map_width);
-			// printf("cub->parse->map_height = %zu\n", cub->parse->map_height);
-			// printf("Trying to allocate memory for map width: %zu\n", cub->parse->map_width);
 			cub->map[i] = malloc(sizeof(char) * (cub->parse->map_width));
 			if (!cub->map[i])
 				return (ft_error(cub, "Map Alloc failed", ' '), NULL);
 			while (y < cub->parse->map_width)
 			{
 				cub->map[i][y] = *split[y];
-				// printf ("%d", cub->map[i][y]);
 				y++;
 			}
-			// printf("\n");
 			ft_free_split(split);
 			i++;
 		}
@@ -164,7 +136,6 @@ char	**ft_fill_tab(int fd, t_cub *cub)
 		j++;
 	}
 	cub->map[i] = NULL;
-	// free(line);
 	return (cub->map);
 }
 

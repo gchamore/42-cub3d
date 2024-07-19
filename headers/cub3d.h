@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 12:59:07 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:05:56 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char **ft_verif_map(t_cub *cub, char **map);
 int	ft_check_line(t_cub *cub, char *line);
 
 //parsing_utils_1.c
-void	ft_print_map(char **map, int map_width, int map_height);
+void	ft_print_map(t_cub *cub, char **map, int map_width, int map_height);
 char	**ft_mod_split(char *str, t_cub *cub);
 char	*ft_if_only_blanks(char *str);
 char	*ft_if_blanks(char *str);

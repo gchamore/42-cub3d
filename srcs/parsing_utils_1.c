@@ -6,18 +6,30 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 12:23:45 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:42:10 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_print_map(char **map, int map_width, int map_height)
+void	ft_print_map(t_cub *cub, char **map, int map_width, int map_height)
 {
     int	i;
     int	j;
 
     i = 0;
+	printf("map_width = %zu\n", cub->parse->map_width);
+	printf("map_height = %zu\n", cub->parse->map_height);
+	printf("total_height = %zu\n", cub->parse->total_height);
+	printf("total_newline = %zu\n", cub->parse->total_newline);
+	printf("total_infos = %zu\n", cub->parse->total_infos);
+	printf("ct = %zu\n", cub->parse->ct);
+	printf("NO = %s\n", cub->parse->NO);
+	printf("SO = %s\n", cub->parse->SO);
+	printf("WE = %s\n", cub->parse->WE);
+	printf("EA = %s\n", cub->parse->EA);
+	printf("F = %s\n", cub->parse->F);
+	printf("C = %s\n", cub->parse->C);
 	if (map == NULL)
 	{
         fprintf(stderr, "Error: map is NULL\n");
@@ -28,7 +40,7 @@ void	ft_print_map(char **map, int map_width, int map_height)
 		if (map[i] == NULL)
 		{
             fprintf(stderr, "Error: map[%d] is NULL\n", i);
-            break ; // Skip this iteration
+            break ;
         }
         j = 0;
         while (j < map_width)
@@ -51,8 +63,6 @@ char	**ft_mod_split(char *str, t_cub *cub)
 	i = 0;
 	tmp = 0;
     len = cub->parse->map_width;
-	// printf("len = %zu\n", len);
-	// printf("str = %s\n", str);
     split = (char **)malloc(sizeof(char *) * (len + 1));
     if (!split)
 	{
@@ -91,24 +101,15 @@ char	*ft_if_only_blanks(char *str)
     i = 0;
     tmp = str;
     check = 0;
-    // Modifier la condition pour ignorer '\n'
     while (tmp[i] && (tmp[i] == ' ' || tmp[i] == '\t'))
         i++;
-    // Vérifier si on a un caractère autre que '\0' et qui n'est pas un délimiteur
     if (tmp[i] != '\0' && tmp[i] != '\n' && !ft_is_delimiter(tmp[i]))
         check = 1;
     i = 0;
-    while (tmp[i] && check == 0)
+    if (check == 0)
     {
-        if (tmp[i] == ' ' || tmp[i] == '\t')
-        {
-            str = ft_strtrim(tmp, " \t");
-            free(tmp);
-            tmp = str;
-            i = 0;
-            continue ;
-        }
-        i++;
+        str = ft_strtrim(tmp, " \t");
+        free(tmp);
     }
     return (str);
 }
@@ -122,7 +123,6 @@ char	*ft_if_blanks(char *str)
 	if (str == NULL)
 		return (NULL);
 	tmp = str;
-
 	str = ft_strtrim(tmp, " \t\n");
 	if (str == NULL)
 		return (str);
