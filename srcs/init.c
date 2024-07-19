@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:20:35 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 12:24:22 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:45:45 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,13 @@ void	ft_create_cub(t_cub **cub)
         if (!(*cub)->parse)
         {
             ft_free_cub(*cub);
-            *cub = NULL;
-            return;
+            return ;
         }
         (*cub)->data = malloc(sizeof(t_data));
         if (!(*cub)->data)
         {
             ft_free_cub(*cub);
-            *cub = NULL;
-            return;
+            return ;
         }
     }
 }
@@ -41,12 +39,16 @@ void	ft_init_structs(t_cub *cub)
 	cub->parse->SO = NULL;
 	cub->parse->WE = NULL;
 	cub->parse->EA = NULL;
-	cub->parse->F = NULL;
-	cub->parse->C = NULL;
 	cub->parse->map_height = 0;
 	cub->parse->map_width = 0;
 	cub->parse->total_height = 0;
 	cub->parse->total_newline = 0;
 	cub->parse->total_infos = 0;
 	cub->parse->ct = 0;
+	cub->parse->F.b = 0;
+	cub->parse->F.g = 0;
+	cub->parse->F.r = 0;
+	cub->parse->C.b = 0;
+	cub->parse->C.g = 0;
+	cub->parse->C.r = 0;
 }

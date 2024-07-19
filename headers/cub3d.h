@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 13:05:56 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:10:50 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@
 // total_height = nombre de lignes total
 // total_newline = nombre de lignes vides
 
+typedef struct s_rgb
+{
+	int		r;
+	int		g;
+	int		b;
+}	t_rgb;
+
 typedef struct s_parse
 {
 	size_t			map_height;
@@ -45,8 +52,10 @@ typedef struct s_parse
 	char			*SO;
 	char			*WE;
 	char			*EA;
-	char			*F;
-	char			*C;
+	t_rgb			F;
+	t_rgb			C;
+	// t_rgb			floor;
+	// t_rgb			ceiling;
 }	t_parse;
 
 typedef struct s_point2d
@@ -83,6 +92,7 @@ typedef struct s_cub
 	char		**map;
 	t_data		*data;
 	t_parse		*parse;
+	t_rgb		*rgb;
 }	t_cub;
 
 //////////////////////////
@@ -106,7 +116,7 @@ void	ft_init_structs(t_cub *cub);
 
 //parsing.c
 int	ft_parsing(int fd, t_cub *cub, char **argv);
-int	ft_get_size(char *file, t_cub *cub);
+int	ft_get_data(char *file, t_cub *cub);
 int	ft_fill_utility(t_cub *cub, char *line);
 char	**ft_fill_tab(int fd, t_cub *cub);
 
@@ -123,6 +133,7 @@ char	*ft_if_blanks(char *str);
 
 //parsing_utils_2.c
 int	ft_is_delimiter(char c);
+t_rgb	ft_get_rgb(t_rgb rgb, char *str);
 
 //////////////////////////
 //        DESTROY       //

@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 13:45:58 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:28:03 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,22 @@
 
 int	ft_parsing(int fd, t_cub *cub, char **argv)
 {
-	if (ft_get_size(argv[1], cub) == EXIT_FAILURE)
+	if (ft_get_data(argv[1], cub) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	// ft_get_rgb(cub->parse->floor, cub->parse->F);
+	// ft_get_rgb(cub->parse->ceiling, cub->parse->C);
+	printf("floor->r = %d\n", cub->parse->F.r);
+	printf("floor->g = %d\n", cub->parse->F.g);
+	printf("floor->b = %d\n", cub->parse->F.b);
+	printf("ceiling->r = %d\n", cub->parse->C.r);
+	printf("ceiling->g = %d\n", cub->parse->C.g);
+	printf("ceiling->b = %d\n", cub->parse->C.b);
 	if (ft_fill_tab(fd, cub) == NULL)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-int	ft_get_size(char *file, t_cub *cub)
+int	ft_get_data(char *file, t_cub *cub)
 {
 	int		fd;
 	char	*line;
@@ -48,31 +56,33 @@ int	ft_get_size(char *file, t_cub *cub)
 	close(fd);
 	if (cub->parse->map_height == 0 || cub->parse->map_width == 0)
 		return (ft_error(cub, "map size = 0", ' '), EXIT_FAILURE);
-	// cub->parse->map_width--;
 	return (EXIT_SUCCESS);
 }
 
 int	ft_fill_utility(t_cub *cub, char *line)
 {
 	char *tmp;
+
 	if (ft_strnstr(line, "NO ", ft_strlen(line)))
-		return (cub->parse->NO = ft_if_blanks(ft_substr(ft_strnstr(line, "NO ", \
-			ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
+		return (cub->parse->NO = ft_if_blanks(ft_substr(ft_strnstr(line, \
+		"NO ", ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
 	else if (ft_strnstr(line, "SO ", ft_strlen(line)))
-		return (cub->parse->SO = ft_if_blanks(ft_substr(ft_strnstr(line, "SO ", \
-			ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
+		return (cub->parse->SO = ft_if_blanks(ft_substr(ft_strnstr(line, \
+		"SO ", ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
 	else if (ft_strnstr(line, "WE ", ft_strlen(line)))
-		return (cub->parse->WE = ft_if_blanks(ft_substr(ft_strnstr(line, "WE ", \
-			ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
+		return (cub->parse->WE = ft_if_blanks(ft_substr(ft_strnstr(line, \
+		"WE ", ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
 	else if (ft_strnstr(line, "EA ", ft_strlen(line)))
-		return (cub->parse->EA = ft_if_blanks(ft_substr(ft_strnstr(line, "EA ", \
-			ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
+		return (cub->parse->EA = ft_if_blanks(ft_substr(ft_strnstr(line, \
+		"EA ", ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
 	else if (ft_strnstr(line, "F ", ft_strlen(line)))
-		return (cub->parse->F = ft_if_blanks(ft_substr(ft_strnstr(line, "F ", \
-			ft_strlen(line)), 2, ft_strlen(line) - 2)), cub->parse->ct++, 1);
+		return (tmp = ft_substr(ft_strnstr(line, "F ", ft_strlen(line)), 2, \
+		ft_strlen(line) - 2), cub->parse->F = ft_get_rgb(cub->parse->F, tmp), \
+		cub->parse->ct++, free(tmp), 1);
 	else if (ft_strnstr(line, "C ", ft_strlen(line)))
-		return (cub->parse->C = ft_if_blanks(ft_substr(ft_strnstr(line, "C ", \
-			ft_strlen(line)), 2, ft_strlen(line) - 2)), cub->parse->ct++, 1);
+		return (tmp = ft_substr(ft_strnstr(line, "C ", ft_strlen(line)), 2, \
+		ft_strlen(line) - 2), cub->parse->C = ft_get_rgb(cub->parse->C, tmp), \
+		cub->parse->ct++, free(tmp), 1);
 	else if (line[0] == '\n')
 		cub->parse->total_newline++;
 	else if (line[0] != '\n')

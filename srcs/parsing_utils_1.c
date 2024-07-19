@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 13:42:10 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:51:59 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	ft_print_map(t_cub *cub, char **map, int map_width, int map_height)
 	printf("SO = %s\n", cub->parse->SO);
 	printf("WE = %s\n", cub->parse->WE);
 	printf("EA = %s\n", cub->parse->EA);
-	printf("F = %s\n", cub->parse->F);
-	printf("C = %s\n", cub->parse->C);
+	printf("\n\n\n");
 	if (map == NULL)
 	{
         fprintf(stderr, "Error: map is NULL\n");

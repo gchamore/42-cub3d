@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:24:45 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 12:38:11 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:53:18 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,6 @@ void	ft_free_cub(t_cub *cub)
 			{
 				free(cub->parse->EA);
 				cub->parse->EA = NULL;
-			}
-			if (cub->parse->F)
-			{
-				free(cub->parse->F);
-				cub->parse->F = NULL;
-			}
-			if (cub->parse->C)
-			{
-				free(cub->parse->C);
-				cub->parse->C = NULL;
 			}
 			free(cub->parse);
 			cub->parse = NULL;
