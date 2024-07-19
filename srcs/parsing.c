@@ -6,21 +6,22 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 18:43:09 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:21:15 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 // Parse le fichier .cub
+// je commente verif map pour que tu es une version fonctionnelle. je suis en train de taff sur 
+// la verif de la map
 int	ft_parsing(int fd, t_cub *cub, char **argv)
 {
 	if (ft_get_data(argv[1], cub) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (ft_fill_tab(fd, cub) == NULL)
 		return (EXIT_FAILURE);
-	// ft_print_map(cub, cub->map, cub->parse->map_width, cub->parse->map_height);
-	ft_verif_map(cub, cub->map);
+	// ft_verif_map(cub, cub->map);
 	return (EXIT_SUCCESS);
 }
 
