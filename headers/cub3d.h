@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 15:10:50 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 17:40:54 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	ft_fill_utility(t_cub *cub, char *line);
 char	**ft_fill_tab(int fd, t_cub *cub);
 
 //parsing_verif.c
-int ft_check_close_map(t_cub *cub, char **map, int x, int y);
+int ft_check_if_valid_map(t_cub *cub, int **check, size_t x, size_t y);
 char **ft_verif_map(t_cub *cub, char **map);
 int	ft_check_line(t_cub *cub, char *line);
 

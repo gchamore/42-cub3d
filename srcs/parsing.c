@@ -6,29 +6,25 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 15:28:03 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 18:43:09 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+// Parse le fichier .cub
 int	ft_parsing(int fd, t_cub *cub, char **argv)
 {
 	if (ft_get_data(argv[1], cub) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	// ft_get_rgb(cub->parse->floor, cub->parse->F);
-	// ft_get_rgb(cub->parse->ceiling, cub->parse->C);
-	printf("floor->r = %d\n", cub->parse->F.r);
-	printf("floor->g = %d\n", cub->parse->F.g);
-	printf("floor->b = %d\n", cub->parse->F.b);
-	printf("ceiling->r = %d\n", cub->parse->C.r);
-	printf("ceiling->g = %d\n", cub->parse->C.g);
-	printf("ceiling->b = %d\n", cub->parse->C.b);
 	if (ft_fill_tab(fd, cub) == NULL)
 		return (EXIT_FAILURE);
+	// ft_print_map(cub, cub->map, cub->parse->map_width, cub->parse->map_height);
+	ft_verif_map(cub, cub->map);
 	return (EXIT_SUCCESS);
 }
 
+//Recupere les datas : NO, SO, WE, EA, F, C, map
 int	ft_get_data(char *file, t_cub *cub)
 {
 	int		fd;
@@ -59,6 +55,7 @@ int	ft_get_data(char *file, t_cub *cub)
 	return (EXIT_SUCCESS);
 }
 
+//Rempli les variables NO, SO, WE, EA, F, C, map
 int	ft_fill_utility(t_cub *cub, char *line)
 {
 	char *tmp;
@@ -96,6 +93,7 @@ int	ft_fill_utility(t_cub *cub, char *line)
 	return (0);
 }
 
+//Rempli le tableau map
 char	**ft_fill_tab(int fd, t_cub *cub)
 {
 	char	**split;
@@ -128,7 +126,7 @@ char	**ft_fill_tab(int fd, t_cub *cub)
 			split = ft_mod_split(line, cub);
 			if (split == NULL)
 				return (ft_error(cub, "Split Alloc failed", ' '), NULL);
-			cub->map[i] = malloc(sizeof(char) * (cub->parse->map_width));
+			cub->map[i] = malloc(sizeof(char) * (cub->parse->map_width + 1));
 			if (!cub->map[i])
 				return (ft_error(cub, "Map Alloc failed", ' '), NULL);
 			while (y < cub->parse->map_width)
@@ -136,6 +134,7 @@ char	**ft_fill_tab(int fd, t_cub *cub)
 				cub->map[i][y] = *split[y];
 				y++;
 			}
+			cub->map[i][y] = '\0';
 			ft_free_split(split);
 			i++;
 		}

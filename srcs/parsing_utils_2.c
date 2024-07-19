@@ -6,17 +6,19 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:03 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 15:10:47 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 18:42:57 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+// Retourne 1 si c est un delimiteur, 0 sinon
 int	ft_is_delimiter(char c)
 {
 	return (c == ' ' || c == '\n' || c == '\t');
 }
 
+// PERMET DE RECUPERER LES COULEURS RGB DANS C ET F
 t_rgb	ft_get_rgb(t_rgb rgb, char *str)
 {
     int i;
@@ -26,12 +28,12 @@ t_rgb	ft_get_rgb(t_rgb rgb, char *str)
 	char *temp;
 	int j;
 	int value;
+	char *trimmed;
 
     i = 0;
 	tmp = str;
     start = 0;
     valueIndex = 0;
-
     while (tmp[i] != '\0')
     {
         if (tmp[i] == ',' || tmp[i + 1] == '\0')
@@ -48,8 +50,6 @@ t_rgb	ft_get_rgb(t_rgb rgb, char *str)
 				temp[j++] = tmp[i];
 			temp[j] = '\0';
 			start = i + 1;
-			char *trimmed;
-			// Other code remains unchanged
 			trimmed = ft_strtrim(temp, " \t");
 			value = atoi(trimmed);
 			free(trimmed);
@@ -57,7 +57,8 @@ t_rgb	ft_get_rgb(t_rgb rgb, char *str)
 				rgb.r = value;
 			else if (valueIndex == 1)
 				rgb.g = value;
-			else if (valueIndex == 2) rgb.b = value;
+			else if (valueIndex == 2)
+				rgb.b = value;
             valueIndex++;
 			free(temp);
         }

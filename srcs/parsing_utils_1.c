@@ -6,12 +6,13 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 14:51:59 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/07/19 18:41:22 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+// imprime la map
 void	ft_print_map(t_cub *cub, char **map, int map_width, int map_height)
 {
     int	i;
@@ -28,6 +29,12 @@ void	ft_print_map(t_cub *cub, char **map, int map_width, int map_height)
 	printf("SO = %s\n", cub->parse->SO);
 	printf("WE = %s\n", cub->parse->WE);
 	printf("EA = %s\n", cub->parse->EA);
+	printf("floor->r = %d\n", cub->parse->F.r);
+	printf("floor->g = %d\n", cub->parse->F.g);
+	printf("floor->b = %d\n", cub->parse->F.b);
+	printf("ceiling->r = %d\n", cub->parse->C.r);
+	printf("ceiling->g = %d\n", cub->parse->C.g);
+	printf("ceiling->b = %d\n", cub->parse->C.b);
 	printf("\n\n\n");
 	if (map == NULL)
 	{
@@ -52,6 +59,7 @@ void	ft_print_map(t_cub *cub, char **map, int map_width, int map_height)
     }
 }
 
+// split la map
 char	**ft_mod_split(char *str, t_cub *cub)
 {
     size_t		i;
@@ -91,6 +99,7 @@ char	**ft_mod_split(char *str, t_cub *cub)
 	return (split);
 }
 
+// SI QUE ESPACES ET TABS DANS LA LIGNE ALORS ON LES SUPPRIME
 char	*ft_if_only_blanks(char *str)
 {
     int	i;
@@ -113,6 +122,7 @@ char	*ft_if_only_blanks(char *str)
     return (str);
 }
 
+// TRIM LES ESPACES ET TABS DE LA LIGNES AVANT ET APRES LE TEXTE
 char	*ft_if_blanks(char *str)
 {
 	int	i;
