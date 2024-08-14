@@ -6,13 +6,13 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:24:45 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 14:53:18 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/14 14:45:43 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_free_map(char **map, int map_height)
+void	ft_free_map(t_cell **map, int map_height)
 {
 	int	i;
 

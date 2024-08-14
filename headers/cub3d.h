@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 17:40:54 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/14 14:45:50 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,15 @@ typedef struct s_data
 	t_img		img;
 }	t_data;
 
+typedef struct s_cell
+{
+	char		value;
+	bool		used;
+}	t_cell;
+
 typedef struct s_cub
 {
-	char		**map;
+	t_cell		**map;
 	t_data		*data;
 	t_parse		*parse;
 	t_rgb		*rgb;
@@ -118,15 +124,15 @@ void	ft_init_structs(t_cub *cub);
 int	ft_parsing(int fd, t_cub *cub, char **argv);
 int	ft_get_data(char *file, t_cub *cub);
 int	ft_fill_utility(t_cub *cub, char *line);
-char	**ft_fill_tab(int fd, t_cub *cub);
+t_cell	**ft_fill_tab(int fd, t_cub *cub);
 
 //parsing_verif.c
 int ft_check_if_valid_map(t_cub *cub, int **check, size_t x, size_t y);
-char **ft_verif_map(t_cub *cub, char **map);
+t_cell **ft_verif_map(t_cub *cub, t_cell **map);
 int	ft_check_line(t_cub *cub, char *line);
 
 //parsing_utils_1.c
-void	ft_print_map(t_cub *cub, char **map, int map_width, int map_height);
+void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height);
 char	**ft_mod_split(char *str, t_cub *cub);
 char	*ft_if_only_blanks(char *str);
 char	*ft_if_blanks(char *str);
@@ -141,7 +147,7 @@ t_rgb	ft_get_rgb(t_rgb rgb, char *str);
 
 //destroy.c
 void	ft_free_cub(t_cub *cub);
-void	ft_free_map(char **map, int map_height);
+void	ft_free_map(t_cell **map, int map_height);
 void	ft_free_split(char **split);
 
 //////////////////////////

@@ -6,14 +6,14 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 18:41:22 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/14 14:23:45 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 // imprime la map
-void	ft_print_map(t_cub *cub, char **map, int map_width, int map_height)
+void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height)
 {
     int	i;
     int	j;
@@ -51,7 +51,7 @@ void	ft_print_map(t_cub *cub, char **map, int map_width, int map_height)
         j = 0;
         while (j < map_width)
         {
-            printf("%c", map[i][j]);
+            printf("%c", map[i][j].value);
             j++;
         }
         printf("\n");

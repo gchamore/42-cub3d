@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 19:21:15 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/14 14:34:41 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	ft_fill_utility(t_cub *cub, char *line)
 }
 
 //Rempli le tableau map
-char	**ft_fill_tab(int fd, t_cub *cub)
+t_cell	**ft_fill_tab(int fd, t_cub *cub)
 {
 	char	**split;
 	char	*line;
@@ -108,7 +108,7 @@ char	**ft_fill_tab(int fd, t_cub *cub)
 	line = ft_get_next_line(fd);
 	if (!line)
 		return (ft_error(cub, "NULL line", ' '), NULL);
-	cub->map = malloc(sizeof(char *) * (cub->parse->map_height + 1));
+	cub->map = malloc(sizeof(t_cell *) * (cub->parse->map_height + 1));
 	if (!cub->map)
 		return (ft_error(cub, "Map Alloc failed", ' '), NULL);
 	while (j < cub->parse->total_infos)
@@ -127,15 +127,17 @@ char	**ft_fill_tab(int fd, t_cub *cub)
 			split = ft_mod_split(line, cub);
 			if (split == NULL)
 				return (ft_error(cub, "Split Alloc failed", ' '), NULL);
-			cub->map[i] = malloc(sizeof(char) * (cub->parse->map_width + 1));
+			cub->map[i] = malloc(sizeof(t_cell) * (cub->parse->map_width + 1));
 			if (!cub->map[i])
 				return (ft_error(cub, "Map Alloc failed", ' '), NULL);
 			while (y < cub->parse->map_width)
 			{
-				cub->map[i][y] = *split[y];
+				cub->map[i][y].value = *split[y];
+				cub->map[i][y].used = false;
 				y++;
 			}
-			cub->map[i][y] = '\0';
+			cub->map[i][y].value = '\0';
+			cub->map[i][y].used = false;
 			ft_free_split(split);
 			i++;
 		}
