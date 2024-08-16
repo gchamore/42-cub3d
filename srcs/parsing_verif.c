@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/16 18:53:29 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:05:04 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,26 @@ int ft_check_if_valid_map(t_cub *cub, size_t x, size_t y)
 	cub->check++;
 	if (cub->map[x][y].value != '1' || cub->check == 0)
         return (ft_error(cub, "Invalid map", cub->map[x][y].value), 1);
-	printf("map = [%zu][%zu]\n", x, y);
+	// printf("map = [%zu][%zu]\n", x, y);
+	// printf("count = %d\n", cub->map[x][y].count);
+	// printf("cub->end = %d\n", cub->map[x][y].end);
 	cub->map[x][y].used = true;
 	ft_count_1(cub, x, y);
 	if (cub->map[x][y].count == 0)
 	{
 		if (ft_check_end(cub, x, y) == 0 && cub->check >= 4)
-			return (printf("THE END !"), 0);
+			return (printf("THE END 1 !"), 0);
 		else
 			return (1);
 	}
 	if (ft_check_end(cub, x, y) == 0 && cub->check >= 4)
-			return (printf("THE END !"), 0);
+			return (printf("THE END 2 !"), 0);
     if (y + 1 < cub->parse->map_width && cub->map[x][y + 1].value != '\0' && cub->map[x][y + 1].value == '1' && cub->map[x][y + 1].used == false && cub->map[x][y].count >= 1)
 	{
 		cub->map[x][y].count--;
 		if ((x > 0 && cub->map[x - 1][y].value == '0'))
 		{
-			printf("\nUnvalid path at [%zu][%zu]\n\n", x, y);
+			// printf("\nUnvalid path at [%zu][%zu]\n\n", x, y);
 			return (1);
 		}
 		if (ft_check_if_valid_map(cub, x, y + 1) == 0)
@@ -86,7 +88,7 @@ int ft_check_if_valid_map(t_cub *cub, size_t x, size_t y)
 		else
 		{
 			cub->check--;
-			printf("go back at -> [%zu][%zu]\n", x, y + 1);
+			// printf("go back at -> [%zu][%zu]\n", x, y + 1);
 		}	
 	}
     if (x + 1 < cub->parse->map_height && cub->map[x + 1][y].value != '\0' && cub->map[x + 1][y].value == '1' && cub->map[x + 1][y].used == false && cub->map[x][y].count >= 1)
@@ -94,7 +96,7 @@ int ft_check_if_valid_map(t_cub *cub, size_t x, size_t y)
 		cub->map[x][y].count--;
 		if ((y + 1 < cub->parse->map_width && cub->map[x][y + 1].value == '0'))
 		{
-			printf("\nUnvalid path at [%zu][%zu]\n\n", x, y);
+			// printf("\nUnvalid path at [%zu][%zu]\n\n", x, y);
 			return (1);
 		}
 		if (ft_check_if_valid_map(cub, x + 1, y) == 0)
@@ -102,7 +104,7 @@ int ft_check_if_valid_map(t_cub *cub, size_t x, size_t y)
 		else
 		{
 			cub->check--;
-			printf("go back at -> [%zu][%zu]\n", x + 1, y);
+			// printf("go back at -> [%zu][%zu]\n", x + 1, y);
 		}	
 	}
     if (y > 0 && cub->map[x][y].value == '1' && cub->map[x][y - 1].value == '1' && cub->map[x][y - 1].used == false && cub->map[x][y].count >= 1 && cub->map[x][y].count >= 1)
@@ -110,7 +112,7 @@ int ft_check_if_valid_map(t_cub *cub, size_t x, size_t y)
 		cub->map[x][y].count--;
 		if ((x + 1 < cub->parse->map_height && cub->map[x + 1][y].value == '0'))
 		{
-			printf("\nUnvalid path at [%zu][%zu]\n\n", x, y);
+			// printf("\nUnvalid path at [%zu][%zu]\n\n", x, y);
 			return (1);
 		}
 		if (ft_check_if_valid_map(cub, x, y - 1) == 0)
@@ -118,7 +120,7 @@ int ft_check_if_valid_map(t_cub *cub, size_t x, size_t y)
 		else
 		{
 			cub->check--;
-			printf("go back at -> [%zu][%zu]\n", x, y - 1);
+			// printf("go back at -> [%zu][%zu]\n", x, y - 1);
 		}
 	}
     if (x > 0 && cub->map[x][y].value == '1' && cub->map[x - 1][y].value == '1' && cub->map[x - 1][y].used == false && cub->map[x][y].count >= 1 && cub->map[x][y].count >= 1)
@@ -126,7 +128,7 @@ int ft_check_if_valid_map(t_cub *cub, size_t x, size_t y)
 		cub->map[x][y].count--;
 		if ((y > 0 && cub->map[x][y - 1].value == '0'))
 		{
-			printf("\nUnvalid path at [%zu][%zu]\n\n", x, y);
+			// printf("\nUnvalid path at [%zu][%zu]\n\n", x, y);
 			return (1);
 		}
 		if (ft_check_if_valid_map(cub, x - 1, y) == 0)
@@ -134,7 +136,7 @@ int ft_check_if_valid_map(t_cub *cub, size_t x, size_t y)
 		else
 		{
 			cub->check--;
-			printf("go back at -> [%zu][%zu]\n", x - 1, y);
+			// printf("go back at -> [%zu][%zu]\n", x - 1, y);
 		}
 	}
 	return (1);
@@ -165,7 +167,6 @@ void	ft_get_map_start(t_cub *cub)
             {
                 if (cub->map[x][y].value == '1' && cub->map[x][y + 1].value == '1' && cub->map[x + 1][y].value == '1' && (cub->map[x + 1][y + 1].value == '0' || cub->map[x + 1][y + 1].value == '1' || cub->map[x + 1][y + 1].value == 'N' || cub->map[x + 1][y + 1].value == 'S' || cub->map[x + 1][y + 1].value == 'W' || cub->map[x + 1][y + 1].value == 'E'))
                 {
-                    cub->map[x][y].end = true;
                     cub->x_start = x;
                     cub->y_start = y;
 					return ;
@@ -184,10 +185,11 @@ t_cell **ft_verif_map(t_cub *cub, t_cell **map)
 	printf ("map_width = %zu\n", cub->parse->map_width);
 
 	ft_get_map_start(cub);
+	cub->map[cub->x_start][cub->y_start].end = true;
 	if (ft_check_if_valid_map(cub, cub->x_start, cub->y_start) == 0)
 		return (printf("YEAAAAAAH \n\n"), map);
 	else
-		return (printf("NOOOOO \n\n"), NULL);
+		return (printf("Error\nWrong Map \n\n"), NULL);
     return (map);
 }
 

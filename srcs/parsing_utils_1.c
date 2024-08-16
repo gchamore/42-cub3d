@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/14 14:23:45 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:06:07 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height)
     int	j;
 
     i = 0;
+	printf("\n\n");
 	printf("map_width = %zu\n", cub->parse->map_width);
 	printf("map_height = %zu\n", cub->parse->map_height);
 	printf("total_height = %zu\n", cub->parse->total_height);
@@ -35,7 +36,7 @@ void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height)
 	printf("ceiling->r = %d\n", cub->parse->C.r);
 	printf("ceiling->g = %d\n", cub->parse->C.g);
 	printf("ceiling->b = %d\n", cub->parse->C.b);
-	printf("\n\n\n");
+	printf("\n\n");
 	if (map == NULL)
 	{
         fprintf(stderr, "Error: map is NULL\n");
