@@ -6,12 +6,15 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/16 16:51:55 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:53:29 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+
+// Compte le nombre de 1 autour de la case pour connaitre le nombre 
+// de chemins possibles depuis cette case et revenir a la case precedente si besoin
 void	ft_count_1(t_cub *cub, size_t x, size_t y)
 {
 	if (cub->map[x][y].value == '1')
@@ -27,6 +30,7 @@ void	ft_count_1(t_cub *cub, size_t x, size_t y)
 	}	
 }
 
+// Vérifie si il y a la case de fin accessible autour de la case actuelle
 int	ft_check_end(t_cub *cub, size_t x, size_t y)
 {
 	int i;
@@ -46,7 +50,10 @@ int	ft_check_end(t_cub *cub, size_t x, size_t y)
 	return (1);
 }
 
-// Vérifie si la map est bien fermee algo en cours de creation
+// Vérifie si la map est bien fermee algo principale check droite -> bas -> gauche -> haut
+// check sert a savoir de combien on avance et si on fait demi tour afin de ne pas toucher end en revenant en arriere
+// count sert a savoir combien de 1 il y a autour de la case actuelle cf ft_count_1
+// je vais serparer chaque direction en fonction individuelle pour plus de clarte
 int ft_check_if_valid_map(t_cub *cub, size_t x, size_t y)
 {
 	if (!cub || !cub->parse || x >= cub->parse->map_height || y >= cub->parse->map_width)
@@ -112,7 +119,7 @@ int ft_check_if_valid_map(t_cub *cub, size_t x, size_t y)
 		{
 			cub->check--;
 			printf("go back at -> [%zu][%zu]\n", x, y - 1);
-		}	
+		}
 	}
     if (x > 0 && cub->map[x][y].value == '1' && cub->map[x - 1][y].value == '1' && cub->map[x - 1][y].used == false && cub->map[x][y].count >= 1 && cub->map[x][y].count >= 1)
 	{
@@ -133,47 +140,54 @@ int ft_check_if_valid_map(t_cub *cub, size_t x, size_t y)
 	return (1);
 }
 
-// Vérifie si la map est bien fermee
-t_cell **ft_verif_map(t_cub *cub, t_cell **map)
+// Trouve la case de depart de la map pour commencer l'algo de verification
+// afin d'eviter de commencer sur une case non valide sur laquelle on ne peut pas boucler
+//exemple :
+//            1
+//           111
+//            1
+// start -> 1111
+//          1001
+//          1111
+// le 1 avec start est la case de depart et il sera marque comme end
+void	ft_get_map_start(t_cub *cub)
 {
     size_t x;
     size_t y;
 
     x = 0;
-	printf ("map_height = %zu\n", cub->parse->map_height);
-	printf ("map_width = %zu\n", cub->parse->map_width);
-    while (map[x] && x < cub->parse->map_height)
+    while (cub->map[x])
     {
         y = 0;
-        while (map[x][y].value && y < cub->parse->map_width)
+        while (cub->map[x][y].value)
         {
-			if (map[x][y].value == ' ')
-			{
-				// printf("[%zu][%zu] = %c\n", x, y, map[x][y]);
-				y++;
-				continue ;
-			}
-			if (map[x][y].value == '1')
-			{
-				ft_count_1(cub, x, y);
-				if (cub->map[x][y].count == 1)
-				{
-					y++;
-					cub->map[x][y].used = true;
-					continue;
-				}
-				cub->map[x][y].count = 0;
-				cub->map[x][y].end = true;
-				if (ft_check_if_valid_map(cub, x, y) == 0)
-					return (printf("YEAAAAAAH \n\n"), map);
-				else
-					return (printf("NOOOOO \n\n"), NULL);
-			}
+            if (y > 0 && x + 1 < cub->parse->map_height && y + 1 < cub->parse->map_width)
+            {
+                if (cub->map[x][y].value == '1' && cub->map[x][y + 1].value == '1' && cub->map[x + 1][y].value == '1' && (cub->map[x + 1][y + 1].value == '0' || cub->map[x + 1][y + 1].value == '1' || cub->map[x + 1][y + 1].value == 'N' || cub->map[x + 1][y + 1].value == 'S' || cub->map[x + 1][y + 1].value == 'W' || cub->map[x + 1][y + 1].value == 'E'))
+                {
+                    cub->map[x][y].end = true;
+                    cub->x_start = x;
+                    cub->y_start = y;
+					return ;
+                }
+            }
             y++;
         }
-		printf("\n\n");
         x++;
     }
+}
+
+// Vérifie si la map est valide
+t_cell **ft_verif_map(t_cub *cub, t_cell **map)
+{
+	printf ("map_height = %zu\n", cub->parse->map_height);
+	printf ("map_width = %zu\n", cub->parse->map_width);
+
+	ft_get_map_start(cub);
+	if (ft_check_if_valid_map(cub, cub->x_start, cub->y_start) == 0)
+		return (printf("YEAAAAAAH \n\n"), map);
+	else
+		return (printf("NOOOOO \n\n"), NULL);
     return (map);
 }
 

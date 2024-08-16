@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/16 15:29:12 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:26:11 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ typedef struct s_cell
 typedef struct s_cub
 {
 	t_cell		**map;
+	size_t		x_start;
+	size_t		y_start;
 	int			check;
 	int			mooves;
 	t_data		*data;
