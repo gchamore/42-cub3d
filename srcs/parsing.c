@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/14 14:34:41 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:28:11 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_parsing(int fd, t_cub *cub, char **argv)
 		return (EXIT_FAILURE);
 	if (ft_fill_tab(fd, cub) == NULL)
 		return (EXIT_FAILURE);
-	// ft_verif_map(cub, cub->map);
+	ft_verif_map(cub, cub->map);
 	return (EXIT_SUCCESS);
 }
 
@@ -134,10 +134,14 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
 			{
 				cub->map[i][y].value = *split[y];
 				cub->map[i][y].used = false;
+				cub->map[i][y].count = 0;
+				cub->map[i][y].end = false;
 				y++;
 			}
 			cub->map[i][y].value = '\0';
 			cub->map[i][y].used = false;
+			cub->map[i][y].count = 0;
+			cub->map[i][y].end = false;
 			ft_free_split(split);
 			i++;
 		}

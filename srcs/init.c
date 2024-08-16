@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:20:35 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/14 14:46:00 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:29:40 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	ft_create_cub(t_cub **cub)
 void	ft_init_structs(t_cub *cub)
 {
 	cub->map = NULL;
+	cub->check = 0;
+	cub->mooves = 0;
 	cub->parse->NO = NULL;
 	cub->parse->SO = NULL;
 	cub->parse->WE = NULL;
