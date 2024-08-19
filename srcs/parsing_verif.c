@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 16:27:07 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:35:22 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,11 +341,13 @@ void ft_get_player(t_cub *cub, size_t x, size_t y)
 {
 	if (cub->map[x][y].value == 'N' || cub->map[x][y].value == 'S' || cub->map[x][y].value == 'W' || cub->map[x][y].value == 'E')
 	{
-		if (cub->player->x != 0 || cub->player->y != 0)
+		if (cub->player->x_start != 0 || cub->player->y_start != 0)
 			ft_error(cub, "Invalid map already a player", x, y);
 		cub->player->dir = cub->map[x][y].value;
-		cub->player->x = x;
-		cub->player->y = y;
+		cub->player->x_start = x;
+		cub->player->y_start = y;
+		cub->player->x_cur = x;
+		cub->player->y_cur = y;
 	}
 }
 

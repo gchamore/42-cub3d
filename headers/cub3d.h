@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 16:25:24 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:38:22 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,12 @@ typedef struct s_parse
 
 typedef struct s_player
 {
-	size_t			x;
-	size_t			y;
-	char		dir;
+	size_t			x_start;
+	size_t			y_start;
+	size_t			x_cur;
+	size_t			y_cur;
+	char			dir;
 }	t_player;
-
-typedef struct s_point2d
-{
-	double		x;
-	double		y;
-}	t_point2d;
-
-typedef struct s_point3d
-{
-	double		x;
-	double		y;
-	double		z;
-}	t_point3d;
 
 typedef struct s_img
 {
@@ -98,18 +87,11 @@ typedef struct s_cell
 {
 	char		value;
 	bool		used;
-	int			count;
-	bool		end;
 }	t_cell;
 
 typedef struct s_cub
 {
 	t_cell		**map;
-	size_t		x_start;
-	size_t		y_start;
-	int 		exit;
-	int			check;
-	int			mooves;
 	t_data		*data;
 	t_parse		*parse;
 	t_player	*player;

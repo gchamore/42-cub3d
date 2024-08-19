@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 16:27:23 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:36:37 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,14 +134,10 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
 			{
 				cub->map[i][y].value = *split[y];
 				cub->map[i][y].used = false;
-				cub->map[i][y].count = 0;
-				cub->map[i][y].end = false;
 				y++;
 			}
 			cub->map[i][y].value = '\0';
 			cub->map[i][y].used = false;
-			cub->map[i][y].count = 0;
-			cub->map[i][y].end = false;
 			ft_free_split(split);
 			i++;
 		}
