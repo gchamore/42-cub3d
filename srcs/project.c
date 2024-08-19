@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:15:51 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/19 19:21:22 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/19 19:35:46 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void 		ft_draw_player_minimap(t_cub *cub, float start_x, float start_y)
 	int		i;
 	int		j;
 
-	player_pos_x = start_x + cub->player->x_cur * cub->player->minimap_scale;
-    player_pos_y = start_y + cub->player->y_cur * cub->player->minimap_scale;
-	player_size = cub->player->minimap_scale / 4;
+	player_pos_x = start_x + (cub->player->y_cur + 0.3) * cub->player->minimap_scale;
+    player_pos_y = start_y + (cub->player->x_cur + 0.3) * cub->player->minimap_scale;
+	player_size = cub->player->minimap_scale / 2;
 	i = 0;
 	while (i < player_size)
 	{
