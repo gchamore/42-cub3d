@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 12:21:40 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:30:23 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,19 @@
 // total_infos = nombre de lignes d'infos dans le fichier avant map
 // total_height = nombre de lignes total
 // total_newline = nombre de lignes vides
+# define WIN_HEIGTH 1080
+# define WIN_WIDTH 1920
+
+# define TILE_SIZE 64
+# define PLAYER_SIZE 16
+# define FOV 60
+
+# define RED_COLOR 0xFF0000
+# define GREEN_COLOR 0xEFFBEF
+# define BLUE_COLOR 0x0000FF
+# define WHITE_COLOR 0xFFFFFF
+# define BLACK_COLOR 0x000000
+# define GREY_COLOR 0x808080
 
 typedef struct s_rgb
 {
@@ -105,7 +118,6 @@ typedef struct s_cub
 	int			mooves;
 	t_data		*data;
 	t_parse		*parse;
-	t_rgb		*rgb;
 }	t_cub;
 
 //////////////////////////
@@ -162,6 +174,18 @@ void	ft_free_split(char **split);
 //////////////////////////
 
 //error.c
-void	ft_error(t_cub *cub, char *str, char c);
+void		ft_error(t_cub *cub, char *str, char c);
+
+
+//////////////////////////
+//        RENDERING     //
+//////////////////////////
+
+//render.c
+void		ft_project(t_cub *cub);
+
+//mlx_utils.c
+int			ft_init_mlx(t_cub *cub);
+void		ft_mpp(t_img *img, int x, int y, int color);
 
 #endif

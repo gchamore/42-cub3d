@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:25:07 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 12:45:32 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:15:35 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!cub->map)
 		return (ft_free_cub(cub), 0);
+	if (ft_init_mlx(cub) == EXIT_FAILURE)
+		return (ft_free_cub(cub), 0);
+	ft_project(cub);
 	// printf("map = \n");
 	// ft_print_map(cub, cub->map, cub->parse->map_width, cub->parse->map_height);
 	close(fd);

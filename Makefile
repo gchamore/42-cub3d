@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+         #
+#    By: anferre <anferre@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 09:49:54 by gchamore          #+#    #+#              #
-#    Updated: 2024/07/19 12:40:25 by gchamore         ###   ########.fr        #
+#    Updated: 2024/08/19 15:35:14 by anferre          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ SRCS = $(addprefix $(SRCS_DIR)/,	\
 	parsing_utils_2.c               \
 	destroy.c						\
 	error.c							\
+	project.c						\
+	mlx_utils.c						\
 	)
 
 SRCS_BONUS = $(addprefix $(SRCS_DIR_BONUS)/,	\
