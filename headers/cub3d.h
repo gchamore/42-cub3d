@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 16:58:29 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/19 18:34:34 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@
 // total_infos = nombre de lignes d'infos dans le fichier avant map
 // total_height = nombre de lignes total
 // total_newline = nombre de lignes vides
-# define WIN_HEIGTH 1080
-# define WIN_WIDTH 1920
+# define WIN_HEIGTH 800
+# define WIN_WIDTH 1500
 
-# define TILE_SIZE 64
-# define PLAYER_SIZE 16
+# define MINIMAP_SIZE 300
+# define PLAYER_SIZE 1
 # define FOV 60
 
 # define RED_COLOR 0xFF0000
@@ -75,9 +75,10 @@ typedef struct s_player
 {
 	size_t			x_start;
 	size_t			y_start;
-	size_t			x_cur;
-	size_t			y_cur;
+	float			x_cur;
+	float			y_cur;
 	char			dir;
+	float			minimap_scale;
 }	t_player;
 
 typedef struct s_img
@@ -165,5 +166,16 @@ void	ft_free_split(char **split);
 
 //error.c
 void	ft_error(t_cub *cub, char *str, size_t x, size_t y);
+
+//////////////////////////
+//        RENDERING     //
+//////////////////////////
+
+//project.c
+void	ft_project(t_cub *cub);
+
+//mlx_utils.c
+int	ft_init_mlx(t_cub *cub);
+void	ft_mpp(t_img *img, int x, int y, int color);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:31:15 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/19 15:29:14 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/19 18:06:09 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ int	ft_init_mlx(t_cub *cub)
 	cub->data->img.addr = mlx_get_data_addr(cub->data->img.mlx_img, &cub->data->img.bpp, &cub->data->img.line_len, &cub->data->img.endian);
 	if (!cub->data->img.addr)
 		return (EXIT_FAILURE);
+	if (cub->parse->map_width > cub->parse->map_height)
+		cub->player->minimap_scale = MINIMAP_SIZE / cub->parse->map_width;
+	else
+		cub->player->minimap_scale = MINIMAP_SIZE / cub->parse->map_height;
+	printf("minimap scale: %f\n", cub->player->minimap_scale);
 	return (EXIT_SUCCESS);
 }
 
