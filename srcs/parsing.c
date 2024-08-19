@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/16 12:28:11 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:36:37 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int	ft_get_data(char *file, t_cub *cub)
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (ft_error(cub, "Invalid fd", ' '), EXIT_FAILURE);
+		return (ft_error(cub, "Invalid fd", -1, -1), EXIT_FAILURE);
 	line = ft_get_next_line(fd);
 	if (!line)
-		return (ft_error(cub, "NULL line", ' '), EXIT_FAILURE);
+		return (ft_error(cub, "NULL line", -1, -1), EXIT_FAILURE);
 	while (line != NULL)
 	{
 		line = ft_if_only_blanks(line);
@@ -52,7 +52,7 @@ int	ft_get_data(char *file, t_cub *cub)
 	}
 	close(fd);
 	if (cub->parse->map_height == 0 || cub->parse->map_width == 0)
-		return (ft_error(cub, "map size = 0", ' '), EXIT_FAILURE);
+		return (ft_error(cub, "map size = 0", -1, -1), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -107,17 +107,17 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
 	j = 0;
 	line = ft_get_next_line(fd);
 	if (!line)
-		return (ft_error(cub, "NULL line", ' '), NULL);
+		return (ft_error(cub, "NULL line", -1, -1), NULL);
 	cub->map = malloc(sizeof(t_cell *) * (cub->parse->map_height + 1));
 	if (!cub->map)
-		return (ft_error(cub, "Map Alloc failed", ' '), NULL);
+		return (ft_error(cub, "Map Alloc failed", -1, -1), NULL);
 	while (j < cub->parse->total_infos)
 	{
 		j++;
 		free(line);
 		line = ft_get_next_line(fd);
 		if (!line)
-			return (ft_error(cub, "NULL line", ' '), NULL);
+			return (ft_error(cub, "NULL line", -1, -1), NULL);
 	}
 	while (j <= cub->parse->total_height)
 	{
@@ -126,22 +126,18 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
 			y = 0;
 			split = ft_mod_split(line, cub);
 			if (split == NULL)
-				return (ft_error(cub, "Split Alloc failed", ' '), NULL);
+				return (ft_error(cub, "Split Alloc failed", -1, -1), NULL);
 			cub->map[i] = malloc(sizeof(t_cell) * (cub->parse->map_width + 1));
 			if (!cub->map[i])
-				return (ft_error(cub, "Map Alloc failed", ' '), NULL);
+				return (ft_error(cub, "Map Alloc failed", -1, -1), NULL);
 			while (y < cub->parse->map_width)
 			{
 				cub->map[i][y].value = *split[y];
 				cub->map[i][y].used = false;
-				cub->map[i][y].count = 0;
-				cub->map[i][y].end = false;
 				y++;
 			}
 			cub->map[i][y].value = '\0';
 			cub->map[i][y].used = false;
-			cub->map[i][y].count = 0;
-			cub->map[i][y].end = false;
 			ft_free_split(split);
 			i++;
 		}

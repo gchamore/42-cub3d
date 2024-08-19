@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 16:30:23 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/19 16:58:29 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,14 @@ typedef struct s_parse
 	// t_rgb			ceiling;
 }	t_parse;
 
-typedef struct s_point2d
+typedef struct s_player
 {
-	double		x;
-	double		y;
-}	t_point2d;
-
-typedef struct s_point3d
-{
-	double		x;
-	double		y;
-	double		z;
-}	t_point3d;
+	size_t			x_start;
+	size_t			y_start;
+	size_t			x_cur;
+	size_t			y_cur;
+	char			dir;
+}	t_player;
 
 typedef struct s_img
 {
@@ -104,20 +100,14 @@ typedef struct s_cell
 {
 	char		value;
 	bool		used;
-	int			count;
-	bool		end;
 }	t_cell;
 
 typedef struct s_cub
 {
 	t_cell		**map;
-	size_t		x_start;
-	size_t		y_start;
-	int 		exit;
-	int			check;
-	int			mooves;
 	t_data		*data;
 	t_parse		*parse;
+	t_player	*player;
 }	t_cub;
 
 //////////////////////////
@@ -146,7 +136,7 @@ int	ft_fill_utility(t_cub *cub, char *line);
 t_cell	**ft_fill_tab(int fd, t_cub *cub);
 
 //parsing_verif.c
-int ft_check_if_valid_map(t_cub *cub, size_t x, size_t y);
+void	ft_check_if_valid_map(t_cub *cub);
 t_cell **ft_verif_map(t_cub *cub, t_cell **map);
 int	ft_check_line(t_cub *cub, char *line);
 
@@ -174,18 +164,6 @@ void	ft_free_split(char **split);
 //////////////////////////
 
 //error.c
-void		ft_error(t_cub *cub, char *str, char c);
-
-
-//////////////////////////
-//        RENDERING     //
-//////////////////////////
-
-//render.c
-void		ft_project(t_cub *cub);
-
-//mlx_utils.c
-int			ft_init_mlx(t_cub *cub);
-void		ft_mpp(t_img *img, int x, int y, int color);
+void	ft_error(t_cub *cub, char *str, size_t x, size_t y);
 
 #endif

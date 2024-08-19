@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:24:45 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/14 14:45:43 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:19:44 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ void	ft_free_cub(t_cub *cub)
 		{
 			free(cub->data);
 			cub->data = NULL;
+		}
+		if (cub->player)
+		{
+			free(cub->player);
+			cub->player = NULL;
 		}
 		if (cub->parse)
 		{
