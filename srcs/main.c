@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:25:07 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 12:45:32 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:27:45 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!cub->map)
 		return (ft_free_cub(cub), 0);
-	// printf("map = \n");
-	// ft_print_map(cub, cub->map, cub->parse->map_width, cub->parse->map_height);
+	printf("map = \n");
+	ft_print_map(cub, cub->map, cub->parse->map_width, cub->parse->map_height);
 	close(fd);
 	ft_free_cub(cub);
 	return (0);

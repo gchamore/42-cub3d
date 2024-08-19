@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:20:35 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 12:52:24 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:20:48 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ void	ft_create_cub(t_cub **cub)
     *cub = malloc(sizeof(t_cub));
     if (*cub)
     {
+		(*cub)->player = malloc(sizeof(t_player));
+		if (!(*cub)->player)
+		{
+			ft_free_cub(*cub);
+			return ;
+		}
         (*cub)->parse = malloc(sizeof(t_parse));
         if (!(*cub)->parse)
         {
@@ -56,4 +62,7 @@ void	ft_init_structs(t_cub *cub)
 	cub->parse->C.b = 0;
 	cub->parse->C.g = 0;
 	cub->parse->C.r = 0;
+	cub->player->x = 0;
+	cub->player->y = 0;
+	cub->player->dir = 0;
 }

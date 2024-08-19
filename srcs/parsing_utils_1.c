@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/16 19:06:07 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:29:06 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height)
 	printf("ceiling->r = %d\n", cub->parse->C.r);
 	printf("ceiling->g = %d\n", cub->parse->C.g);
 	printf("ceiling->b = %d\n", cub->parse->C.b);
+	printf("player->dir = %c\n", cub->player->dir);
+	printf("player location map x->[%zu] y->[%zu]\n", cub->player->x, cub->player->y);
 	printf("\n\n");
 	if (map == NULL)
 	{
