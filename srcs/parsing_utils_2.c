@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:03 by gchamore          #+#    #+#             */
-/*   Updated: 2024/07/19 18:42:57 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:46:50 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_rgb	ft_get_rgb(t_rgb rgb, char *str)
     valueIndex = 0;
     while (tmp[i] != '\0')
     {
-        if (tmp[i] == ',' || tmp[i + 1] == '\0')
+        if ((tmp[i] == ',' && tmp[i + 1] != '\0') || tmp[i + 1] == '\0')
         {
             temp = malloc(i - start + 2);
 			if (!temp)
@@ -51,6 +51,8 @@ t_rgb	ft_get_rgb(t_rgb rgb, char *str)
 			temp[j] = '\0';
 			start = i + 1;
 			trimmed = ft_strtrim(temp, " \t");
+			if (ft_strcmp(trimmed, "\n") == 0 || ft_strcmp(trimmed, "") == 0)
+				return (free(trimmed), free(temp), rgb);
 			value = atoi(trimmed);
 			free(trimmed);
 			if (valueIndex == 0)

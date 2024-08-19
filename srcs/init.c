@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:20:35 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 16:38:31 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:15:31 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void	ft_init_structs(t_cub *cub)
 	cub->parse->total_newline = 0;
 	cub->parse->total_infos = 0;
 	cub->parse->ct = 0;
-	cub->parse->F.b = 0;
-	cub->parse->F.g = 0;
-	cub->parse->F.r = 0;
-	cub->parse->C.b = 0;
-	cub->parse->C.g = 0;
-	cub->parse->C.r = 0;
+	cub->parse->F.b = -1;
+	cub->parse->F.g = -1;
+	cub->parse->F.r = -1;
+	cub->parse->C.b = -1;
+	cub->parse->C.g = -1;
+	cub->parse->C.r = -1;
 	cub->player->dir = 0;
 }

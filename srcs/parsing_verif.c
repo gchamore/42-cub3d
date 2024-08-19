@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 16:35:22 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:55:10 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,14 +375,17 @@ void	ft_check_if_valid_map(t_cub *cub)
     }
 }
 
+void	ft_verif_color(t_cub *cub)
+{
+	if (cub->parse->F.r <= -1 || cub->parse->F.g <= -1 || cub->parse->F.b <= -1 || cub->parse->C.r <= -1 || cub->parse->C.g <= -1 || cub->parse->C.b <= -1)
+		ft_error(cub, "Invalid color", -1, -1);
+}
+
 t_cell **ft_verif_map(t_cub *cub, t_cell **map)
 {
-	// printf ("map_height = %zu\n", cub->parse->map_height);
-	// printf ("map_width = %zu\n", cub->parse->map_width);
-
 	ft_check_borders(cub);
 	ft_check_if_valid_map(cub);
-	// printf("YEAAAAAAH \n\n");
+	ft_verif_color(cub);
     return (map);
 }
 
