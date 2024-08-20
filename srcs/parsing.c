@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 16:36:37 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:57:00 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ int	ft_fill_utility(t_cub *cub, char *line)
 		cub->parse->total_newline++;
 	else if (line[0] != '\n')
 	{
-		tmp = ft_if_blanks(ft_strdup(line));
+		//possibility to remove blanks before and after the map
+		//tmp = ft_if_blanks(ft_strdup(line));
+		tmp = ft_strdup(line);
 		if (cub->parse->map_width < ft_strlen(tmp) && ft_strlen(tmp) != 0)
 			cub->parse->map_width = ft_strlen(tmp);
 		cub->parse->map_height++;

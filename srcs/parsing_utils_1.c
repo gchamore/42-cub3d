@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 16:37:22 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:54:43 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,3 +141,38 @@ char	*ft_if_blanks(char *str)
 	free(tmp);
 	return (str);
 }
+
+// char	*ft_if_blanks_after(char *str)
+// {
+//     char *tmp;
+//     char *new_str;
+//     char *trimmed_str;
+//     int len;
+//     int i;
+
+//     if (str == NULL)
+//         return (NULL);
+//     tmp = str;
+//     while (*tmp && (*tmp == ' ' || *tmp == '\t'))
+//         tmp++;
+//     len = strlen(tmp);
+//     new_str = (char *)malloc(len + 1);
+//     if (new_str == NULL)
+//         return (NULL);
+//     i = 0;
+//     while (tmp[i])
+//     {
+// 		// printf ("%c->", tmp[i]);
+//         new_str[i] = tmp[i];
+// 		// printf ("%c|", new_str[i]);
+//         i++;
+//     }
+// 	// printf ("\n");
+//     new_str[i] = '\0';
+// 	printf ("str_trim = %s\n", new_str);
+//     trimmed_str = ft_strtrim(new_str, " \t\n");
+//     free(new_str);
+//     if (trimmed_str == NULL)
+//         return (NULL);
+//     return (trimmed_str);
+// }

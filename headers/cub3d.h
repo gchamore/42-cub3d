@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 16:38:22 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:54:46 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height);
 char	**ft_mod_split(char *str, t_cub *cub);
 char	*ft_if_only_blanks(char *str);
 char	*ft_if_blanks(char *str);
+// char	*ft_if_blanks_after(char *str);
 
 //parsing_utils_2.c
 int	ft_is_delimiter(char c);
