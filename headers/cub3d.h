@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 18:34:34 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/20 17:11:52 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define MINIMAP_SIZE 300
 # define PLAYER_SIZE 1
 # define FOV 60
+# define PI 3.14159265359
 
 # define RED_COLOR 0xFF0000
 # define GREEN_COLOR 0xEFFBEF
@@ -45,6 +46,11 @@
 # define WHITE_COLOR 0xFFFFFF
 # define BLACK_COLOR 0x000000
 # define GREY_COLOR 0x808080
+
+#define NORTH_ANGLE (3 * PI / 2)
+#define SOUTH_ANGLE (PI / 2)
+#define WEST_ANGLE PI
+#define EAST_ANGLE 0
 
 typedef struct s_rgb
 {
@@ -77,6 +83,9 @@ typedef struct s_player
 	size_t			y_start;
 	float			x_cur;
 	float			y_cur;
+	float 			delta_x;
+	float 			delta_y;
+	float 			angle;
 	char			dir;
 	float			minimap_scale;
 }	t_player;
