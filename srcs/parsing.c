@@ -6,11 +6,20 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/20 12:57:00 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:52:22 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+
+void	ft_verif_data(t_cub *cub)
+{
+	if (!cub->parse->NO || !cub->parse->SO || !cub->parse->WE || !cub->parse->EA || \
+	cub->parse->F.r == -1 || cub->parse->F.g == -1 || cub->parse->F.b == -1 || \
+	cub->parse->C.r == -1 || cub->parse->C.g == -1 || cub->parse->C.b == -1)
+		ft_error(cub, "Missing data", -1, -1);
+}
 
 // Parse le fichier .cub
 // je commente verif map pour que tu es une version fonctionnelle. je suis en train de taff sur 
@@ -82,9 +91,17 @@ int	ft_fill_utility(t_cub *cub, char *line)
 		ft_strlen(line) - 2), cub->parse->C = ft_get_rgb(cub->parse->C, tmp), \
 		cub->parse->ct++, free(tmp), 1);
 	else if (line[0] == '\n')
+	{
+		if (cub->parse->check_newline == 1)
+			cub->parse->check_newline = 2;
 		cub->parse->total_newline++;
+	}
 	else if (line[0] != '\n')
 	{
+		if (cub->parse->check_newline == 0)
+			cub->parse->check_newline = 1;
+		if (cub->parse->check_newline == 2)
+			ft_error(cub, "Empty line inside map", -1, -1);
 		//possibility to remove blanks before and after the map
 		//tmp = ft_if_blanks(ft_strdup(line));
 		tmp = ft_strdup(line);

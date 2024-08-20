@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 17:55:10 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:04:11 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,21 @@
 //     return (map);
 // }
 
+// void	ft_if_solo_1(t_cub *cub, size_t x, size_t y)
+// {
+// 	if (cub->map[x][y].value == '1')
+// 	{
+// 		if (y + 1 < cub->parse->map_width && cub->map[x][y + 1].value == '1' && cub->map[x][y + 1].used == false)
+// 			return 1;
+// 		if (x + 1 < cub->parse->map_height && cub->map[x + 1][y].value == '1' && cub->map[x + 1][y].used == false)
+// 			cub->map[x][y].count++;
+// 		if (y > 0 && cub->map[x][y - 1].value == '1' && cub->map[x][y - 1].count == 0 && cub->map[x][y - 1].used == false)
+// 			cub->map[x][y].count++;
+// 		if (x > 0 && cub->map[x - 1][y].value == '1' && cub->map[x - 1][y].count == 0 && cub->map[x - 1][y].used == false)
+// 			cub->map[x][y].count++;
+// 	}
+// }
+
 void	ft_check_inside(t_cub *cub, size_t x, size_t y)
 {
 	if (cub->map[x + 1][y].value == '0' || cub->map[x + 1][y].value == 'N' || cub->map[x + 1][y].value == 'S' || cub->map[x + 1][y].value == 'W' || cub->map[x + 1][y].value == 'E')
@@ -397,6 +412,7 @@ int	ft_check_line(t_cub *cub, char *line)
 
 	i = 0;
 	check = 0;
+	ft_verif_data(cub);
 	while (line[i])
 	{
 		if (!ft_is_delimiter(line[i]) && line[i] != '1' \

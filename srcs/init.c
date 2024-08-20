@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:20:35 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 17:15:31 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:22:28 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ft_init_structs(t_cub *cub)
 	cub->parse->total_height = 0;
 	cub->parse->total_newline = 0;
 	cub->parse->total_infos = 0;
+	cub->parse->check_newline = 0;
 	cub->parse->ct = 0;
 	cub->parse->F.b = -1;
 	cub->parse->F.g = -1;

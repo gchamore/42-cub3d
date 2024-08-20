@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/20 12:54:46 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:22:05 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ typedef struct s_parse
 	char			*EA;
 	t_rgb			F;
 	t_rgb			C;
-	// t_rgb			floor;
-	// t_rgb			ceiling;
+	int				check_newline;
 }	t_parse;
 
 typedef struct s_player
@@ -126,6 +125,7 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub);
 void	ft_check_if_valid_map(t_cub *cub);
 t_cell **ft_verif_map(t_cub *cub, t_cell **map);
 int	ft_check_line(t_cub *cub, char *line);
+void	ft_verif_data(t_cub *cub);
 
 //parsing_utils_1.c
 void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height);
