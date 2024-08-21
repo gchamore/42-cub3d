@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/20 13:22:05 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:27:51 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct s_rgb
 
 typedef struct s_parse
 {
+	size_t			tmp_height;
+	size_t			tmp_width;
 	size_t			map_height;
 	size_t			map_width;
 	size_t			total_infos;
@@ -86,11 +88,15 @@ typedef struct s_cell
 {
 	char		value;
 	bool		used;
+	int			count;
+	int			count_0;
 }	t_cell;
 
 typedef struct s_cub
 {
 	t_cell		**map;
+	int			check;
+	int			exit;
 	t_data		*data;
 	t_parse		*parse;
 	t_player	*player;
@@ -122,6 +128,7 @@ int	ft_fill_utility(t_cub *cub, char *line);
 t_cell	**ft_fill_tab(int fd, t_cub *cub);
 
 //parsing_verif.c
+int	ft_check_arround_1(t_cub *cub, size_t x, size_t y);
 void	ft_check_if_valid_map(t_cub *cub);
 t_cell **ft_verif_map(t_cub *cub, t_cell **map);
 int	ft_check_line(t_cub *cub, char *line);

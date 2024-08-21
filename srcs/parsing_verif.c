@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/20 14:04:11 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:00:09 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,6 +325,129 @@ void	ft_check_sides_2(t_cub *cub, size_t x, size_t y)
 	}
 }
 
+int	ft_verif_right(t_cub *cub, size_t x, size_t y)
+{
+	if (y + 1 < cub->parse->map_width && cub->map[x][y + 1].value != '\0' && cub->map[x][y + 1].value == '1' && cub->map[x][y + 1].used == false && cub->map[x][y].count >= 1)
+	{
+		cub->map[x][y].count--;
+		if (ft_check_arround_1(cub, x, y + 1) == 0)
+			return (0);
+	}
+	return (1);
+}
+int	ft_verif_down(t_cub *cub, size_t x, size_t y)
+{
+	if (x + 1 < cub->parse->map_height && cub->map[x + 1][y].value != '\0' && cub->map[x + 1][y].value == '1' && cub->map[x + 1][y].used == false && cub->map[x][y].count >= 1)
+	{
+		cub->map[x][y].count--;
+		if (ft_check_arround_1(cub, x + 1, y) == 0)
+			return (0);
+	}
+	return (1);
+}
+
+int	ft_verif_left(t_cub *cub, size_t x, size_t y)
+{
+	if (y > 0 && cub->map[x][y].value == '1' && cub->map[x][y - 1].value == '1' && cub->map[x][y - 1].used == false && cub->map[x][y].count >= 1 && cub->map[x][y].count >= 1)
+	{
+		cub->map[x][y].count--;
+		if (ft_check_arround_1(cub, x, y - 1) == 0)
+			return (0);
+	}
+	return (1);
+}
+
+int	ft_verif_up(t_cub *cub, size_t x, size_t y)
+{
+	if (x > 0 && cub->map[x][y].value == '1' && cub->map[x - 1][y].value == '1' && cub->map[x - 1][y].used == false && cub->map[x][y].count >= 1 && cub->map[x][y].count >= 1)
+	{
+		cub->map[x][y].count--;
+		if (ft_check_arround_1(cub, x - 1, y) == 0)
+			return (0);
+	}
+	return (1);
+}
+
+int	ft_check_map_direction(t_cub *cub, size_t x, size_t y)
+{
+	if (ft_verif_right(cub, x, y) == 0)
+		return (0);
+	if (ft_verif_down(cub, x, y) == 0)
+		return (0);
+	if (ft_verif_left(cub, x, y) == 0)
+		return (0);
+	if (ft_verif_up(cub, x, y) == 0)
+		return (0);
+	return (1);
+}
+
+void	ft_count(t_cub *cub, size_t x, size_t y, char value)
+{
+	if (y + 1 < cub->parse->map_width && cub->map[x][y + 1].value == value && cub->map[x][y + 1].used == false)
+	{
+		if (value == '1')
+			cub->map[x][y].count++;
+		else
+			cub->map[x][y].count_0++;
+	}
+	if (x + 1 < cub->parse->map_height && cub->map[x + 1][y].value == value && cub->map[x + 1][y].used == false)
+	{
+		if (value == '1')
+			cub->map[x][y].count++;
+		else
+			cub->map[x][y].count_0++;
+	}
+	if (y > 0 && cub->map[x][y - 1].value == value && cub->map[x][y - 1].count == 0 && cub->map[x][y - 1].used == false)
+	{
+		if (value == '1')
+			cub->map[x][y].count++;
+		else
+			cub->map[x][y].count_0++;
+	}
+	if (x > 0 && cub->map[x - 1][y].value == value && cub->map[x - 1][y].count == 0 && cub->map[x - 1][y].used == false)
+	{
+		if (value == '1')
+			cub->map[x][y].count++;
+		else
+			cub->map[x][y].count_0++;
+	}
+}
+
+int	ft_check_arround_1(t_cub *cub, size_t x, size_t y)
+{
+	cub->map[x][y].used = true;
+	ft_count(cub, x, y, '0');
+	if (cub->map[x][y].count_0 != 0)
+		return (0);
+	ft_count(cub, x, y, '1');
+	if (cub->map[x][y].count >= 1)
+	{
+		if (ft_check_map_direction(cub, x, y) == 0)
+				return (0);
+			else
+				return (1);
+	}
+	return (1);
+}
+
+void	ft_reset_used(t_cub *cub)
+{
+	size_t x;
+	size_t y;
+
+	x = 0;
+	while (cub->map[x])
+	{
+		y = 0;
+		while (cub->map[x][y].value)
+		{
+			cub->map[x][y].used = false;
+			y++;
+		}
+		x++;
+	}
+}
+
 void	ft_check_borders(t_cub *cub)
 {
     size_t x;
@@ -336,11 +459,18 @@ void	ft_check_borders(t_cub *cub)
         y = 0;
         while (cub->map[x][y].value)
         {
+			if (cub->map[x][y].value == '1')
+			{
+				if(ft_check_arround_1(cub, x, y) == 1)
+					ft_error(cub, "Walls alone", x, y);
+				ft_reset_used(cub);
+			}
+			// printf("\n");
             if (x == 0 || y == 0 || x == cub->parse->map_height - 1 || y == cub->parse->map_width - 1)
 			{
 				// printf("Borders -> [%zu][%zu] = %c\n", x, y, cub->map[x][y].value);
-				if (cub->map[x][y].value != '1' && cub->map[x][y].value != ' ')
-					ft_error(cub, "Invalid map 0", x, y);
+				// if (cub->map[x][y].value != '1' && cub->map[x][y].value != ' ')
+				// 	ft_error(cub, "Invalid map 0", x, y);
 				ft_check_corners_1(cub, x, y);
 				ft_check_corners_2(cub, x, y);
 				ft_check_sides_1(cub, x, y);
@@ -356,8 +486,8 @@ void ft_get_player(t_cub *cub, size_t x, size_t y)
 {
 	if (cub->map[x][y].value == 'N' || cub->map[x][y].value == 'S' || cub->map[x][y].value == 'W' || cub->map[x][y].value == 'E')
 	{
-		if (cub->player->x_start != 0 || cub->player->y_start != 0)
-			ft_error(cub, "Invalid map already a player", x, y);
+		if (cub->player->x_start != 0 || cub->player->y_start != 0 || cub->player->dir != 0)
+			ft_error(cub, "Invalid map already a player", -1, -1);
 		cub->player->dir = cub->map[x][y].value;
 		cub->player->x_start = x;
 		cub->player->y_start = y;
@@ -382,7 +512,6 @@ void	ft_check_if_valid_map(t_cub *cub)
 			{
 				// printf("inside -> [%zu][%zu] = %c\n", x, y, cub->map[x][y].value);
 				ft_check_inside(cub, x, y);
-				cub->map[x][y].used = true;
 			}
             y++;
         }
@@ -427,6 +556,7 @@ int	ft_check_line(t_cub *cub, char *line)
 			check = 1;
 		i++;
 	}
+	// printf("\n");
 	if (check == 1)
 		return (1);
 	return (0);
