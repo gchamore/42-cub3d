@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/21 14:59:51 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:07:09 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,6 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
 	{
 		if (line[0] == '\n' && cub->parse->tmp_height == 0)
 		{
-			printf("HEY THERE\n\n\n");
 			free(line);
 			line = malloc((cub->parse->map_width + 1) * sizeof(char));
 			if (!line)
@@ -151,7 +150,7 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
 			memset(line, ' ', cub->parse->map_width);
 			line[cub->parse->map_width] = '\0';
 		}
-		else if (ft_check_line(cub, line) == 1)
+		if (ft_check_line(cub, line) == 1)
 		{
 			y = 0;
 			split = ft_mod_split(line, cub);

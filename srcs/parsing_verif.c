@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/21 15:00:09 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:06:13 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -551,7 +551,7 @@ int	ft_check_line(t_cub *cub, char *line)
 			ft_error(cub, "Invalid map", line[i], -1);
 			exit(1);
 		}
-		if (line[i] == '1' || line[i] == 'N' || line[i] \
+		if (line[i] == ' ' || line[i] == '1' || line[i] == 'N' || line[i] \
 			== 'S' || line[i] == 'W' || line[i] == 'E')
 			check = 1;
 		i++;
