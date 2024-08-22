@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:15:51 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/22 15:32:13 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/22 16:24:48 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void ft_draw_line(t_img *img, float x0, float y0, float x1, float y1, int color)
     float sy = (y0 < y1) ? 1 : -1;
     float err = dx - dy;
     float e2;
-	float tolerance = 0.35;
+	float tolerance = 0.5;
 
     while (1)
     {
