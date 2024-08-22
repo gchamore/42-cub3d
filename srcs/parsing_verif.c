@@ -6,198 +6,198 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/22 14:17:57 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/22 14:37:30 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_check_inside(t_cub *cub, size_t x, size_t y)
+void	ft_check_inside(t_cub *cub, size_t y, size_t x)
 {
-	if (cub->map[x + 1][y].value == '0' || cub->map[x + 1][y].value == 'N' || cub->map[x + 1][y].value == 'S' || cub->map[x + 1][y].value == 'W' || cub->map[x + 1][y].value == 'E')
-		ft_error(cub, "Invalid map 1", x, y);
-	else if (cub->map[x - 1][y].value == '0' || cub->map[x - 1][y].value == 'N' || cub->map[x - 1][y].value == 'S' || cub->map[x - 1][y].value == 'W' || cub->map[x - 1][y].value == 'E')
-		ft_error(cub, "Invalid map 2", x, y);
-	else if (cub->map[x][y + 1].value == '0' || cub->map[x][y + 1].value == 'N' || cub->map[x][y + 1].value == 'S' || cub->map[x][y + 1].value == 'W' || cub->map[x][y + 1].value == 'E')
-		ft_error(cub, "Invalid map 3", x, y);
-	else if (cub->map[x][y - 1].value == '0' || cub->map[x][y - 1].value == 'N' || cub->map[x][y - 1].value == 'S' || cub->map[x][y - 1].value == 'W' || cub->map[x][y - 1].value == 'E')
-		ft_error(cub, "Invalid map 4", x, y);
+	if (cub->map[y + 1][x].value == '0' || cub->map[y + 1][x].value == 'N' || cub->map[y + 1][x].value == 'S' || cub->map[y + 1][x].value == 'W' || cub->map[y + 1][x].value == 'E')
+		ft_error(cub, "Invalid map 1", y, x);
+	else if (cub->map[y - 1][x].value == '0' || cub->map[y - 1][x].value == 'N' || cub->map[y - 1][x].value == 'S' || cub->map[y - 1][x].value == 'W' || cub->map[y - 1][x].value == 'E')
+		ft_error(cub, "Invalid map 2", y, x);
+	else if (cub->map[y][x + 1].value == '0' || cub->map[y][x + 1].value == 'N' || cub->map[y][x + 1].value == 'S' || cub->map[y][x + 1].value == 'W' || cub->map[y][x + 1].value == 'E')
+		ft_error(cub, "Invalid map 3", y, x);
+	else if (cub->map[y][x - 1].value == '0' || cub->map[y][x - 1].value == 'N' || cub->map[y][x - 1].value == 'S' || cub->map[y][x - 1].value == 'W' || cub->map[y][x - 1].value == 'E')
+		ft_error(cub, "Invalid map 4", y, x);
 }
-void	ft_check_corners_1(t_cub *cub, size_t x, size_t y)
+void	ft_check_corners_1(t_cub *cub, size_t y, size_t x)
 {
-	if (x == 0 && y == 0)
+	if (y == 0 && x == 0)
 	{
-		if (cub->map[x][y].value == ' ' && (cub->map[x + 1][y].value == '0' || cub->map[x + 1][y].value == 'N' || cub->map[x + 1][y].value == 'S' || cub->map[x + 1][y].value == 'W' || cub->map[x + 1][y].value == 'E'))
-			ft_error(cub, "Invalid map 5", x, y);
-		if (cub->map[x][y].value == ' ' && (cub->map[x][y + 1].value == '0' || cub->map[x][y + 1].value == 'N' || cub->map[x][y + 1].value == 'S' || cub->map[x][y + 1].value == 'W' || cub->map[x][y + 1].value == 'E'))
-			ft_error(cub, "Invalid map 6", x, y);
+		if (cub->map[y][x].value == ' ' && (cub->map[y + 1][x].value == '0' || cub->map[y + 1][x].value == 'N' || cub->map[y + 1][x].value == 'S' || cub->map[y + 1][x].value == 'W' || cub->map[y + 1][x].value == 'E'))
+			ft_error(cub, "Invalid map 5", y, x);
+		if (cub->map[y][x].value == ' ' && (cub->map[y][x + 1].value == '0' || cub->map[y][x + 1].value == 'N' || cub->map[y][x + 1].value == 'S' || cub->map[y][x + 1].value == 'W' || cub->map[y][x + 1].value == 'E'))
+			ft_error(cub, "Invalid map 6", y, x);
 	}
-	if (x == cub->parse->map_height - 1 && y == cub->parse->map_width - 1)
+	if (y == cub->parse->map_height - 1 && x == cub->parse->map_width - 1)
 	{
-		if (cub->map[x][y].value == ' ' && (cub->map[x - 1][y].value == '0' || cub->map[x - 1][y].value == 'N' || cub->map[x - 1][y].value == 'S' || cub->map[x - 1][y].value == 'W' || cub->map[x - 1][y].value == 'E'))
-			ft_error(cub, "Invalid map 7", x, y);
-		if (cub->map[x][y].value == ' ' && (cub->map[x][y - 1].value == '0' || cub->map[x][y - 1].value == 'N' || cub->map[x][y - 1].value == 'S' || cub->map[x][y - 1].value == 'W' || cub->map[x][y - 1].value == 'E'))
-			ft_error(cub, "Invalid map 8", x, y);
-	}
-}
-void	ft_check_corners_2(t_cub *cub, size_t x, size_t y)
-{
-	if (x == 0 && y == cub->parse->map_width - 1)
-	{
-		if (cub->map[x][y].value == ' ' && (cub->map[x + 1][y].value == '0' || cub->map[x + 1][y].value == 'N' || cub->map[x + 1][y].value == 'S' || cub->map[x + 1][y].value == 'W' || cub->map[x + 1][y].value == 'E'))
-			ft_error(cub, "Invalid map 9", x, y);
-		if (cub->map[x][y].value == ' ' && (cub->map[x][y - 1].value == '0' || cub->map[x][y - 1].value == 'N' || cub->map[x][y - 1].value == 'S' || cub->map[x][y - 1].value == 'W' || cub->map[x][y - 1].value == 'E'))
-			ft_error(cub, "Invalid map 10", x, y);
-	}
-	if (x == cub->parse->map_height - 1 && y == 0)
-	{
-		if (cub->map[x][y].value == ' ' && (cub->map[x - 1][y].value == '0' || cub->map[x - 1][y].value == 'N' || cub->map[x - 1][y].value == 'S' || cub->map[x - 1][y].value == 'W' || cub->map[x - 1][y].value == 'E'))
-			ft_error(cub, "Invalid map 11", x, y);
-		if (cub->map[x][y].value == ' ' && (cub->map[x][y + 1].value == '0' || cub->map[x][y + 1].value == 'N' || cub->map[x][y + 1].value == 'S' || cub->map[x][y + 1].value == 'W' || cub->map[x][y + 1].value == 'E'))
-			ft_error(cub, "Invalid map 12", x, y);
+		if (cub->map[y][x].value == ' ' && (cub->map[y - 1][x].value == '0' || cub->map[y - 1][x].value == 'N' || cub->map[y - 1][x].value == 'S' || cub->map[y - 1][x].value == 'W' || cub->map[y - 1][x].value == 'E'))
+			ft_error(cub, "Invalid map 7", y, x);
+		if (cub->map[y][x].value == ' ' && (cub->map[y][x - 1].value == '0' || cub->map[y][x - 1].value == 'N' || cub->map[y][x - 1].value == 'S' || cub->map[y][x - 1].value == 'W' || cub->map[y][x - 1].value == 'E'))
+			ft_error(cub, "Invalid map 8", y, x);
 	}
 }
-
-void	ft_check_sides_1(t_cub *cub, size_t x, size_t y)
+void	ft_check_corners_2(t_cub *cub, size_t y, size_t x)
 {
-	if (x == 0 && y > 0 && y < cub->parse->map_width - 1)
+	if (y == 0 && x == cub->parse->map_width - 1)
 	{
-		if (cub->map[x][y].value == ' ' && (cub->map[x + 1][y].value == '0' || cub->map[x + 1][y].value == 'N' || cub->map[x + 1][y].value == 'S' || cub->map[x + 1][y].value == 'W' || cub->map[x + 1][y].value == 'E'))
-			ft_error(cub, "Invalid map 13", x, y);
-		if (cub->map[x][y].value == ' ' && (cub->map[x][y + 1].value == '0' || cub->map[x][y + 1].value == 'N' || cub->map[x][y + 1].value == 'S' || cub->map[x][y + 1].value == 'W' || cub->map[x][y + 1].value == 'E'))
-			ft_error(cub, "Invalid map 14", x, y);
-		if (cub->map[x][y].value == ' ' && (cub->map[x][y - 1].value == '0' || cub->map[x][y - 1].value == 'N' || cub->map[x][y - 1].value == 'S' || cub->map[x][y - 1].value == 'W' || cub->map[x][y - 1].value == 'E'))
-			ft_error(cub, "Invalid map 15", x, y);
+		if (cub->map[y][x].value == ' ' && (cub->map[y + 1][x].value == '0' || cub->map[y + 1][x].value == 'N' || cub->map[y + 1][x].value == 'S' || cub->map[y + 1][x].value == 'W' || cub->map[y + 1][x].value == 'E'))
+			ft_error(cub, "Invalid map 9", y, x);
+		if (cub->map[y][x].value == ' ' && (cub->map[y][x - 1].value == '0' || cub->map[y][x - 1].value == 'N' || cub->map[y][x - 1].value == 'S' || cub->map[y][x - 1].value == 'W' || cub->map[y][x - 1].value == 'E'))
+			ft_error(cub, "Invalid map 10", y, x);
 	}
-	if (y == 0 && x > 0 && x < cub->parse->map_height - 1)
+	if (y == cub->parse->map_height - 1 && x == 0)
 	{
-		if (cub->map[x][y].value == ' ' && (cub->map[x + 1][y].value == '0' || cub->map[x + 1][y].value == 'N' || cub->map[x + 1][y].value == 'S' || cub->map[x + 1][y].value == 'W' || cub->map[x + 1][y].value == 'E'))
-			ft_error(cub, "Invalid map 16", x, y);
-		if (cub->map[x][y].value == ' ' && (cub->map[x - 1][y].value == '0' || cub->map[x - 1][y].value == 'N' || cub->map[x - 1][y].value == 'S' || cub->map[x - 1][y].value == 'W' || cub->map[x - 1][y].value == 'E'))
-			ft_error(cub, "Invalid map 17", x, y);
-		if (cub->map[x][y].value == ' ' && (cub->map[x][y + 1].value == '0' || cub->map[x][y + 1].value == 'N' || cub->map[x][y + 1].value == 'S' || cub->map[x][y + 1].value == 'W' || cub->map[x][y + 1].value == 'E'))
-			ft_error(cub, "Invalid map 18", x, y);
+		if (cub->map[y][x].value == ' ' && (cub->map[y - 1][x].value == '0' || cub->map[y - 1][x].value == 'N' || cub->map[y - 1][x].value == 'S' || cub->map[y - 1][x].value == 'W' || cub->map[y - 1][x].value == 'E'))
+			ft_error(cub, "Invalid map 11", y, x);
+		if (cub->map[y][x].value == ' ' && (cub->map[y][x + 1].value == '0' || cub->map[y][x + 1].value == 'N' || cub->map[y][x + 1].value == 'S' || cub->map[y][x + 1].value == 'W' || cub->map[y][x + 1].value == 'E'))
+			ft_error(cub, "Invalid map 12", y, x);
 	}
 }
 
-void	ft_check_sides_2(t_cub *cub, size_t x, size_t y)
+void	ft_check_sides_1(t_cub *cub, size_t y, size_t x)
 {
-	if (x == cub->parse->map_height - 1 && y > 0 && y < cub->parse->map_width - 1)
+	if (y == 0 && x > 0 && x < cub->parse->map_width - 1)
 	{
-		if (cub->map[x][y].value == ' ' && (cub->map[x - 1][y].value == '0' || cub->map[x - 1][y].value == 'N' || cub->map[x - 1][y].value == 'S' || cub->map[x - 1][y].value == 'W' || cub->map[x - 1][y].value == 'E'))
-			ft_error(cub, "Invalid map 19", x, y);
-		if (cub->map[x][y].value == ' ' && (cub->map[x][y + 1].value == '0' || cub->map[x][y + 1].value == 'N' || cub->map[x][y + 1].value == 'S' || cub->map[x][y + 1].value == 'W' || cub->map[x][y + 1].value == 'E'))
-			ft_error(cub, "Invalid map 20", x, y);
-		if (cub->map[x][y].value == ' ' && (cub->map[x][y - 1].value == '0' || cub->map[x][y - 1].value == 'N' || cub->map[x][y - 1].value == 'S' || cub->map[x][y - 1].value == 'W' || cub->map[x][y - 1].value == 'E'))
-			ft_error(cub, "Invalid map 21", x, y);
+		if (cub->map[y][x].value == ' ' && (cub->map[y + 1][x].value == '0' || cub->map[y + 1][x].value == 'N' || cub->map[y + 1][x].value == 'S' || cub->map[y + 1][x].value == 'W' || cub->map[y + 1][x].value == 'E'))
+			ft_error(cub, "Invalid map 13", y, x);
+		if (cub->map[y][x].value == ' ' && (cub->map[y][x + 1].value == '0' || cub->map[y][x + 1].value == 'N' || cub->map[y][x + 1].value == 'S' || cub->map[y][x + 1].value == 'W' || cub->map[y][x + 1].value == 'E'))
+			ft_error(cub, "Invalid map 14", y, x);
+		if (cub->map[y][x].value == ' ' && (cub->map[y][x - 1].value == '0' || cub->map[y][x - 1].value == 'N' || cub->map[y][x - 1].value == 'S' || cub->map[y][x - 1].value == 'W' || cub->map[y][x - 1].value == 'E'))
+			ft_error(cub, "Invalid map 15", y, x);
 	}
-	if (y == cub->parse->map_width - 1 && x > 0 && x < cub->parse->map_height - 1)
+	if (x == 0 && y > 0 && y < cub->parse->map_height - 1)
 	{
-		if (cub->map[x][y].value == ' ' && (cub->map[x + 1][y].value == '0' || cub->map[x + 1][y].value == 'N' || cub->map[x + 1][y].value == 'S' || cub->map[x + 1][y].value == 'W' || cub->map[x + 1][y].value == 'E'))
-			ft_error(cub, "Invalid map 21", x, y);
-		if (cub->map[x][y].value == ' ' && (cub->map[x - 1][y].value == '0' || cub->map[x - 1][y].value == 'N' || cub->map[x - 1][y].value == 'S' || cub->map[x - 1][y].value == 'W' || cub->map[x - 1][y].value == 'E'))
-			ft_error(cub, "Invalid map 22", x, y);
-		if (cub->map[x][y].value == ' ' && (cub->map[x][y - 1].value == '0' || cub->map[x][y - 1].value == 'N' || cub->map[x][y - 1].value == 'S' || cub->map[x][y - 1].value == 'W' || cub->map[x][y - 1].value == 'E'))
-			ft_error(cub, "Invalid map 23", x, y);
+		if (cub->map[y][x].value == ' ' && (cub->map[y + 1][x].value == '0' || cub->map[y + 1][x].value == 'N' || cub->map[y + 1][x].value == 'S' || cub->map[y + 1][x].value == 'W' || cub->map[y + 1][x].value == 'E'))
+			ft_error(cub, "Invalid map 16", y, x);
+		if (cub->map[y][x].value == ' ' && (cub->map[y - 1][x].value == '0' || cub->map[y - 1][x].value == 'N' || cub->map[y - 1][x].value == 'S' || cub->map[y - 1][x].value == 'W' || cub->map[y - 1][x].value == 'E'))
+			ft_error(cub, "Invalid map 17", y, x);
+		if (cub->map[y][x].value == ' ' && (cub->map[y][x + 1].value == '0' || cub->map[y][x + 1].value == 'N' || cub->map[y][x + 1].value == 'S' || cub->map[y][x + 1].value == 'W' || cub->map[y][x + 1].value == 'E'))
+			ft_error(cub, "Invalid map 18", y, x);
 	}
 }
 
-int	ft_verif_right(t_cub *cub, size_t x, size_t y)
+void	ft_check_sides_2(t_cub *cub, size_t y, size_t x)
 {
-	if (y + 1 < cub->parse->map_width && cub->map[x][y + 1].value != '\0' && cub->map[x][y + 1].value == '1' && cub->map[x][y + 1].used == false && cub->map[x][y].count >= 1)
+	if (y == cub->parse->map_height - 1 && x > 0 && x < cub->parse->map_width - 1)
 	{
-		cub->map[x][y].count--;
-		if (ft_check_arround_1(cub, x, y + 1) == 0)
+		if (cub->map[y][x].value == ' ' && (cub->map[y - 1][x].value == '0' || cub->map[y - 1][x].value == 'N' || cub->map[y - 1][x].value == 'S' || cub->map[y - 1][x].value == 'W' || cub->map[y - 1][x].value == 'E'))
+			ft_error(cub, "Invalid map 19", y, x);
+		if (cub->map[y][x].value == ' ' && (cub->map[y][x + 1].value == '0' || cub->map[y][x + 1].value == 'N' || cub->map[y][x + 1].value == 'S' || cub->map[y][x + 1].value == 'W' || cub->map[y][x + 1].value == 'E'))
+			ft_error(cub, "Invalid map 20", y, x);
+		if (cub->map[y][x].value == ' ' && (cub->map[y][x - 1].value == '0' || cub->map[y][x - 1].value == 'N' || cub->map[y][x - 1].value == 'S' || cub->map[y][x - 1].value == 'W' || cub->map[y][x - 1].value == 'E'))
+			ft_error(cub, "Invalid map 21", y, x);
+	}
+	if (x == cub->parse->map_width - 1 && y > 0 && y < cub->parse->map_height - 1)
+	{
+		if (cub->map[y][x].value == ' ' && (cub->map[y + 1][x].value == '0' || cub->map[y + 1][x].value == 'N' || cub->map[y + 1][x].value == 'S' || cub->map[y + 1][x].value == 'W' || cub->map[y + 1][x].value == 'E'))
+			ft_error(cub, "Invalid map 21", y, x);
+		if (cub->map[y][x].value == ' ' && (cub->map[y - 1][x].value == '0' || cub->map[y - 1][x].value == 'N' || cub->map[y - 1][x].value == 'S' || cub->map[y - 1][x].value == 'W' || cub->map[y - 1][x].value == 'E'))
+			ft_error(cub, "Invalid map 22", y, x);
+		if (cub->map[y][x].value == ' ' && (cub->map[y][x - 1].value == '0' || cub->map[y][x - 1].value == 'N' || cub->map[y][x - 1].value == 'S' || cub->map[y][x - 1].value == 'W' || cub->map[y][x - 1].value == 'E'))
+			ft_error(cub, "Invalid map 23", y, x);
+	}
+}
+
+int	ft_verif_right(t_cub *cub, size_t y, size_t x)
+{
+	if (x + 1 < cub->parse->map_width && cub->map[y][x + 1].value != '\0' && cub->map[y][x + 1].value == '1' && cub->map[y][x + 1].used == false && cub->map[y][x].count >= 1)
+	{
+		cub->map[y][x].count--;
+		if (ft_check_arround_1(cub, y, x + 1) == 0)
 			return (0);
 	}
 	return (1);
 }
-int	ft_verif_down(t_cub *cub, size_t x, size_t y)
+int	ft_verif_down(t_cub *cub, size_t y, size_t x)
 {
-	if (x + 1 < cub->parse->map_height && cub->map[x + 1][y].value != '\0' && cub->map[x + 1][y].value == '1' && cub->map[x + 1][y].used == false && cub->map[x][y].count >= 1)
+	if (y + 1 < cub->parse->map_height && cub->map[y + 1][x].value != '\0' && cub->map[y + 1][x].value == '1' && cub->map[y + 1][x].used == false && cub->map[y][x].count >= 1)
 	{
-		cub->map[x][y].count--;
-		if (ft_check_arround_1(cub, x + 1, y) == 0)
-			return (0);
-	}
-	return (1);
-}
-
-int	ft_verif_left(t_cub *cub, size_t x, size_t y)
-{
-	if (y > 0 && cub->map[x][y].value == '1' && cub->map[x][y - 1].value == '1' && cub->map[x][y - 1].used == false && cub->map[x][y].count >= 1)
-	{
-		cub->map[x][y].count--;
-		if (ft_check_arround_1(cub, x, y - 1) == 0)
+		cub->map[y][x].count--;
+		if (ft_check_arround_1(cub, y + 1, x) == 0)
 			return (0);
 	}
 	return (1);
 }
 
-int	ft_verif_up(t_cub *cub, size_t x, size_t y)
+int	ft_verif_left(t_cub *cub, size_t y, size_t x)
 {
-	if (x > 0 && cub->map[x][y].value == '1' && cub->map[x - 1][y].value == '1' && cub->map[x - 1][y].used == false && cub->map[x][y].count >= 1)
+	if (x > 0 && cub->map[y][x].value == '1' && cub->map[y][x - 1].value == '1' && cub->map[y][x - 1].used == false && cub->map[y][x].count >= 1)
 	{
-		cub->map[x][y].count--;
-		if (ft_check_arround_1(cub, x - 1, y) == 0)
+		cub->map[y][x].count--;
+		if (ft_check_arround_1(cub, y, x - 1) == 0)
 			return (0);
 	}
 	return (1);
 }
 
-int	ft_check_map_direction(t_cub *cub, size_t x, size_t y)
+int	ft_verif_up(t_cub *cub, size_t y, size_t x)
 {
-    if (ft_verif_right(cub, x, y) == 0)
+	if (y > 0 && cub->map[y][x].value == '1' && cub->map[y - 1][x].value == '1' && cub->map[y - 1][x].used == false && cub->map[y][x].count >= 1)
+	{
+		cub->map[y][x].count--;
+		if (ft_check_arround_1(cub, y - 1, x) == 0)
+			return (0);
+	}
+	return (1);
+}
+
+int	ft_check_map_direction(t_cub *cub, size_t y, size_t x)
+{
+    if (ft_verif_right(cub, y, x) == 0)
 		return (0);
-	if (ft_verif_down(cub, x, y) == 0)
+	if (ft_verif_down(cub, y, x) == 0)
 		return (0);
-	if (ft_verif_left(cub, x, y) == 0)
+	if (ft_verif_left(cub, y, x) == 0)
 		return (0);
-	if (ft_verif_up(cub, x, y) == 0)
+	if (ft_verif_up(cub, y, x) == 0)
 		return (0);
 	return (1);
 }
 
-void	ft_count(t_cub *cub, size_t x, size_t y, char value)
+void	ft_count(t_cub *cub, size_t y, size_t x, char value)
 {
-	if (y + 1 < cub->parse->map_width && cub->map[x][y + 1].value == value && cub->map[x][y + 1].used == false)
+	if (x + 1 < cub->parse->map_width && cub->map[y][x + 1].value == value && cub->map[y][x + 1].used == false)
 	{
 		if (value == '1')
-			cub->map[x][y].count++;
+			cub->map[y][x].count++;
 		else if (value == '0')
-			cub->map[x][y].count_0++;
+			cub->map[y][x].count_0++;
 	}
-	if (x + 1 < cub->parse->map_height && cub->map[x + 1][y].value == value && cub->map[x + 1][y].used == false)
+	if (y + 1 < cub->parse->map_height && cub->map[y + 1][x].value == value && cub->map[y + 1][x].used == false)
 	{
 		if (value == '1')
-			cub->map[x][y].count++;
+			cub->map[y][x].count++;
 		else if (value == '0')
-			cub->map[x][y].count_0++;
+			cub->map[y][x].count_0++;
 	}
-	if (y > 0 && cub->map[x][y - 1].value == value && cub->map[x][y - 1].count == 0 && cub->map[x][y - 1].used == false)
+	if (x > 0 && cub->map[y][x - 1].value == value && cub->map[y][x - 1].count == 0 && cub->map[y][x - 1].used == false)
 	{
 		if (value == '1')
-			cub->map[x][y].count++;
+			cub->map[y][x].count++;
 		else if (value == '0')
-			cub->map[x][y].count_0++;
+			cub->map[y][x].count_0++;
 	}
-	if (x > 0 && cub->map[x - 1][y].value == value && cub->map[x - 1][y].count == 0 && cub->map[x - 1][y].used == false)
+	if (y > 0 && cub->map[y - 1][x].value == value && cub->map[y - 1][x].count == 0 && cub->map[y - 1][x].used == false)
 	{
 		if (value == '1')
-			cub->map[x][y].count++;
+			cub->map[y][x].count++;
 		else if (value == '0')
-			cub->map[x][y].count_0++;
+			cub->map[y][x].count_0++;
 	}
 }
 
-int	ft_check_arround_1(t_cub *cub, size_t x, size_t y)
+int	ft_check_arround_1(t_cub *cub, size_t y, size_t x)
 {
-	cub->map[x][y].used = true;
-	ft_count(cub, x, y, '0');
-	ft_count(cub, x, y, '1');
-	if (cub->map[x][y].count_0 != 0)
+	cub->map[y][x].used = true;
+	ft_count(cub, y, x, '0');
+	ft_count(cub, y, x, '1');
+	if (cub->map[y][x].count_0 != 0)
 		return (0);
-	if (ft_check_map_direction(cub, x, y) == 0)
+	if (ft_check_map_direction(cub, y, x) == 0)
 		return (0);
 	else
 		return (1);
@@ -205,114 +205,113 @@ int	ft_check_arround_1(t_cub *cub, size_t x, size_t y)
 
 void	ft_reset_map(t_cub *cub)
 {
-	size_t x;
 	size_t y;
+	size_t x;
 
-	x = 0;
-	while (x < cub->parse->map_height)
+	y = 0;
+	while (y < cub->parse->map_height)
 	{
-		y = 0;
-		while (y < cub->parse->map_width)
+		x = 0;
+		while (x < cub->parse->map_width)
 		{
-			cub->map[x][y].used = false;
-			cub->map[x][y].count = 0;
-			cub->map[x][y].count_0 = 0;
-			y++;
+			cub->map[y][x].used = false;
+			cub->map[y][x].count = 0;
+			cub->map[y][x].count_0 = 0;
+			x++;
 		}
-		x++;
+		y++;
 	}
 }
 
 void	ft_print_used(t_cub *cub)
 {
-	size_t x;
 	size_t y;
+	size_t x;
 
-	x = 0;
-	while (cub->map[x])
+	y = 0;
+	while (cub->map[y])
 	{
-		y = 0;
-		while (cub->map[x][y].value)
+		x = 0;
+		while (cub->map[y][x].value)
 		{
-			printf("%d", cub->map[x][y].used);
-			y++;
+			printf("%d", cub->map[y][x].used);
+			x++;
 		}
 		printf ("\n");
-		x++;
+		y++;
 	}
 }
 
 void	ft_check_borders(t_cub *cub)
 {
-    size_t x;
     size_t y;
+    size_t x;
 
-    x = 0;
-    while (x < cub->parse->map_height)
+    y = 0;
+    while (y < cub->parse->map_height)
     {
-        y = 0;
-        while (y < cub->parse->map_width)
+        x = 0;
+        while (x < cub->parse->map_width)
         {
-			if (cub->map[x][y].value == '1')
+			if (cub->map[y][x].value == '1')
 			{
 				ft_reset_map(cub);
-				cub->exit_map = 2;
-				if(ft_check_arround_1(cub, x, y) == 1)
-					ft_error(cub, "Walls alone", x, y);
+				if(ft_check_arround_1(cub, y, x) == 1)
+					ft_error(cub, "Walls alone", y, x);
 			}
 			// printf("\n");
-            if (x == 0 || y == 0 || x == cub->parse->map_height - 1 || y == cub->parse->map_width - 1)
+            if (y == 0 || x == 0 || y == cub->parse->map_height - 1 || x == cub->parse->map_width - 1)
 			{
-				// printf("Borders -> [%zu][%zu] = %c\n", x, y, cub->map[x][y].value);
-				if (cub->map[x][y].value != '1' && cub->map[x][y].value != ' ')
-					ft_error(cub, "Invalid map 0", x, y);
-				ft_check_corners_1(cub, x, y);
-				ft_check_corners_2(cub, x, y);
-				ft_check_sides_1(cub, x, y);
-				ft_check_sides_2(cub, x, y);
+				// printf("Borders -> [%zu][%zu] = %c\n", y, x, cub->map[y][x].value);
+				if (cub->map[y][x].value != '1' && cub->map[y][x].value != ' ')
+					ft_error(cub, "Invalid map 0", y, x);
+				ft_check_corners_1(cub, y, x);
+				ft_check_corners_2(cub, y, x);
+				ft_check_sides_1(cub, y, x);
+				ft_check_sides_2(cub, y, x);
 			}
-            y++;
+            x++;
         }
-        x++;
+        y++;
     }
 }
 
-void ft_get_player(t_cub *cub, size_t x, size_t y)
+void ft_get_player(t_cub *cub, size_t y, size_t x)
 {
-	if (cub->map[x][y].value == 'N' || cub->map[x][y].value == 'S' || cub->map[x][y].value == 'W' || cub->map[x][y].value == 'E')
+	if (cub->map[y][x].value == 'N' || cub->map[y][x].value == 'S' || cub->map[y][x].value == 'W' || cub->map[y][x].value == 'E')
 	{
-		if (cub->player->x_start != 0 || cub->player->y_start != 0 || cub->player->dir != 0)
+		if (cub->player->y_start != 0 || cub->player->x_start != 0 || cub->player->dir != 0)
 			ft_error(cub, "Invalid map already a player", -1, -1);
-		cub->player->dir = cub->map[x][y].value;
-		cub->player->x_start = x;
+		cub->player->dir = cub->map[y][x].value;
 		cub->player->y_start = y;
-		cub->player->x_cur = x;
+		cub->player->x_start = x;
 		cub->player->y_cur = y;
+		cub->player->x_cur = x;
 	}
-	if (x == cub->parse->map_height - 2 && y == cub->parse->map_width - 2 && cub->player->dir == 0)
+	if (y == cub->parse->map_height - 2 && x == cub->parse->map_width - 2 && cub->player->dir == 0)
 		ft_error(cub, "No player", -1, -1);
 }
 
 void	ft_check_if_valid_map(t_cub *cub)
 {
-    size_t x;
     size_t y;
+    size_t x;
 
-    x = 1;
-    while (x < cub->parse->map_height - 1)
+    y = 1;
+    while (y < cub->parse->map_height - 1)
     {
-        y = 1;
-        while (y < cub->parse->map_width - 1)
+        x = 1;
+        while (x < cub->parse->map_width - 1)
         {
-			ft_get_player(cub, x, y);
-            if (cub->map[x][y].value == ' ' && cub->map[x][y].used == false)
+			ft_get_player(cub, y, x);
+            if (cub->map[y][x].value == ' ' && cub->map[y][x].used == false)
 			{
-				// printf("inside -> [%zu][%zu] = %c\n", x, y, cub->map[x][y].value);
-				ft_check_inside(cub, x, y);
+				// printf("inside -> [%zu][%zu] = %c\n", y, x, cub->map[y][x].value);
+				ft_check_inside(cub, y, x);
 			}
-            y++;
+            x++;
         }
-        x++;
+        y++;
     }
 }
 

@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/22 13:22:36 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/22 14:46:37 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ typedef struct s_parse
 
 typedef struct s_player
 {
-	size_t			x_start;
 	size_t			y_start;
-	size_t			x_cur;
+	size_t			x_start;
 	size_t			y_cur;
+	size_t			x_cur;
 	char			dir;
 }	t_player;
 
@@ -95,8 +95,6 @@ typedef struct s_cell
 typedef struct s_cub
 {
 	t_cell		**map;
-	int			check;
-	int			exit_map;
 	t_data		*data;
 	t_parse		*parse;
 	t_player	*player;
@@ -128,7 +126,7 @@ int	ft_fill_utility(t_cub *cub, char *line);
 t_cell	**ft_fill_tab(int fd, t_cub *cub);
 
 //parsing_verif.c
-int	ft_check_arround_1(t_cub *cub, size_t x, size_t y);
+int	ft_check_arround_1(t_cub *cub, size_t y, size_t x);
 void	ft_check_if_valid_map(t_cub *cub);
 t_cell **ft_verif_data(t_cub *cub, t_cell **map);
 int	ft_check_line(t_cub *cub, char *line);
@@ -161,6 +159,6 @@ void	ft_free_split(char **split);
 //////////////////////////
 
 //error.c
-void	ft_error(t_cub *cub, char *str, size_t x, size_t y);
+void	ft_error(t_cub *cub, char *str, size_t y, size_t x);
 
 #endif
