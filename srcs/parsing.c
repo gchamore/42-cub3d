@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/21 15:07:09 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:36:38 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	ft_fill_utility(t_cub *cub, char *line)
 		cub->parse->total_newline++;
 		if (cub->parse->check_newline == 1)
 		{
-			// cub->check = 1;
 			cub->parse->tmp_height++;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/20 17:27:51 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:37:54 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_cub
 {
 	t_cell		**map;
 	int			check;
-	int			exit;
+	int			exit_map;
 	t_data		*data;
 	t_parse		*parse;
 	t_player	*player;
@@ -133,6 +133,9 @@ void	ft_check_if_valid_map(t_cub *cub);
 t_cell **ft_verif_map(t_cub *cub, t_cell **map);
 int	ft_check_line(t_cub *cub, char *line);
 void	ft_verif_data(t_cub *cub);
+void	ft_reset_used(t_cub *cub);
+void	ft_print_used(t_cub *cub);
+
 
 //parsing_utils_1.c
 void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height);

@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/20 12:54:43 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:08:20 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height)
     int	j;
 
     i = 0;
+	printf("map =");
 	printf("\n\n");
 	printf("map_width = %zu\n", cub->parse->map_width);
 	printf("map_height = %zu\n", cub->parse->map_height);

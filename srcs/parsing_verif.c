@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/21 15:06:13 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/22 12:08:38 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,6 +329,7 @@ int	ft_verif_right(t_cub *cub, size_t x, size_t y)
 {
 	if (y + 1 < cub->parse->map_width && cub->map[x][y + 1].value != '\0' && cub->map[x][y + 1].value == '1' && cub->map[x][y + 1].used == false && cub->map[x][y].count >= 1)
 	{
+		printf("Right -> [%zu][%zu] = %d\n", x, y + 1, cub->map[x][y + 1].used);
 		cub->map[x][y].count--;
 		if (ft_check_arround_1(cub, x, y + 1) == 0)
 			return (0);
@@ -339,6 +340,7 @@ int	ft_verif_down(t_cub *cub, size_t x, size_t y)
 {
 	if (x + 1 < cub->parse->map_height && cub->map[x + 1][y].value != '\0' && cub->map[x + 1][y].value == '1' && cub->map[x + 1][y].used == false && cub->map[x][y].count >= 1)
 	{
+		printf("Down -> [%zu][%zu] = %d\n", x + 1, y, cub->map[x + 1][y].used);
 		cub->map[x][y].count--;
 		if (ft_check_arround_1(cub, x + 1, y) == 0)
 			return (0);
@@ -348,8 +350,9 @@ int	ft_verif_down(t_cub *cub, size_t x, size_t y)
 
 int	ft_verif_left(t_cub *cub, size_t x, size_t y)
 {
-	if (y > 0 && cub->map[x][y].value == '1' && cub->map[x][y - 1].value == '1' && cub->map[x][y - 1].used == false && cub->map[x][y].count >= 1 && cub->map[x][y].count >= 1)
+	if (y > 0 && cub->map[x][y].value == '1' && cub->map[x][y - 1].value == '1' && cub->map[x][y - 1].used == false && cub->map[x][y].count >= 1)
 	{
+		printf("left -> [%zu][%zu] = %d\n", x, y - 1, cub->map[x][y - 1].used);
 		cub->map[x][y].count--;
 		if (ft_check_arround_1(cub, x, y - 1) == 0)
 			return (0);
@@ -359,8 +362,9 @@ int	ft_verif_left(t_cub *cub, size_t x, size_t y)
 
 int	ft_verif_up(t_cub *cub, size_t x, size_t y)
 {
-	if (x > 0 && cub->map[x][y].value == '1' && cub->map[x - 1][y].value == '1' && cub->map[x - 1][y].used == false && cub->map[x][y].count >= 1 && cub->map[x][y].count >= 1)
+	if (x > 0 && cub->map[x][y].value == '1' && cub->map[x - 1][y].value == '1' && cub->map[x - 1][y].used == false && cub->map[x][y].count >= 1)
 	{
+		printf("Up -> [%zu][%zu] = %d\n", x - 1, y, cub->map[x - 1][y].used);
 		cub->map[x][y].count--;
 		if (ft_check_arround_1(cub, x - 1, y) == 0)
 			return (0);
@@ -370,7 +374,7 @@ int	ft_verif_up(t_cub *cub, size_t x, size_t y)
 
 int	ft_check_map_direction(t_cub *cub, size_t x, size_t y)
 {
-	if (ft_verif_right(cub, x, y) == 0)
+    if (ft_verif_right(cub, x, y) == 0)
 		return (0);
 	if (ft_verif_down(cub, x, y) == 0)
 		return (0);
@@ -387,50 +391,79 @@ void	ft_count(t_cub *cub, size_t x, size_t y, char value)
 	{
 		if (value == '1')
 			cub->map[x][y].count++;
-		else
+		else if (value == '0')
+		{
+			printf("good 0 here -> [%zu][%zu]\n", x, y + 1);
 			cub->map[x][y].count_0++;
+		}
 	}
 	if (x + 1 < cub->parse->map_height && cub->map[x + 1][y].value == value && cub->map[x + 1][y].used == false)
 	{
 		if (value == '1')
 			cub->map[x][y].count++;
-		else
+		else if (value == '0')
+		{
+			printf("good 0 here -> [%zu][%zu]\n", x + 1, y);
 			cub->map[x][y].count_0++;
+		}
 	}
 	if (y > 0 && cub->map[x][y - 1].value == value && cub->map[x][y - 1].count == 0 && cub->map[x][y - 1].used == false)
 	{
 		if (value == '1')
 			cub->map[x][y].count++;
-		else
+		else if (value == '0')
+		{
+			printf("good 0 here -> [%zu][%zu]\n", x, y - 1);
 			cub->map[x][y].count_0++;
+		}
 	}
 	if (x > 0 && cub->map[x - 1][y].value == value && cub->map[x - 1][y].count == 0 && cub->map[x - 1][y].used == false)
 	{
 		if (value == '1')
 			cub->map[x][y].count++;
-		else
+		else if (value == '0')
+		{
+			printf("good 0 here -> [%zu][%zu]\n", x - 1, y);
 			cub->map[x][y].count_0++;
+		}
 	}
 }
 
 int	ft_check_arround_1(t_cub *cub, size_t x, size_t y)
 {
 	cub->map[x][y].used = true;
+	ft_print_used(cub);
 	ft_count(cub, x, y, '0');
+	ft_count(cub, x, y, '1');
 	if (cub->map[x][y].count_0 != 0)
 		return (0);
-	ft_count(cub, x, y, '1');
-	if (cub->map[x][y].count >= 1)
-	{
-		if (ft_check_map_direction(cub, x, y) == 0)
-				return (0);
-			else
-				return (1);
-	}
-	return (1);
+	if (ft_check_map_direction(cub, x, y) == 0)
+		return (0);
+	else
+		return (1);
 }
 
-void	ft_reset_used(t_cub *cub)
+void	ft_reset_map(t_cub *cub)
+{
+	size_t x;
+	size_t y;
+
+	x = 0;
+	while (x < cub->parse->map_height)
+	{
+		y = 0;
+		while (y < cub->parse->map_width)
+		{
+			cub->map[x][y].used = false;
+			cub->map[x][y].count = 0;
+			cub->map[x][y].count_0 = 0;
+			y++;
+		}
+		x++;
+	}
+}
+
+void	ft_print_used(t_cub *cub)
 {
 	size_t x;
 	size_t y;
@@ -441,9 +474,10 @@ void	ft_reset_used(t_cub *cub)
 		y = 0;
 		while (cub->map[x][y].value)
 		{
-			cub->map[x][y].used = false;
+			printf("%d", cub->map[x][y].used);
 			y++;
 		}
+		printf ("\n");
 		x++;
 	}
 }
@@ -454,16 +488,19 @@ void	ft_check_borders(t_cub *cub)
     size_t y;
 
     x = 0;
-    while (cub->map[x])
+    while (x < cub->parse->map_height)
     {
         y = 0;
-        while (cub->map[x][y].value)
+        while (y < cub->parse->map_width)
         {
 			if (cub->map[x][y].value == '1')
 			{
+				printf("\n");
+				printf("START -> [%zu][%zu]\n", x, y);
+				ft_reset_map(cub);
+				cub->exit_map = 2;
 				if(ft_check_arround_1(cub, x, y) == 1)
 					ft_error(cub, "Walls alone", x, y);
-				ft_reset_used(cub);
 			}
 			// printf("\n");
             if (x == 0 || y == 0 || x == cub->parse->map_height - 1 || y == cub->parse->map_width - 1)
