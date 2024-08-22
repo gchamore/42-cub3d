@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:15:51 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/22 14:41:59 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/22 15:32:13 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void ft_draw_line(t_img *img, float x0, float y0, float x1, float y1, int color)
     float sy = (y0 < y1) ? 1 : -1;
     float err = dx - dy;
     float e2;
-	float tolerance = 0.1;
+	float tolerance = 0.35;
 
     while (1)
     {
@@ -70,7 +70,7 @@ void ft_player_orientation(t_cub *cub, float player_pos_x, float player_pos_y)
 	float end_y = player_pos_y + line_length * sin(cub->player->angle);
 	printf("curr x = %f, y = %f \n", cub->player->x_cur, cub->player->y_cur);
 	printf("start_x = %f, start_y = %f, end_x = %f, end_y = %f\n", player_pos_x, player_pos_y, end_x, end_y);
-	ft_draw_line(&cub->data->img, player_pos_x, player_pos_y, end_x, end_y, RED_COLOR);
+	// ft_draw_line(&cub->data->img, player_pos_x, player_pos_y, end_x, end_y, RED_COLOR);
 }
 
 void 		ft_draw_player_minimap(t_cub *cub, float start_x, float start_y)
@@ -82,8 +82,8 @@ void 		ft_draw_player_minimap(t_cub *cub, float start_x, float start_y)
 	int		j;
 
 	player_size = PLAYER_SIZE * cub->player->minimap_scale;
-	player_pos_x = start_x + (cub->player->y_cur * cub->player->minimap_scale) + (cub->player->minimap_scale / 2) - (player_size / 2);
-    player_pos_y = start_y + (cub->player->x_cur * cub->player->minimap_scale) + (cub->player->minimap_scale / 2) - (player_size / 2);
+	player_pos_x = start_x + (cub->player->x_cur * cub->player->minimap_scale) + (cub->player->minimap_scale / 2) - (player_size / 2);
+    player_pos_y = start_y + (cub->player->y_cur * cub->player->minimap_scale) + (cub->player->minimap_scale / 2) - (player_size / 2);
 	i = 0;
 	while (i < player_size)
 	{
@@ -178,13 +178,13 @@ int	ft_key_press(int keycode, t_cub *cub)
 	}
 	if (keycode == XK_w || keycode == XK_W)
 	{
-		cub->player->x_cur += cub->player->delta_y * STEP_SIZE;
-		cub->player->y_cur += cub->player->delta_x * STEP_SIZE;
+		cub->player->x_cur += cub->player->delta_x * STEP_SIZE;
+		cub->player->y_cur += cub->player->delta_y * STEP_SIZE;
 	}
 	if (keycode == XK_s || keycode == XK_S)
 	{
-		cub->player->x_cur -= cub->player->delta_y * STEP_SIZE;
-		cub->player->y_cur -= cub->player->delta_x * STEP_SIZE;
+		cub->player->x_cur -= cub->player->delta_x * STEP_SIZE;
+		cub->player->y_cur -= cub->player->delta_y * STEP_SIZE;
 	}
 	if (keycode == XK_a || keycode == XK_A)
 	{

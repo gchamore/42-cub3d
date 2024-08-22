@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/22 14:50:33 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/22 14:52:37 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct s_player
 {
 	size_t			y_start;
 	size_t			x_start;
-	size_t			y_start;
 	float			x_cur;
 	float			y_cur;
 	float 			delta_x;
