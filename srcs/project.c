@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:15:51 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/20 18:23:22 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/22 14:41:59 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_draw_tiles(t_cub *cub, float pos_x, float pos_y, int color)
 	}
 }
 
-void ft_draw_line(t_img *img, float x0, float y0, float x1, float y1)
+void ft_draw_line(t_img *img, float x0, float y0, float x1, float y1, int color)
 {
     float dx = fabs(x1 - x0);
     float dy = fabs(y1 - y0);
@@ -42,7 +42,7 @@ void ft_draw_line(t_img *img, float x0, float y0, float x1, float y1)
 
     while (1)
     {
-        ft_mpp(img, x0, y0, RED_COLOR);
+        ft_mpp(img, x0, y0, color);
         if (fabs(x0 - x1) < tolerance && fabs(y0 - y1) < tolerance)
             break;
         e2 = 2 * err;
@@ -56,19 +56,21 @@ void ft_draw_line(t_img *img, float x0, float y0, float x1, float y1)
             err += dx;
             y0 += sy * tolerance;
         }
+		// printf("x0 = %f, y0 = %f\n", x0, y0);
     }
 }
 
 void ft_player_orientation(t_cub *cub, float player_pos_x, float player_pos_y)
 {
-	float line_lenght = cub->player->minimap_scale *2;
-	float player_size = cub->player->minimap_scale / 2;
-	float center_x = player_pos_x + player_size / 2;
-	float center_y = player_pos_y + player_size / 2;
-	float end_x = center_x + line_lenght * cos(cub->player->angle);
-	float end_y = center_y + line_lenght * sin(cub->player->angle);
-	
-	ft_draw_line(&cub->data->img, center_x, center_y, end_x, end_y);
+	float line_length = cub->player->minimap_scale *2;
+	float player_size = PLAYER_SIZE * cub->player->minimap_scale;
+	player_pos_x += player_size / 2;
+	player_pos_y += player_size / 2;
+	float end_x = player_pos_x + line_length * cos(cub->player->angle);
+	float end_y = player_pos_y + line_length * sin(cub->player->angle);
+	printf("curr x = %f, y = %f \n", cub->player->x_cur, cub->player->y_cur);
+	printf("start_x = %f, start_y = %f, end_x = %f, end_y = %f\n", player_pos_x, player_pos_y, end_x, end_y);
+	ft_draw_line(&cub->data->img, player_pos_x, player_pos_y, end_x, end_y, RED_COLOR);
 }
 
 void 		ft_draw_player_minimap(t_cub *cub, float start_x, float start_y)
@@ -79,9 +81,9 @@ void 		ft_draw_player_minimap(t_cub *cub, float start_x, float start_y)
 	int		i;
 	int		j;
 
-	player_pos_x = start_x + (cub->player->y_cur + 0.25) * cub->player->minimap_scale;
-    player_pos_y = start_y + (cub->player->x_cur + 0.25) * cub->player->minimap_scale;
-	player_size = cub->player->minimap_scale / 2;
+	player_size = PLAYER_SIZE * cub->player->minimap_scale;
+	player_pos_x = start_x + (cub->player->y_cur * cub->player->minimap_scale) + (cub->player->minimap_scale / 2) - (player_size / 2);
+    player_pos_y = start_y + (cub->player->x_cur * cub->player->minimap_scale) + (cub->player->minimap_scale / 2) - (player_size / 2);
 	i = 0;
 	while (i < player_size)
 	{
@@ -160,7 +162,7 @@ int	ft_render(t_cub *cub)
 {
 	ft_render_background(cub, GREY_COLOR);
 	ft_draw_map(cub);
-	// ft_cast_rays(cub);
+	ft_cast_rays(cub);
 	mlx_put_image_to_window(cub->data->mlx_ptr, cub->data->win_ptr, cub->data->img.mlx_img, 0, 0);
 	return (0);
 }
@@ -176,13 +178,13 @@ int	ft_key_press(int keycode, t_cub *cub)
 	}
 	if (keycode == XK_w || keycode == XK_W)
 	{
-		cub->player->x_cur += cub->player->delta_y;
-		cub->player->y_cur += cub->player->delta_x;
+		cub->player->x_cur += cub->player->delta_y * STEP_SIZE;
+		cub->player->y_cur += cub->player->delta_x * STEP_SIZE;
 	}
 	if (keycode == XK_s || keycode == XK_S)
 	{
-		cub->player->x_cur -= cub->player->delta_y;
-		cub->player->y_cur -= cub->player->delta_x;
+		cub->player->x_cur -= cub->player->delta_y * STEP_SIZE;
+		cub->player->y_cur -= cub->player->delta_x * STEP_SIZE;
 	}
 	if (keycode == XK_a || keycode == XK_A)
 	{
@@ -198,7 +200,7 @@ int	ft_key_press(int keycode, t_cub *cub)
 	}
 	cub->player->delta_x = cos(cub->player->angle);
 	cub->player->delta_y = sin(cub->player->angle);
-	printf("Player position: x = %f, y = %f angle = %f\n", cub->player->x_cur, cub->player->y_cur, cub->player->angle);
+	// printf("Player position: x = %f, y = %f angle = %f\n", cub->player->x_cur, cub->player->y_cur, cub->player->angle);
 	return (0);
 }
 
@@ -224,7 +226,7 @@ void	ft_init_player(t_cub *cub)
 		cub->player->angle = EAST_ANGLE;
 	cub->player->delta_x = cos(cub->player->angle);
 	cub->player->delta_y = sin(cub->player->angle);
-	printf("Player position: %f, %f angle = %f\n", cub->player->x_cur, cub->player->y_cur, cub->player->angle);
+	printf("player start position: x = %f, y = %f, \n", cub->player->x_cur, cub->player->y_cur);
 }
 
 void	ft_project(t_cub *cub)

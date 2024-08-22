@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:37:13 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/20 18:44:16 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/22 14:47:17 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,31 @@ void	ft_cast_rays(t_cub *cub)
 		float aTan = -1 / tan(ra);
 		if (ra > PI) //looking down
 		{
-			ry = (((int)cub->player->y_cur >> 6) << 6) - 0.0001;
+			ry = (((int)cub->player->y_cur / cub->player->minimap_scale) * cub->player->minimap_scale) - 0.0001;
 			rx = (cub->player->y_cur - ry) * aTan + cub->player->x_cur;
-			yo = -64;
+			yo = -cub->player->minimap_scale;
 			xo = -yo * aTan;
 		}
-		if (ra < PI) //looking up
+		else if (ra < PI) //looking up
 		{
-			ry = (((int)cub->player->y_cur >> 6) << 6) + 64;
+			ry = (((int)cub->player->y_cur / cub->player->minimap_scale) * cub->player->minimap_scale) + cub->player->minimap_scale; 
 			rx = (cub->player->y_cur - ry) * aTan + cub->player->x_cur;
-			yo = 64;
+			yo = cub->player->minimap_scale;
 			xo = -yo * aTan;
 		}
-		if (ra == 0 || ra == PI) //looking straight left or right
+		else //looking straight left or right
 		{
 			rx = cub->player->x_cur;
 			ry = cub->player->y_cur;
 			dof = 8;
 		}
+        // printf("Initial values: rx = %f, ry = %f, xo = %f, yo = %f\n", rx, ry, xo, yo);
 		while (dof < 8)
 		{
-			mx = (int)(rx) >> 6;
-			my = (int)(ry) >> 6;
-			mp = my * cub->parse->map_width + mx; //need to check if width and height are switched x / y 
-			if (mp < cub->parse->map_width * cub->parse->map_height && mp > 0 && cub->map[mp] == '1')
+			mx = (int)(rx) / cub->player->minimap_scale;
+			my = (int)(ry) / cub->player->minimap_scale;
+			mp = my* cub->parse->map_width + mx; //need to check if width and height are switched x / y 
+			if ((size_t)mx < cub->parse->map_width && (size_t)my < cub->parse->map_height &&  mx >= 0 && my >= 0 && cub->map[my][mx].value == '1')
 			{
 				dof = 8;
 			}
@@ -70,5 +71,12 @@ void	ft_cast_rays(t_cub *cub)
 		}
 		r++;
 	}
+	printf("curr x = %f, y = %f \n", cub->player->x_cur, cub->player->y_cur);
+	printf ("angle = %f \n", ra);
+	// float player_size = PLAYER_SIZE * cub->player->minimap_scale;
+	float player_pos_x = (cub->player->y_cur * cub->player->minimap_scale) + (cub->player->minimap_scale / 2);
+    float player_pos_y = (cub->player->x_cur * cub->player->minimap_scale) + (cub->player->minimap_scale / 2);
+	printf("starting: x = %f, y = %f, Final values: rx = %f, ry = %f\n", player_pos_x, player_pos_y, rx, ry);
+	ft_draw_line(&cub->data->img, cub->player->x_cur, cub->player->y_cur, rx, ry, BLUE_COLOR);
 }
 

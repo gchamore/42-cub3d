@@ -6,7 +6,7 @@
 #    By: anferre <anferre@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 09:49:54 by gchamore          #+#    #+#              #
-#    Updated: 2024/08/19 15:35:14 by anferre          ###   ########.fr        #
+#    Updated: 2024/08/21 14:45:00 by anferre          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS = $(addprefix $(SRCS_DIR)/,	\
 	error.c							\
 	project.c						\
 	mlx_utils.c						\
+	ray_casting.c					\
 	)
 
 SRCS_BONUS = $(addprefix $(SRCS_DIR_BONUS)/,	\

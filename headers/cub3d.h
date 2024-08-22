@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/20 17:11:52 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/21 17:49:01 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@
 # define WIN_WIDTH 1500
 
 # define MINIMAP_SIZE 300
-# define PLAYER_SIZE 1
+# define PLAYER_SIZE 0.1
 # define FOV 60
 # define PI 3.14159265359
+# define STEP_SIZE 0.1
 
 # define RED_COLOR 0xFF0000
 # define GREEN_COLOR 0xEFFBEF
@@ -182,9 +183,13 @@ void	ft_error(t_cub *cub, char *str, size_t x, size_t y);
 
 //project.c
 void	ft_project(t_cub *cub);
+void 	ft_draw_line(t_img *img, float x0, float y0, float x1, float y1, int color);
 
 //mlx_utils.c
-int	ft_init_mlx(t_cub *cub);
+int		ft_init_mlx(t_cub *cub);
 void	ft_mpp(t_img *img, int x, int y, int color);
+
+//ray_casting.c
+void	ft_cast_rays(t_cub *cub);
 
 #endif
