@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 16:49:57 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/22 14:23:47 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 // imprime la map
 void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height)
 {
-    int	i;
-    int	j;
+    int	y;
+    int	x;
 
-    i = 0;
+    y = 0;
+	printf("map =");
 	printf("\n\n");
 	printf("map_width = %zu\n", cub->parse->map_width);
 	printf("map_height = %zu\n", cub->parse->map_height);
@@ -37,28 +38,28 @@ void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height)
 	printf("ceiling->g = %d\n", cub->parse->C.g);
 	printf("ceiling->b = %d\n", cub->parse->C.b);
 	printf("player->dir = %c\n", cub->player->dir);
-	printf("player location map start x->[%zu] y->[%zu]\n", cub->player->x_start, cub->player->y_start);
+	printf("player location map start y->[%zu] x->[%zu]\n", cub->player->y_start, cub->player->x_start);
 	printf("\n\n");
 	if (map == NULL)
 	{
         fprintf(stderr, "Error: map is NULL\n");
         return;
     }
-    while (i < map_height)
+    while (y < map_height)
     {
-		if (map[i] == NULL)
+		if (map[y] == NULL)
 		{
-            fprintf(stderr, "Error: map[%d] is NULL\n", i);
+            fprintf(stderr, "Error: map[%d] is NULL\n", y);
             break ;
         }
-        j = 0;
-        while (j < map_width)
+        x = 0;
+        while (x < map_width)
         {
-            printf("%c", map[i][j].value);
-            j++;
+            printf("%c", map[y][x].value);
+            x++;
         }
         printf("\n");
-        i++;
+        x++;
     }
 }
 

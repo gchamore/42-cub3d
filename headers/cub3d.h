@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/21 17:49:01 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/22 14:50:33 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct s_rgb
 
 typedef struct s_parse
 {
+	size_t			tmp_height;
+	size_t			tmp_width;
 	size_t			map_height;
 	size_t			map_width;
 	size_t			total_infos;
@@ -74,12 +76,12 @@ typedef struct s_parse
 	char			*EA;
 	t_rgb			F;
 	t_rgb			C;
-	// t_rgb			floor;
-	// t_rgb			ceiling;
+	int				check_newline;
 }	t_parse;
 
 typedef struct s_player
 {
+	size_t			y_start;
 	size_t			x_start;
 	size_t			y_start;
 	float			x_cur;
@@ -111,6 +113,8 @@ typedef struct s_cell
 {
 	char		value;
 	bool		used;
+	int			count;
+	int			count_0;
 }	t_cell;
 
 typedef struct s_cub
@@ -147,15 +151,20 @@ int	ft_fill_utility(t_cub *cub, char *line);
 t_cell	**ft_fill_tab(int fd, t_cub *cub);
 
 //parsing_verif.c
+int	ft_check_arround_1(t_cub *cub, size_t y, size_t x);
 void	ft_check_if_valid_map(t_cub *cub);
-t_cell **ft_verif_map(t_cub *cub, t_cell **map);
+t_cell **ft_verif_data(t_cub *cub, t_cell **map);
 int	ft_check_line(t_cub *cub, char *line);
+void	ft_reset_map(t_cub *cub);
+void	ft_print_used(t_cub *cub);
+
 
 //parsing_utils_1.c
 void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height);
 char	**ft_mod_split(char *str, t_cub *cub);
 char	*ft_if_only_blanks(char *str);
 char	*ft_if_blanks(char *str);
+// char	*ft_if_blanks_after(char *str);
 
 //parsing_utils_2.c
 int	ft_is_delimiter(char c);

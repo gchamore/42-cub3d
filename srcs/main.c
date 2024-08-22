@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:25:07 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 16:59:07 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/22 14:50:51 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int	main(int argc, char **argv)
 	// ft_print_map(cub, cub->map, cub->parse->map_width, cub->parse->map_height);
 	close(fd);
 	ft_free_cub(cub);
+	printf("ALL OK\n");
 	return (0);
 }
