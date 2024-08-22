@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/21 19:37:54 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:22:36 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,9 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub);
 //parsing_verif.c
 int	ft_check_arround_1(t_cub *cub, size_t x, size_t y);
 void	ft_check_if_valid_map(t_cub *cub);
-t_cell **ft_verif_map(t_cub *cub, t_cell **map);
+t_cell **ft_verif_data(t_cub *cub, t_cell **map);
 int	ft_check_line(t_cub *cub, char *line);
-void	ft_verif_data(t_cub *cub);
-void	ft_reset_used(t_cub *cub);
+void	ft_reset_map(t_cub *cub);
 void	ft_print_used(t_cub *cub);
 
 

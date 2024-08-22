@@ -6,20 +6,11 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/21 19:36:38 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:22:59 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
-void	ft_verif_data(t_cub *cub)
-{
-	if (!cub->parse->NO || !cub->parse->SO || !cub->parse->WE || !cub->parse->EA || \
-	cub->parse->F.r == -1 || cub->parse->F.g == -1 || cub->parse->F.b == -1 || \
-	cub->parse->C.r == -1 || cub->parse->C.g == -1 || cub->parse->C.b == -1)
-		ft_error(cub, "Missing data", -1, -1);
-}
 
 // Parse le fichier .cub
 // je commente verif map pour que tu es une version fonctionnelle. je suis en train de taff sur 
@@ -30,7 +21,7 @@ int	ft_parsing(int fd, t_cub *cub, char **argv)
 		return (EXIT_FAILURE);
 	if (ft_fill_tab(fd, cub) == NULL)
 		return (EXIT_FAILURE);
-	ft_verif_map(cub, cub->map);
+	ft_verif_data(cub, cub->map);
 	return (EXIT_SUCCESS);
 }
 
