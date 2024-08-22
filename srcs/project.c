@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:15:51 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/22 16:24:48 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/22 16:45:25 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void ft_player_orientation(t_cub *cub, float player_pos_x, float player_pos_y)
 	float end_y = player_pos_y + line_length * sin(cub->player->angle);
 	printf("curr x = %f, y = %f \n", cub->player->x_cur, cub->player->y_cur);
 	printf("start_x = %f, start_y = %f, end_x = %f, end_y = %f\n", player_pos_x, player_pos_y, end_x, end_y);
-	// ft_draw_line(&cub->data->img, player_pos_x, player_pos_y, end_x, end_y, RED_COLOR);
+	ft_draw_line(&cub->data->img, player_pos_x, player_pos_y, end_x, end_y, RED_COLOR);
 }
 
 void 		ft_draw_player_minimap(t_cub *cub, float start_x, float start_y)
@@ -188,13 +188,13 @@ int	ft_key_press(int keycode, t_cub *cub)
 	}
 	if (keycode == XK_a || keycode == XK_A)
 	{
-		cub->player->angle -= 0.1;
+		cub->player->angle -= 0.05;
 		if (cub->player->angle < 0)
 			cub->player->angle += 2 * PI;
 	}
 	if (keycode == XK_d || keycode == XK_D)
 	{
-		cub->player->angle += 0.1;
+		cub->player->angle += 0.05;
 		if (cub->player->angle > 2 * PI)
 			cub->player->angle -= 2 * PI;
 	}

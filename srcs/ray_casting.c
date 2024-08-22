@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:37:13 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/22 16:22:48 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/22 18:54:22 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_cast_rays(t_cub *cub)
 	int r;
 	int mx;
 	int my;
-	int mp;
 	int dof;
 	float rx;
 	float ry;
@@ -27,27 +26,22 @@ void	ft_cast_rays(t_cub *cub)
 	float player_pos_x = (cub->player->x_cur * cub->player->minimap_scale) + (cub->player->minimap_scale / 2);
     float player_pos_y = (cub->player->y_cur * cub->player->minimap_scale) + (cub->player->minimap_scale / 2);
 	r = 0;
-	float dist_next_line;
+	float aTan = -1 / tan(cub->player->angle);
 	while (r < 1)
 	{
 		//horizontal lines
 		dof = 0;
-		float aTan = -1 / tan(cub->player->angle);
 		if (cub->player->angle > PI) //looking down
 		{
-			dist_next_line = cub->player->minimap_scale - fmod(player_pos_y, cub->player->minimap_scale);
-			// ry = ((player_pos_y / cub->player->minimap_scale) * cub->player->minimap_scale) - 0.0001;
-			ry = player_pos_y + dist_next_line - 0.0001;
-			rx = (ry - player_pos_y) * aTan + player_pos_x;
+			ry = (floor(player_pos_y / cub->player->minimap_scale) * cub->player->minimap_scale) - 0.0001;
+			rx = (player_pos_y - ry) * aTan + player_pos_x;
 			yo = -cub->player->minimap_scale;
 			xo = -yo * aTan;
 		}
 		else if (cub->player->angle < PI) //looking up
 		{
-			dist_next_line = fmod(player_pos_y, cub->player->minimap_scale);
-			// ry = ((player_pos_y / cub->player->minimap_scale) * cub->player->minimap_scale) + cub->player->minimap_scale - 0.0001; 
-			ry = player_pos_y - dist_next_line - 0.0001;
-			rx = (ry - player_pos_y) * aTan + player_pos_x;
+			ry = (floor(player_pos_y / cub->player->minimap_scale) * cub->player->minimap_scale) + cub->player->minimap_scale + 0.0001; 
+			rx = (player_pos_y - ry) * aTan + player_pos_x;
 			yo = cub->player->minimap_scale;
 			xo = -yo * aTan;
 		}
@@ -62,8 +56,7 @@ void	ft_cast_rays(t_cub *cub)
 		{
 			mx = (int)(rx) / cub->player->minimap_scale;
 			my = (int)(ry) / cub->player->minimap_scale;
-			mp = my* cub->parse->map_width + mx;
-			if ((size_t)mx < cub->parse->map_width && (size_t)my < cub->parse->map_height &&  mx >= 0 && my >= 0 && cub->map[my][mx].value == '1')
+			if (mx >= 0 && (size_t)mx < cub->parse->map_width && my >= 0 && (size_t)my < cub->parse->map_height && cub->map[my][mx].value == '1')
 			{
 				dof = 8;
 			}
@@ -73,13 +66,15 @@ void	ft_cast_rays(t_cub *cub)
 				ry += yo;
 				dof += 1;
 			} 
+			printf("Step %d: rx = %f, ry = %f, mx = %d, my = %d\n", dof, rx, ry, mx, my);
 		}
 		r++;
 	}
-	printf("dist_next_line = %f\n", dist_next_line);
-	printf("curr x = %f, y = %f \n", cub->player->x_cur, cub->player->y_cur);
-	printf ("angle = %f \n", cub->player->angle);
-	printf("starting: x = %f, y = %f, Final values: rx = %f, ry = %f\n", player_pos_x, player_pos_y, rx, ry);
+	// printf("scale = %f\n", cub->player->minimap_scale);
+	// printf("atan = %f\n", aTan);
+	// printf("curr x = %f, y = %f \n", cub->player->x_cur, cub->player->y_cur);
+	// printf ("angle = %f \n", cub->player->angle);
+	// printf("starting: x = %f, y = %f, Final values: rx = %f, ry = %f\n", player_pos_x, player_pos_y, rx, ry);
 	ft_draw_line(&cub->data->img, player_pos_x, player_pos_y, rx, ry, BLUE_COLOR);
 }
 
