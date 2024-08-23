@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/22 14:52:37 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/23 17:53:57 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@
 # define BLACK_COLOR 0x000000
 # define GREY_COLOR 0x808080
 
-#define NORTH_ANGLE (3 * PI / 2)
-#define SOUTH_ANGLE (PI / 2)
-#define WEST_ANGLE PI
-#define EAST_ANGLE 0
+# define RAD 0.0174533
+# define TOL 0.0001
+# define NORTH_ANGLE (3 * PI / 2)
+# define SOUTH_ANGLE (PI / 2)
+# define WEST_ANGLE PI
+# define EAST_ANGLE 0
 
 typedef struct s_rgb
 {

@@ -6,7 +6,7 @@
 /*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:15:51 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/23 15:05:38 by tookops          ###   ########.fr       */
+/*   Updated: 2024/08/23 17:57:02 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void ft_draw_line(t_img *img, float x0, float y0, float x1, float y1, int color)
             err += dx;
             y0 += sy * tolerance;
         }
-		// printf("x0 = %f, y0 = %f\n", x0, y0);
+		if (fabs(x0 - x1) < 2 && fabs(y0 - y1) < 2)
+			printf("x0 = %f, y0 = %f x1= %f, y1 = %f \n", x0, y0, x1, y1);
     }
 }
 
@@ -188,13 +189,13 @@ int	ft_key_press(int keycode, t_cub *cub)
 	}
 	if (keycode == XK_a || keycode == XK_A)
 	{
-		cub->player->angle -= 0.05;
+		cub->player->angle -= RAD;
 		if (cub->player->angle < 0)
 			cub->player->angle += 2 * PI;
 	}
 	if (keycode == XK_d || keycode == XK_D)
 	{
-		cub->player->angle += 0.05;
+		cub->player->angle += RAD;
 		if (cub->player->angle > 2 * PI)
 			cub->player->angle -= 2 * PI;
 	}
