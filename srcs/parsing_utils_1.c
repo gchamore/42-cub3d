@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/23 12:52:53 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:39:11 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,9 @@ char	*ft_if_only_blanks(char *str)
     tmp = str;
     check = 0;
     while (tmp[i] && (tmp[i] == ' ' || tmp[i] == '\t'))
+	{
         i++;
+	}
     if (tmp[i] != '\0' && tmp[i] != '\n' && !ft_is_delimiter(tmp[i]))
         check = 1;
     i = 0;

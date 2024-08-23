@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/23 13:55:48 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:38:41 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,9 @@ void	ft_fill_utility_map(t_cub *cub, char *line, char *tmp)
 			cub->parse->tmp_height++;
 		}
 	}
-	else if (line[0] != '\n' && ft_strchr(line, '1'))
+	else if (line[0] != '\n' && (ft_strchr(line, '1') || ft_strchr(line, '0') || ft_strchr(line, 'N') || ft_strchr(line, 'S') || ft_strchr(line, 'W') || ft_strchr(line, 'E')))
 	{
 		//possibility to remove blanks before and after the map
-		//tmp = ft_if_blanks(ft_strdup(line));
 		tmp = ft_strtrim(line, "\n");
 		if (cub->parse->map_width < ft_strlen(tmp) && ft_strlen(tmp) != 0)
 			cub->parse->map_width = ft_strlen(tmp);
@@ -109,36 +108,6 @@ int	ft_fill_utility(t_cub *cub, char *line)
 	return (0);
 }
 
-void	ft_init_tab(t_cub *cub)
-{
-	size_t	y;
-	size_t	x;
-
-	y = 0;
-	x = 0;
-	cub->map = malloc(sizeof(t_cell *) * (cub->parse->map_height + 1));
-	if (!cub->map)
-		ft_error(cub, "Map Alloc failed", -1, -1);
-	while (y < cub->parse->map_height)
-	{
-		x = 0;
-		cub->map[y] = malloc(sizeof(t_cell) * (cub->parse->map_width + 1));
-		if (!cub->map[y])
-			ft_error(cub, "Map Alloc failed", -1, -1);
-		while (x < cub->parse->map_width)
-		{
-			cub->map[y][x].value = ' ';
-			cub->map[y][x].used = false;
-			cub->map[y][x].count = 0;
-			cub->map[y][x].count_0 = 0;
-			x++;
-		}
-        cub->map[y][x].value = '\0';
-        y++;
-    }
-    cub->map[y] = NULL;
-}
-
 //Rempli le tableau map
 t_cell	**ft_fill_tab(int fd, t_cub *cub)
 {
@@ -153,6 +122,11 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
 	line = ft_get_next_line(fd);
 	if (!line)
 		return (ft_error(cub, "NULL line", -1, -1), NULL);
+	cub->map = malloc(sizeof(t_cell *) * (cub->parse->map_height + 1));
+	if (!cub->map)
+		return (ft_error(cub, "Map Alloc failed", -1, -1), NULL);
+	for (size_t i = 0; i <= cub->parse->map_height; i++)
+        cub->map[i] = NULL;
 	while (j < cub->parse->total_infos)
 	{
 		j++;
@@ -161,9 +135,9 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
 		if (!line)
 			return (ft_error(cub, "NULL line", -1, -1), NULL);
 	}
-	ft_init_tab(cub);
 	while (j <= cub->parse->total_height)
 	{
+		line = ft_if_only_blanks(line);
 		if (line[0] == '\n' && cub->parse->tmp_height == 0)
 		{
 			free(line);
@@ -179,12 +153,21 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
 			split = ft_mod_split(line, cub);
 			if (split == NULL)
 				return (ft_error(cub, "Split Alloc failed", -1, -1), NULL);
+			cub->map[y] = malloc(sizeof(t_cell) * (cub->parse->map_width + 1));
+			if (!cub->map[y])
+                return (ft_error(cub, "Map Alloc failed", -1, -1), NULL);
 			while (x < cub->parse->map_width)
 			{
 				cub->map[y][x].value = *split[x];
+				cub->map[y][x].used = false;
+				cub->map[y][x].count = 0;
+				cub->map[y][x].count_0 = 0;
 				x++;
 			}
 			cub->map[y][x].value = '\0';
+			cub->map[y][x].used = false;
+			cub->map[y][x].count = 0;
+			cub->map[y][x].count_0 = 0;
 			ft_free_split(split);
 			y++;
 		}
@@ -194,7 +177,7 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
 			break ;
 		j++;
 	}
-	cub->map[y] = NULL;
+	// cub->map[y] = NULL;
 	return (cub->map);
 }
 

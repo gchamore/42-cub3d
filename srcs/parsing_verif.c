@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/23 13:17:43 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:46:37 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,19 +230,30 @@ void	ft_print_used(t_cub *cub)
 	}
 }
 
+void	ft_check_cell(t_cub *cub, size_t y, size_t x)
+{
+	if (cub->map[y][x].value == ' ')
+	{
+		if (ft_count(cub, y, x, '0') != 0 || ft_count(cub, y, x, 'N') != 0 || ft_count(cub, y, x, 'S') != 0 || ft_count(cub, y, x, 'W') != 0 || ft_count(cub, y, x, 'E') != 0)
+		{
+			ft_error(cub, "Invalid 0,N,S,E,W Alone", y, x);
+		}
+	}
+}
+
 void	ft_check_borders(t_cub *cub, size_t y, size_t x)
 {
-	y = 0;
     while (y < cub->parse->map_height)
     {
         x = 0;
         while (x < cub->parse->map_width)
         {
+			ft_reset_map(cub);
+			ft_check_cell(cub, y, x);
 			if (cub->map[y][x].value == '1')
 			{
-				ft_reset_map(cub);
 				if(ft_check_arround_1(cub, y, x) == 1)
-					ft_error(cub, "Walls alone", y, x);
+					ft_error(cub, "Invalid 1 Alone", y, x);
 			}
             if (y == 0 || x == 0 || y == cub->parse->map_height - 1 || x == cub->parse->map_width - 1)
 			{
@@ -300,27 +311,7 @@ void	ft_check_if_valid_map(t_cub *cub)
 
 // void	ft_verif_textures(t_cub *cub, char *to_check)
 // {
-// 	int	i;
-// 	int	count_1;
-// 	int	count_2;
-
-// 	i = 0;
-// 	count_1 = 0;
-// 	count_2 = 0;
-// 	while (to_check[i])
-// 	{
-// 		if (to_check[i] == '/')
-// 			count_1++;
-// 		if (to_check[i] == '.')
-// 			count_2++;
-// 		if (count_1 > 2)
-// 			ft_error(cub, "Invalid texture", -1, -1);
-// 		if (to_check[i] == '.' && count_1 != 2)
-// 			ft_error(cub, "Invalid texture", -1, -1);
-// 		i++;
-// 	}
-// 	if (count_1 != 2 || count_2 != 1)
-// 		ft_error(cub, "Invalid texture", -1, -1);
+// 	
 // }
 
 void ft_check_data(t_cub *cub)
@@ -360,14 +351,13 @@ int	ft_check_line(t_cub *cub, char *line)
 			!= 'S' && line[i] != 'W' && line[i] != 'E')
 		{
 			free(line);
-			ft_error(cub, "Invalid cell", -1, -1);
+			ft_error(cub, "Invalid Cell", -1, -1);
 		}
 		if (line[i] == ' ' || line[i] == '1' || line[i] == 'N' || line[i] \
 			== 'S' || line[i] == 'W' || line[i] == 'E')
 			check = 1;
 		i++;
 	}
-	// printf("\n");
 	if (check == 1)
 		return (1);
 	return (0);

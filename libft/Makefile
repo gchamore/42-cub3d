@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anferre <anferre@student.42.fr>            +#+  +:+       +#+         #
+#    By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/13 17:58:49 by gchamore          #+#    #+#              #
-#    Updated: 2024/06/11 18:51:18 by anferre          ###   ########.fr        #
+#    Updated: 2024/08/23 17:27:56 by gchamore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ AR 		= ar rcs
 
 RM 		= rm -f
 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g3
 
 all:		$(NAME)	
 
