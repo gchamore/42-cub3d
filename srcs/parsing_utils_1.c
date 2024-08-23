@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/22 14:23:47 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/23 12:52:53 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height)
             x++;
         }
         printf("\n");
-        x++;
+        y++;
     }
 }
 

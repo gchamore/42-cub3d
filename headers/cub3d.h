@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/22 14:46:37 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:17:29 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	ft_init_structs(t_cub *cub);
 
 //parsing.c
 int	ft_parsing(int fd, t_cub *cub, char **argv);
-int	ft_get_data(char *file, t_cub *cub);
+int	ft_get_data(char *file, t_cub *cub, char *line);
 int	ft_fill_utility(t_cub *cub, char *line);
 t_cell	**ft_fill_tab(int fd, t_cub *cub);
 

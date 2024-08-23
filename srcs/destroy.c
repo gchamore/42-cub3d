@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:24:45 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 16:19:44 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:26:38 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ void	ft_free_map(t_cell **map, int map_height)
 	{
 		while (i < map_height)
 		{
-			free(map[i]);
-			map[i] = NULL;
+			if (map[i])
+			{
+				free(map[i]);
+				map[i] = NULL;
+			}
 			i++;
 		}
 		free(map);
