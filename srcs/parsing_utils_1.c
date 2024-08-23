@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/22 14:23:47 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/23 15:01:34 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,10 @@ char	*ft_if_only_blanks(char *str)
 // TRIM LES ESPACES ET TABS DE LA LIGNES AVANT ET APRES LE TEXTE
 char	*ft_if_blanks(char *str)
 {
-	int	i;
+	// int	i;
 	char *tmp;
 
-	i = 0;
+	// i = 0;
 	if (str == NULL)
 		return (NULL);
 	tmp = str;

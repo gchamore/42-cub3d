@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:37:13 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/22 18:54:22 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/23 15:07:18 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ void	ft_cast_rays(t_cub *cub)
 		dof = 0;
 		if (cub->player->angle > PI) //looking down
 		{
-			ry = (floor(player_pos_y / cub->player->minimap_scale) * cub->player->minimap_scale) - 0.0001;
+			ry = (floor(player_pos_y / cub->player->minimap_scale) * cub->player->minimap_scale) - 0.0001; //offset to the top of the grid line
 			rx = (player_pos_y - ry) * aTan + player_pos_x;
 			yo = -cub->player->minimap_scale;
 			xo = -yo * aTan;
 		}
 		else if (cub->player->angle < PI) //looking up
 		{
-			ry = (floor(player_pos_y / cub->player->minimap_scale) * cub->player->minimap_scale) + cub->player->minimap_scale + 0.0001; 
+			ry = (floor(player_pos_y / cub->player->minimap_scale) * cub->player->minimap_scale) + cub->player->minimap_scale + 0.0001; //offset to the bottom of the grid line
 			rx = (player_pos_y - ry) * aTan + player_pos_x;
 			yo = cub->player->minimap_scale;
 			xo = -yo * aTan;
@@ -66,7 +66,7 @@ void	ft_cast_rays(t_cub *cub)
 				ry += yo;
 				dof += 1;
 			} 
-			printf("Step %d: rx = %f, ry = %f, mx = %d, my = %d\n", dof, rx, ry, mx, my);
+			// printf("Step %d: rx = %f, ry = %f, mx = %d, my = %d\n", dof, rx, ry, mx, my);
 		}
 		r++;
 	}

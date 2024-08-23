@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   project.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:15:51 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/22 16:45:25 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/23 15:05:38 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void ft_player_orientation(t_cub *cub, float player_pos_x, float player_pos_y)
 	player_pos_y += player_size / 2;
 	float end_x = player_pos_x + line_length * cos(cub->player->angle);
 	float end_y = player_pos_y + line_length * sin(cub->player->angle);
-	printf("curr x = %f, y = %f \n", cub->player->x_cur, cub->player->y_cur);
-	printf("start_x = %f, start_y = %f, end_x = %f, end_y = %f\n", player_pos_x, player_pos_y, end_x, end_y);
+	// printf("curr x = %f, y = %f \n", cub->player->x_cur, cub->player->y_cur);
+	// printf("start_x = %f, start_y = %f, end_x = %f, end_y = %f\n", player_pos_x, player_pos_y, end_x, end_y);
 	ft_draw_line(&cub->data->img, player_pos_x, player_pos_y, end_x, end_y, RED_COLOR);
 }
 
@@ -200,6 +200,7 @@ int	ft_key_press(int keycode, t_cub *cub)
 	}
 	cub->player->delta_x = cos(cub->player->angle);
 	cub->player->delta_y = sin(cub->player->angle);
+	ft_render(cub);
 	// printf("Player position: x = %f, y = %f angle = %f\n", cub->player->x_cur, cub->player->y_cur, cub->player->angle);
 	return (0);
 }
@@ -232,7 +233,8 @@ void	ft_init_player(t_cub *cub)
 void	ft_project(t_cub *cub)
 {
 	ft_init_player(cub);
-	mlx_loop_hook(cub->data->mlx_ptr, ft_render, cub);
+	ft_render(cub);
+	// mlx_loop_hook(cub->data->mlx_ptr, ft_render, cub);
 	mlx_hook(cub->data->win_ptr, KeyPress, KeyPressMask, ft_key_press, cub);
 	mlx_hook(cub->data->win_ptr, 17, (1L << 17), ft_handle_red_cross, cub);
 	mlx_hook(cub->data->win_ptr, KeyRelease, KeyReleaseMask, NULL, cub);
