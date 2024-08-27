@@ -6,7 +6,7 @@
 /*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:15:51 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/23 17:57:02 by tookops          ###   ########.fr       */
+/*   Updated: 2024/08/26 02:12:27 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void ft_draw_line(t_img *img, float x0, float y0, float x1, float y1, int color)
             err += dx;
             y0 += sy * tolerance;
         }
-		if (fabs(x0 - x1) < 2 && fabs(y0 - y1) < 2)
-			printf("x0 = %f, y0 = %f x1= %f, y1 = %f \n", x0, y0, x1, y1);
+		// if (fabs(x0 - x1) < 2 && fabs(y0 - y1) < 2)
+		// 	// printf("x0 = %f, y0 = %f x1= %f, y1 = %f \n", x0, y0, x1, y1);
     }
 }
 
@@ -103,16 +103,16 @@ void	ft_draw_map(t_cub *cub)
 {
 	size_t		x;
 	size_t		y;
-	// int 	start_x;
-	// int 	start_y;
+	int 	start_x;
+	int 	start_y;
 	float	pos_x;
 	float	pos_y;
 	//minimap scale
-	// start_x = WIN_WIDTH - MINIMAP_SIZE + (MINIMAP_SIZE - cub->parse->map_width * cub->player->minimap_scale) / 2;
-	// start_y = WIN_HEIGTH - MINIMAP_SIZE + (MINIMAP_SIZE - cub->parse->map_height * cub->player->minimap_scale) / 2;
+	start_x = WIN_WIDTH - MINIMAP_SIZE + (MINIMAP_SIZE - cub->parse->map_width * cub->player->minimap_scale) / 2;
+	start_y = WIN_HEIGTH - MINIMAP_SIZE + (MINIMAP_SIZE - cub->parse->map_height * cub->player->minimap_scale) / 2;
 
 	//full window scale
-	cub->player->minimap_scale = fmin(WIN_WIDTH / cub->parse->map_width, WIN_HEIGTH / cub->parse->map_height);
+	// cub->player->minimap_scale = fmin(WIN_WIDTH / cub->parse->map_width, WIN_HEIGTH / cub->parse->map_height);
 
 	
 	y = 0;
@@ -122,11 +122,11 @@ void	ft_draw_map(t_cub *cub)
 		while (x < cub->parse->map_width)
 		{
 			//minimap scale
-			// pos_x = start_x + x * cub->player->minimap_scale;
-			// pos_y = start_y + y * cub->player->minimap_scale;
+			pos_x = start_x + x * cub->player->minimap_scale;
+			pos_y = start_y + y * cub->player->minimap_scale;
 			//full window scale 
-			pos_x = x * cub->player->minimap_scale;
-            pos_y = y * cub->player->minimap_scale;
+			// pos_x = x * cub->player->minimap_scale;
+            // pos_y = y * cub->player->minimap_scale;
 			if (cub->map[y][x].value == '1')
 				ft_draw_tiles(cub, pos_x, pos_y, BLACK_COLOR);
 			else
@@ -136,9 +136,9 @@ void	ft_draw_map(t_cub *cub)
 		y++;
 	}
 	//minimap scale
-	// ft_draw_player_minimap(cub, start_x, start_y);
+	ft_draw_player_minimap(cub, start_x, start_y);
 	//full window scale
-	ft_draw_player_minimap(cub, 0, 0);
+	// ft_draw_player_minimap(cub, 0, 0);
 }
 
 void	ft_render_background(t_cub *cub, int color)
@@ -162,8 +162,8 @@ void	ft_render_background(t_cub *cub, int color)
 int	ft_render(t_cub *cub)
 {
 	ft_render_background(cub, GREY_COLOR);
-	ft_draw_map(cub);
 	ft_cast_rays(cub);
+	ft_draw_map(cub);
 	mlx_put_image_to_window(cub->data->mlx_ptr, cub->data->win_ptr, cub->data->img.mlx_img, 0, 0);
 	return (0);
 }
@@ -189,13 +189,13 @@ int	ft_key_press(int keycode, t_cub *cub)
 	}
 	if (keycode == XK_a || keycode == XK_A)
 	{
-		cub->player->angle -= RAD;
+		cub->player->angle -= ROTATION_SPEED;
 		if (cub->player->angle < 0)
 			cub->player->angle += 2 * PI;
 	}
 	if (keycode == XK_d || keycode == XK_D)
 	{
-		cub->player->angle += RAD;
+		cub->player->angle += ROTATION_SPEED;
 		if (cub->player->angle > 2 * PI)
 			cub->player->angle -= 2 * PI;
 	}
@@ -228,7 +228,7 @@ void	ft_init_player(t_cub *cub)
 		cub->player->angle = EAST_ANGLE;
 	cub->player->delta_x = cos(cub->player->angle);
 	cub->player->delta_y = sin(cub->player->angle);
-	printf("player start position: x = %f, y = %f, \n", cub->player->x_cur, cub->player->y_cur);
+	// printf("player start position: x = %f, y = %f, \n", cub->player->x_cur, cub->player->y_cur);
 }
 
 void	ft_project(t_cub *cub)

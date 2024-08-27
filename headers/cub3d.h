@@ -6,7 +6,7 @@
 /*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/23 17:53:57 by tookops          ###   ########.fr       */
+/*   Updated: 2024/08/26 01:29:42 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,8 @@
 // total_newline = nombre de lignes vides
 # define WIN_HEIGTH 800
 # define WIN_WIDTH 1500
-
 # define MINIMAP_SIZE 300
-# define PLAYER_SIZE 0.1
-# define FOV 60
-# define PI 3.14159265359
-# define STEP_SIZE 0.1
+
 
 # define RED_COLOR 0xFF0000
 # define GREEN_COLOR 0xEFFBEF
@@ -48,12 +44,19 @@
 # define BLACK_COLOR 0x000000
 # define GREY_COLOR 0x808080
 
+# define PI 3.14159265359
 # define RAD 0.0174533
 # define TOL 0.0001
+
 # define NORTH_ANGLE (3 * PI / 2)
 # define SOUTH_ANGLE (PI / 2)
 # define WEST_ANGLE PI
 # define EAST_ANGLE 0
+
+# define PLAYER_SIZE 0.65
+# define FOV 60
+# define STEP_SIZE 0.1
+# define ROTATION_SPEED (RAD * 5)
 
 typedef struct s_rgb
 {
