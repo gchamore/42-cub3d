@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/26 01:29:42 by tookops          ###   ########.fr       */
+/*   Updated: 2024/08/27 16:56:04 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,25 @@
 # define FOV 60
 # define STEP_SIZE 0.1
 # define ROTATION_SPEED (RAD * 5)
+
+typedef enum e_dir
+{
+	NORTH = 0,
+	SOUTH = 1,
+	WEST = 2,
+	EAST = 3
+}	t_dir;
+
+typedef struct s_texture
+{
+	void		*img_ptr[4];
+	char		*addr[4];
+	int			bpp[4];
+	int			line_len[4];
+	int			endian[4];
+	int			width[4];
+	int			height[4];
+}	t_texture;
 
 typedef struct s_rgb
 {
@@ -127,6 +146,7 @@ typedef struct s_cub
 	t_data		*data;
 	t_parse		*parse;
 	t_player	*player;
+	t_texture	*texture;
 }	t_cub;
 
 //////////////////////////

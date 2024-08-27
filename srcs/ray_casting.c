@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:37:13 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/26 02:55:49 by tookops          ###   ########.fr       */
+/*   Updated: 2024/08/27 16:57:59 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,17 @@ float	ft_distance(float x0, float y0, float x1, float y1)
 {
 	return (sqrt(pow(x1 - x0, 2) + pow(y1 - y0, 2)));
 }
-void	ft_draw_wall(t_img *img, int x, int line_height, int color)
+void	ft_draw_wall(t_img *img, t_texture *texture, int x, int line_height, int tex_x, t_dir dir)
 {
 	int y_start;
 	int y_end;
+	int tex_y;
+	int adjusted_tex_x;
 	int i;
+	int color;
+	float step;
+	float tex_pos;
+	float tex_x_step;
 
 	i = 0;
 	y_start = (WIN_HEIGTH / 2) - (line_height / 2);
@@ -29,10 +35,18 @@ void	ft_draw_wall(t_img *img, int x, int line_height, int color)
 		y_start = 0;
 	if (y_end >= WIN_HEIGTH)
 		y_end = WIN_HEIGTH - 1;
+		
+	step = 1.0 * texture->height[dir] / line_height;
+	tex_pos = (y_start - WIN_HEIGTH / 2 + line_height / 2) * step;
+	tex_x_step = (float)texture->width[dir] / 25;
 	while (y_start < y_end)
 	{
+		tex_y = (int)tex_pos & (texture->height[dir] - 1);
+		tex_pos += step;
 		while (i < 25)
 		{
+			adjusted_tex_x = (int)(tex_x + i * tex_x_step) % texture->width[dir];
+			color = *(int *)(texture->addr[dir] + (tex_y * texture->line_len[dir] + adjusted_tex_x * (texture->bpp[dir] / 8)));
 			ft_mpp(img, x + i, y_start, color);
 			i++;
 		}
@@ -59,6 +73,7 @@ void	ft_cast_rays(t_cub *cub)
 	float y_h;
 	float x_v;
 	float y_v;
+	t_dir dir;
 	
 	r = 0;
 	ra = cub->player->angle - RAD * 30;
@@ -163,18 +178,32 @@ void	ft_cast_rays(t_cub *cub)
 			} 
 			// printf("Step %d: angle %f rx = %f, ry = %f, mx = %d, my = %d\n", dof, cub->player->angle, rx, ry, mx, my);
 		}
-		if (dist_v < dist_h)
+		float wall_hit_x;
+		if (dist_v < dist_h) //vertical hit E W
 		{
 			rx = x_v;
 			ry = y_v;
-			dist_f = dist_v;
+			if (cub->player->angle > SOUTH_ANGLE || cub->player->angle < NORTH_ANGLE)
+				dir = EAST;
+			else
+				dir = WEST;
+			wall_hit_x = cub->player->y_cur + dist_v * sin(cub->player->angle);
 		}
-		if (dist_h < dist_v)
+		if (dist_h < dist_v) //horizontal hit N S
 		{
 			rx = x_h;
 			ry = y_h;
-			dist_f = dist_h;
+			if (cub->player->angle > WEST_ANGLE)
+				dir = NORTH;
+			else
+				dir = SOUTH;
+			wall_hit_x = cub->player->x_cur + dist_h * cos(cub->player->angle);
 		}
+		wall_hit_x -= floor(wall_hit_x);
+		int tex_x = (int)(wall_hit_x * (float)64);
+		if ((dist_v < dist_h && cub->player->angle > SOUTH_ANGLE + TOL && cub->player->angle < NORTH_ANGLE - TOL) || 
+		(dist_h < dist_v && cub->player->angle > WEST_ANGLE + TOL))
+			tex_x = 64 - tex_x - 1;
 		// ft_draw_line(&cub->data->img, player_pos_x, player_pos_y, rx, ry, BLUE_COLOR);
 		// draw 3D walls
 		float ca = cub->player->angle - ra;
@@ -185,7 +214,7 @@ void	ft_cast_rays(t_cub *cub)
 		dist_f = dist_f * cos(ca);
 		float line_height = (WIN_HEIGTH / dist_f) * 15;
 		float line_offset = (WIN_HEIGTH / 2) - line_height / 2;
-		ft_draw_wall(&cub->data->img, r * 25, line_height + line_offset , BLUE_COLOR);
+		ft_draw_wall(&cub->data->img, cub->texture, r * 25, line_height + line_offset, tex_x, dir);
 		ra += RAD;
 		if (ra < 0)
 			ra += 2 * PI;

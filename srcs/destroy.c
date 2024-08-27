@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:24:45 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/19 16:19:44 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:57:28 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ void	ft_free_cub(t_cub *cub)
 			}
 			free(cub->parse);
 			cub->parse = NULL;
+		}
+		if (cub->texture)
+		{
+			free(cub->texture);
+			cub->texture = NULL;
 		}
 		free(cub);
 		cub = NULL;
