@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/27 16:56:04 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/28 22:36:49 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@
 
 # define PLAYER_SIZE 0.65
 # define FOV 60
-# define STEP_SIZE 0.1
+# define STEP_SIZE 0.05
 # define ROTATION_SPEED (RAD * 5)
 
 typedef enum e_dir

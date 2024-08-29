@@ -6,7 +6,7 @@
 /*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:37:13 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/28 19:04:52 by tookops          ###   ########.fr       */
+/*   Updated: 2024/08/28 23:42:29 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ void	ft_cast_rays(t_cub *cub)
 	float x_v;
 	float y_v;
 	float ray_step;
+	float wall_hit_x;
 	t_dir dir;
 	
 	r = 0;
-	ray_step = 60.0 * RAD / WIN_WIDTH;
+	ray_step = (60.0 * RAD) / WIN_WIDTH;
 	ra = cub->player->angle - RAD * 30;
 	if (ra < 0)
 		ra += 2 * PI;
@@ -79,7 +80,9 @@ void	ft_cast_rays(t_cub *cub)
 	{
 		// horizontal lines
 		dof = 0;
-		dist_h = 10000000;
+		dist_h = 1000;
+		dist_f = 0;
+		wall_hit_x = 0.0f;
 		x_h = player_pos_x;
 		y_h = player_pos_y;
 		float aTan = -1 / tan(ra);
@@ -97,10 +100,22 @@ void	ft_cast_rays(t_cub *cub)
 			yo = 1;
 			xo = -yo * aTan;
 		}
-		else // looking straight left or right
+		else if (fabs(ra) < TOL || fabs(ra - 2 * PI) < TOL) // East
 		{
-			rx = player_pos_x;
 			ry = player_pos_y;
+			rx = floor(player_pos_x) + 1.0;
+			dist_f = (rx - player_pos_x) / fabs(cos(ra));
+			wall_hit_x = fmod(ry, 1.0f);
+			dir = EAST;
+			dof = 8;
+		}
+		else if (fabs(ra - PI) < TOL)
+		{
+			ry = player_pos_y;
+			rx = floor(player_pos_x);
+			dist_f = (rx - player_pos_x) / fabs(cos(ra));
+			wall_hit_x = fmod(ry, 1.0f);
+			dir = WEST;
 			dof = 8;
 		}
 		// printf("Initial values: rx = %f, ry = %f, xo = %f, yo = %f\n", rx, ry, xo, yo);
@@ -113,6 +128,8 @@ void	ft_cast_rays(t_cub *cub)
 				x_h = rx;
 				y_h = ry;
 				dist_h = ft_distance(player_pos_x, player_pos_y, x_h, y_h);
+				// if (r > 500 && r < 1000)
+				// 	printf("horizontal dist_h = %f rx = %f, ry = %f\n", dist_h, rx, ry);
 				dof = 8;
 			}
 			else
@@ -126,11 +143,11 @@ void	ft_cast_rays(t_cub *cub)
 
 		// vertical lines
 		dof = 0;
-		dist_v = 10000000;
+		dist_v = 1000;
 		x_v = player_pos_x;
 		y_v = player_pos_y;
 		float nTan = -tan(ra);
-		if (ra > SOUTH_ANGLE + TOL && ra < NORTH_ANGLE - TOL) // looking left
+		if (ra > SOUTH_ANGLE + TOL  && ra < NORTH_ANGLE - TOL) // looking left
 		{
 			rx = floor(player_pos_x) - 0.0001; // offset to the top of the grid line
 			ry = (player_pos_x - rx) * nTan + player_pos_y;
@@ -144,10 +161,22 @@ void	ft_cast_rays(t_cub *cub)
 			xo = 1;
 			yo = -xo * nTan;
 		}
-		else // looking straight up or down
+		else if (fabs(ra - PI / 2) < TOL) // North
 		{
 			rx = player_pos_x;
-			ry = player_pos_y;
+			ry = floor(player_pos_y);
+			dist_f = (player_pos_y - ry) / fabs(sin(ra));
+			dir = NORTH;
+			wall_hit_x = fmod(rx, 1.0f);
+			dof = 8;
+		}
+		else if (fabs(ra - 3 * PI / 2) < TOL) // South
+		{
+			rx = player_pos_x;
+			ry = floor(player_pos_y) + 1.0;
+			dist_f = (player_pos_y - ry) / fabs(sin(ra));
+			dir = SOUTH;
+			wall_hit_x = fmod(rx, 1.0f);
 			dof = 8;
 		}
 		// printf("Initial values: rx = %f, ry = %f, xo = %f, yo = %f\n", rx, ry, xo, yo);
@@ -160,6 +189,8 @@ void	ft_cast_rays(t_cub *cub)
 				x_v = rx;
 				y_v = ry;
 				dist_v = ft_distance(player_pos_x, player_pos_y, x_v, y_v);
+				// if (r > 500 && r < 1000)
+				// 	printf("vertical dist_h = %f rx = %f, ry = %f\n", dist_h, rx, ry);
 				dof = 8;
 			}
 			else
@@ -170,8 +201,7 @@ void	ft_cast_rays(t_cub *cub)
 			}
 			// printf("Step %d: angle %f rx = %f, ry = %f, mx = %d, my = %d\n", dof, cub->player->angle, rx, ry, mx, my);
 		}
-		float wall_hit_x;
-		if (dist_v < dist_h) // vertical hit E W
+		if (dist_v < dist_h && !dist_f) // vertical hit E W
 		{
 			rx = x_v;
 			ry = y_v;
@@ -182,7 +212,7 @@ void	ft_cast_rays(t_cub *cub)
 			dist_f = dist_v;
 			wall_hit_x = fmod(ry, 1.0f);
 		}
-		if (dist_h <= dist_v) // horizontal hit N S
+		if (dist_h < dist_v && !dist_f) // horizontal hit N S
 		{
 			rx = x_h;
 			ry = y_h;
@@ -192,11 +222,13 @@ void	ft_cast_rays(t_cub *cub)
 				dir = SOUTH;
 			dist_f = dist_h;
 			wall_hit_x = fmod(rx, 1.0f);
+			// if (r > 500 && r < 1000)
+			// 	printf("dist_f = %f dist_h = %f dist_v = %f\n", dist_f, dist_h, dist_v);
 		}
 		if (isnan(wall_hit_x))
 			wall_hit_x = 0.0f;
 		wall_hit_x -= floor(wall_hit_x);
-		int tex_x = (int)(wall_hit_x * cub->texture->width[dir]);
+		int tex_x = (int)(wall_hit_x * 64);
 		if ((dist_v < dist_h && ra > SOUTH_ANGLE + TOL && ra < NORTH_ANGLE - TOL) ||
 			(dist_h < dist_v && ra > WEST_ANGLE + TOL))
 			tex_x = cub->texture->width[dir] - tex_x - 1;
