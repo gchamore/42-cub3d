@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:37:13 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/28 23:42:29 by tookops          ###   ########.fr       */
+/*   Updated: 2024/08/29 18:24:12 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	ft_cast_rays(t_cub *cub)
 			dir = EAST;
 			dof = 8;
 		}
-		else if (fabs(ra - PI) < TOL)
+		else if (fabs(ra - PI) < TOL) // West
 		{
 			ry = player_pos_y;
 			rx = floor(player_pos_x);
@@ -222,8 +222,8 @@ void	ft_cast_rays(t_cub *cub)
 				dir = SOUTH;
 			dist_f = dist_h;
 			wall_hit_x = fmod(rx, 1.0f);
-			// if (r > 500 && r < 1000)
-			// 	printf("dist_f = %f dist_h = %f dist_v = %f\n", dist_f, dist_h, dist_v);
+			if (r > 500 && r < 1000)
+				printf("dist_f = %f dist_h = %f dist_v = %f\n", dist_f, dist_h, dist_v);
 		}
 		if (isnan(wall_hit_x))
 			wall_hit_x = 0.0f;
