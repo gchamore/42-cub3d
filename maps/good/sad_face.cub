@@ -1,7 +1,7 @@
-NO textures/simonkraft/soul_sand.xpm
-SO textures/simonkraft/soul_soil_01.xpm
-WE textures/simonkraft/soul_soil.xpm
-EA textures/simonkraft/soul_sand.xpm
+NO textures/xpm/wood.xpm
+SO textures/xpm/eagle.xpm
+WE textures/xpm/redbrick.xpm
+EA textures/xpm/mossy.xpm
 
 C 53,41,34
 F 45,33,27

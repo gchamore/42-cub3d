@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   project.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:15:51 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/28 18:40:58 by tookops          ###   ########.fr       */
+/*   Updated: 2024/08/30 18:03:20 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,11 +189,21 @@ int	ft_key_press(int keycode, t_cub *cub)
 	}
 	if (keycode == XK_a || keycode == XK_A)
 	{
+		cub->player->x_cur += cub->player->delta_y * STEP_SIZE;
+		cub->player->y_cur -= cub->player->delta_x * STEP_SIZE;
+	}
+	if (keycode == XK_d || keycode == XK_D)
+	{
+		cub->player->x_cur -= cub->player->delta_y * STEP_SIZE;
+		cub->player->y_cur += cub->player->delta_x * STEP_SIZE;
+	}
+	if (keycode == XK_Left)
+	{
 		cub->player->angle -= ROTATION_SPEED;
 		if (cub->player->angle < 0)
 			cub->player->angle += 2 * PI;
 	}
-	if (keycode == XK_d || keycode == XK_D)
+	if (keycode == XK_Right)
 	{
 		cub->player->angle += ROTATION_SPEED;
 		if (cub->player->angle > 2 * PI)
