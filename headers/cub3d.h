@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/29 18:20:16 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/30 17:29:22 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 
 # define PI 3.14159265359
 # define RAD 0.0174533
-# define TOL 0.000001
+# define TOL 0.01
 
 # define NORTH_ANGLE (3 * PI / 2)
 # define SOUTH_ANGLE (PI / 2)
