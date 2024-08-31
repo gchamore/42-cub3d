@@ -6,7 +6,7 @@
 /*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:37:13 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/31 04:38:32 by tookops          ###   ########.fr       */
+/*   Updated: 2024/08/31 04:44:45 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void ft_draw_wall(t_cub *cub, int x, t_draw_wall *draw_wall)
     tex_pos = (y_start - WIN_HEIGTH / 2 + draw_wall->line_height / 2) * step;
    	while (y < WIN_HEIGTH && y < y_end)
     {
-		if (y <= y_start) // ceiling
+		if (y < y_start) // ceiling
 			ft_mpp(&cub->data->img, x, y, ft_rgb_to_int(cub->parse->C));
-		else if (y > y_start && y < y_end)
+		else if (y >= y_start && y <= y_end)
 		{
         tex_y = (int)tex_pos % cub->texture->height[draw_wall->dir];
 		tex_pos += step;
@@ -52,7 +52,7 @@ void ft_draw_wall(t_cub *cub, int x, t_draw_wall *draw_wall)
 		ft_mpp(&cub->data->img, x, y_start, color);
 		y_start++;
 		}
-		else if ( y >= y_end) // floor
+		else if ( y > y_end) // floor
 			ft_mpp(&cub->data->img, x, y, ft_rgb_to_int(cub->parse->F));
 		y++;
     }
@@ -267,6 +267,19 @@ void	ft_dir_dist(t_raycasting *ray, t_draw_wall *draw_wall )
 		ray->wall_hit_x -= floor(ray->wall_hit_x);
 }
 
+void	ft_calculate_texture(t_cub *cub, t_raycasting *ray, t_draw_wall *draw_wall)
+{
+	draw_wall->tex_x = (int)(ray->wall_hit_x * 64);
+	if ((ray->dist_v < ray->dist_h && ray->ra > SOUTH_ANGLE + TOL && ray->ra < NORTH_ANGLE - TOL) ||
+		(ray->dist_h < ray->dist_v && ray->ra > WEST_ANGLE + TOL))
+		draw_wall->tex_x = cub->texture->width[draw_wall->dir] - draw_wall->tex_x - 1;
+	ray->ca = cub->player->angle - ray->ra;
+	ft_check_limits(&ray->ca);
+	ray->dist_f = ray->dist_f * cos(ray->ca);
+	ray->dist_f = ray->dist_f * ray->aspect_ratio;
+	draw_wall->line_height = (WIN_HEIGTH / ray->dist_f);
+}
+
 void	ft_cast_rays(t_cub *cub)
 {
 	int r;
@@ -282,19 +295,10 @@ void	ft_cast_rays(t_cub *cub)
 		ft_horizontal_casting(cub, ray, draw_wall);
 		ft_vertical_casting(cub, ray, draw_wall);
 		ft_dir_dist(ray, draw_wall);
-		draw_wall->tex_x = (int)(ray->wall_hit_x * 64);
-		if ((ray->dist_v < ray->dist_h && ray->ra > SOUTH_ANGLE + TOL && ray->ra < NORTH_ANGLE - TOL) ||
-			(ray->dist_h < ray->dist_v && ray->ra > WEST_ANGLE + TOL))
-			draw_wall->tex_x = cub->texture->width[draw_wall->dir] - draw_wall->tex_x - 1;
-		ray->ca = cub->player->angle - ray->ra;
-		ft_check_limits(&ray->ca);
-		ray->dist_f = ray->dist_f * cos(ray->ca);
-		ray->dist_f = ray->dist_f * ray->aspect_ratio;
-		draw_wall->line_height = (WIN_HEIGTH / ray->dist_f);
+		ft_calculate_texture(cub, ray, draw_wall);
 		ft_draw_wall(cub, r, draw_wall);
 		ray->ra += ray->ray_step;
 		ft_check_limits(&ray->ra);
 		r++;
 	}
 }
-
