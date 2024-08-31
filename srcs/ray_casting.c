@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:37:13 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/30 17:49:25 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/31 03:18:56 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,48 @@ void ft_draw_wall(t_img *img, t_texture *texture, int x, int line_height, int te
 {
     int y_start;
     int y_end;
+	int y;
     int tex_y;
     int color;
     float step;
     float tex_pos;
 
+	y = 0;
     y_start = (WIN_HEIGTH / 2) - (line_height / 2);
     y_end = (WIN_HEIGTH / 2) + (line_height / 2);
     if (y_start < 0)
         y_start = 0;
     if (y_end >= WIN_HEIGTH)
         y_end = WIN_HEIGTH - 1;
-
     step = 1.0 * texture->height[dir] / line_height;
     tex_pos = (y_start - WIN_HEIGTH / 2 + line_height / 2) * step;
-
-   while (y_start < y_end)
+	while (y < y_start)
+	{
+		ft_mpp(img, x, y, WHITE_COLOR);
+		y++;
+	}
+   	while (y < WIN_HEIGTH && y < y_end)
     {
+		if (y <= y_start) // ceiling
+			ft_mpp(img, x, y, BLACK_COLOR);
+		else if (y > y_start && y < y_end)
+		{
         tex_y = (int)tex_pos % texture->height[dir];
 		tex_pos += step;
 		color = *(int *)(texture->addr[dir] + (tex_y * texture->line_len[dir] + tex_x * (texture->bpp[dir] / 8)));
 		ft_mpp(img, x, y_start, color);
 		y_start++;
+		}
+		else // floor
+			ft_mpp(img, x, y, BLACK_COLOR);
+		y++;
     }
+	y = y_end;
+	while (y < WIN_HEIGTH)
+	{
+		ft_mpp(img, x, y, BLACK_COLOR);
+		y++;
+	}
 }
 
 void	ft_cast_rays(t_cub *cub)
