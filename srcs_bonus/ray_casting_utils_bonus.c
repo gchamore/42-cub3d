@@ -6,7 +6,7 @@
 /*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:38:32 by tookops           #+#    #+#             */
-/*   Updated: 2024/08/31 20:48:04 by tookops          ###   ########.fr       */
+/*   Updated: 2024/08/31 16:41:22 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ float	ft_distance(float x0, float y0, float x1, float y1)
 	return (sqrt(pow(x1 - x0, 2) + pow(y1 - y0, 2)));
 }
 
-int	ft_rgb_to_int(t_rgb rgb)
+int ft_rgb_to_int(t_rgb rgb)
 {
 	return (rgb.r << 16 | rgb.g << 8 | rgb.b);
 }
@@ -29,6 +29,7 @@ void	ft_check_limits(float *ra)
 	if (*ra > 2 * PI)
 		*ra -= 2 * PI;
 }
+
 
 void	ft_init_raycasting(t_cub *cub, t_raycasting **ray)
 {
@@ -59,8 +60,7 @@ void	ft_init_raycasting(t_cub *cub, t_raycasting **ray)
 	(*ray)->ca = 0.0f;
 }
 
-void	ft_init_structs_raycasting(t_raycasting **ray, \
-t_draw_wall **draw_wall, t_cub *cub)
+void	ft_init_structs_raycasting(t_raycasting **ray, t_draw_wall **draw_wall, t_cub *cub)
 {
 	ft_init_raycasting(cub, ray);
 	*draw_wall = malloc(sizeof(t_draw_wall));

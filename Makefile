@@ -6,7 +6,7 @@
 #    By: tookops <tookops@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 09:49:54 by gchamore          #+#    #+#              #
-#    Updated: 2024/08/31 16:43:39 by tookops          ###   ########.fr        #
+#    Updated: 2024/08/31 20:44:04 by tookops          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ SRCS = $(addprefix $(SRCS_DIR)/,	\
 	destroy.c						\
 	error.c							\
 	project.c						\
+	project_key.c					\
+	project_utils.c					\
 	mlx_utils.c						\
 	ray_casting.c					\
 	ray_casting_utils.c				\

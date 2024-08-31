@@ -6,7 +6,7 @@
 /*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/31 16:45:28 by tookops          ###   ########.fr       */
+/*   Updated: 2024/08/31 20:57:08 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_raycasting
 	float 	wall_hit_x;
 	float aspect_ratio;
 	float 	aTan;
+	float 	nTan;
 	float 	ca;
 }	t_raycasting;
 
@@ -259,6 +260,18 @@ void	ft_error(t_cub *cub, char *str, size_t x, size_t y);
 void	ft_project(t_cub *cub);
 void 	ft_draw_line(t_img *img, float x0, float y0, float x1, float y1, int color);
 
+//project_utils.c
+void	ft_draw_tiles(t_cub *cub, float pos_x, float pos_y, int color);
+int	ft_handle_red_cross(t_cub *cub);
+void	ft_handle_esc(t_cub *cub);
+
+//project_key.c
+void	ft_handle_w(t_cub *cub);
+void	ft_handle_s(t_cub *cub);
+void	ft_handle_a(t_cub *cub);
+void	ft_handle_d(t_cub *cub);
+void	ft_handle_left_right(t_cub *cub, int keycode);
+
 //mlx_utils.c
 int		ft_init_mlx(t_cub *cub);
 void	ft_mpp(t_img *img, int x, int y, int color);
@@ -268,15 +281,22 @@ void	ft_cast_rays(t_cub *cub);
 
 //ray_casting_utils.c
 float	ft_distance(float x0, float y0, float x1, float y1);
-int ft_rgb_to_int(t_rgb rgb);
+int 	ft_rgb_to_int(t_rgb rgb);
 void	ft_check_limits(float *ra);
 void	ft_init_raycasting(t_cub *cub, t_raycasting **ray);
 void	ft_init_structs_raycasting(t_raycasting **ray, t_draw_wall **draw_wall, t_cub *cub);
 
 //ray_casting_utils_2.c
 void	ft_ray_path_hor(t_cub *cub, t_raycasting *ray);
-void	ft_angle_EW(t_raycasting *ray, t_draw_wall *draw_wall);
+void	ft_angle_ew(t_raycasting *ray, t_draw_wall *draw_wall);
 void	ft_ray_path_ver(t_cub *cub, t_raycasting *ray);
-void	ft_angle_NS(t_raycasting *ray, t_draw_wall *draw_wall);
+void	ft_angle_ns(t_raycasting *ray, t_draw_wall *draw_wall);
+void	ft_destroy_structs_raycasting(t_raycasting **ray, t_draw_wall **draw_wall);
+
+
+//texture.c
+void 	ft_draw_wall(t_cub *cub, int x, t_draw_wall *draw_wall);
+void 	ft_calculate_texture(t_cub *cub, t_draw_wall *draw_wall);
+void	ft_calculate_tex_dist(t_cub *cub, t_raycasting *ray, t_draw_wall *draw_wall);
 
 #endif
