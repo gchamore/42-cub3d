@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   project.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:15:51 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/30 18:03:20 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/31 05:55:58 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	ft_draw_tiles(t_cub *cub, float pos_x, float pos_y, int color)
 	int	j;
 
 	i = 1;
-	while (i < cub->player->minimap_scale -1)
+	while (i < cub->player->minimap_scale)
 	{
 		j = 1;
-		while (j < cub->player->minimap_scale -1)
+		while (j < cub->player->minimap_scale)
 		{
 			ft_mpp(&cub->data->img, pos_x + j, pos_y + i, color);
 			j++;

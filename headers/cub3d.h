@@ -6,7 +6,7 @@
 /*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/31 04:21:28 by tookops          ###   ########.fr       */
+/*   Updated: 2024/08/31 16:45:28 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,5 +265,18 @@ void	ft_mpp(t_img *img, int x, int y, int color);
 
 //ray_casting.c
 void	ft_cast_rays(t_cub *cub);
+
+//ray_casting_utils.c
+float	ft_distance(float x0, float y0, float x1, float y1);
+int ft_rgb_to_int(t_rgb rgb);
+void	ft_check_limits(float *ra);
+void	ft_init_raycasting(t_cub *cub, t_raycasting **ray);
+void	ft_init_structs_raycasting(t_raycasting **ray, t_draw_wall **draw_wall, t_cub *cub);
+
+//ray_casting_utils_2.c
+void	ft_ray_path_hor(t_cub *cub, t_raycasting *ray);
+void	ft_angle_EW(t_raycasting *ray, t_draw_wall *draw_wall);
+void	ft_ray_path_ver(t_cub *cub, t_raycasting *ray);
+void	ft_angle_NS(t_raycasting *ray, t_draw_wall *draw_wall);
 
 #endif
