@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/30 17:29:22 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/31 04:21:28 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,47 @@ typedef enum e_dir
 	WEST = 2,
 	EAST = 3
 }	t_dir;
+
+typedef struct s_raycasting
+{
+	int 	mx;
+	int 	my;
+	int 	dof;
+	int 	max_dof;
+	float 	rx;
+	float 	ry;
+	float 	ra;
+	float 	xo;
+	float 	yo;
+	float 	dist_h;
+	float 	dist_v;
+	float 	dist_f;
+	float 	x_h;
+	float 	y_h;
+	float 	x_v;
+	float 	y_v;
+	float 	player_x;
+	float 	player_y;
+	float 	ray_step;
+	float 	wall_hit_x;
+	float aspect_ratio;
+	float 	aTan;
+	float 	ca;
+}	t_raycasting;
+
+typedef struct s_draw_wall
+{
+	int 	y_start;
+	int 	y_end;
+	int 	y;
+	int 	tex_x;
+	int 	tex_y;
+	int 	color;
+	int 	line_height;
+	float 	step;
+	float 	tex_pos;
+	t_dir 	dir;
+}	t_draw_wall;
 
 typedef struct s_texture
 {
