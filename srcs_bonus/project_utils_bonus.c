@@ -6,7 +6,7 @@
 /*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:34:07 by tookops           #+#    #+#             */
-/*   Updated: 2024/09/02 17:13:06 by tookops          ###   ########.fr       */
+/*   Updated: 2024/09/02 17:28:23 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,24 +116,20 @@ int	ft_mouse(int x, int y, t_cub *cub)
 	long	cur_time;
 
 	(void)y;
-	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGTH)
-	{
-		mlx_mouse_move(cub->data->mlx_ptr ,cub->data->win_ptr, (int)(WIN_WIDTH / 2), (int)(WIN_HEIGTH / 2));
-		cub->player->mousse_x = WIN_WIDTH / 2;
-		return (0);	
-	}
+	if (x < 0 || x >= WIN_WIDTH)
+		return (cub->player->mousse_x = WIN_WIDTH / 2, 0);	
 	if (cub->player->mousse_x == -1)
 	{
 		cub->player->mousse_x = x;
 		cub->player->last_render = ft_get_time();
 		return (0);
 	}
-	rotation_speed = (x - cub->player->mousse_x) * 0.01;
+	rotation_speed = (x - cub->player->mousse_x) * 0.007;
 	cub->player->mousse_x = x;
 	cub->player->angle += rotation_speed;
 	ft_check_limits(&cub->player->angle);
 	cur_time = ft_get_time();
-	if (cur_time - cub->player->last_render > 25)
+	if (cur_time - cub->player->last_render > 45)
 	{
 		ft_render(cub);
 		cub->player->last_render = cur_time;
