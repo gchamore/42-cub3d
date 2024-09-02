@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:38:32 by tookops           #+#    #+#             */
-/*   Updated: 2024/09/02 07:52:22 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/02 10:37:23 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ float	ft_distance(float x0, float y0, float x1, float y1)
 
 int	ft_rgb_to_int(t_rgb rgb)
 {
-	return (rgb.r << 16 | rgb.g << 8 | rgb.b);
+	return ((rgb.r << 16) | (rgb.g << 8) | rgb.b);
 }
 
 void	ft_check_limits(float *ra)
