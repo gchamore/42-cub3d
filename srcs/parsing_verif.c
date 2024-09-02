@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/02 14:05:50 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:44:46 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,14 +319,17 @@ void	ft_check_if_valid_map(t_cub *cub)
 	}
 }
 
-void	ft_check_data(t_cub *cub)
+void	ft_check_data(t_cub *cub, char *line)
 {
 	if (!cub->parse->NO || !cub->parse->SO || \
 	!cub->parse->WE || !cub->parse->EA || \
 	cub->parse->C.r <= -1 || cub->parse->C.g <= -1 || \
 	cub->parse->C.b <= -1 || cub->parse->F.r <= -1 || \
 	cub->parse->F.g <= -1 || cub->parse->F.b <= -1)
+	{
+		free(line);
 		ft_error(cub, "Missing data", -1, -1);
+	}
 }
 
 t_cell	**ft_verif_data(t_cub *cub, t_cell **map)
@@ -344,7 +347,7 @@ int	ft_check_line(t_cub *cub, char *line)
 
 	i = 0;
 	check = 0;
-	ft_check_data(cub);
+	ft_check_data(cub, line);
 	while (line[i])
 	{
 		if (!ft_is_delimiter(line[i]) && line[i] != '1' \

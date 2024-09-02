@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/23 17:39:11 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:31:11 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,32 +64,22 @@ void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height)
 }
 
 // split la map
-char	**ft_mod_split(char *str, t_cub *cub)
+char	**ft_mod_split(char *str, t_cub *cub, size_t i, int tmp)
 {
-    size_t		i;
     char	**split;
     size_t	len;
-	int		tmp;
 
-	i = 0;
-	tmp = 0;
     len = cub->parse->map_width;
     split = (char **)malloc(sizeof(char *) * (len + 1));
     if (!split)
-	{
         return (NULL);
-	}
     while (i < len)
     {
         split[i] = (char *)malloc(sizeof(char) * 2);
         if (!split[i])
-        {
-            while (i-- > 0)
-                free(split[i]);
-            free(split);
-            return (NULL);
-        }
-		if (((i >= ft_strlen(str) || str[i] == '\n' || str[i] == '\0') && (i < len)) || tmp == 1)
+            return (ft_free_split(split), NULL);
+		if (((i >= ft_strlen(str) || str[i] == '\n' || str[i] == '\0') && \
+        (i < len)) || tmp == 1)
 		{
 			split[i][0] = ' ';
 			tmp = 1;

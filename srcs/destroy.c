@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:24:45 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/23 13:26:38 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:15:39 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,15 @@ void	ft_free_split(char **split)
 	int	i;
 
 	i = 0;
-	if (split)
+	if (split && split[i])
 	{
 		while (split[i] != NULL)
 		{
 			free(split[i]);
+			split[i] = NULL;
 			i++;
 		}
 		free(split);
+		split = NULL;
 	}
 }

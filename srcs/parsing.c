@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/02 11:47:02 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:32:42 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,10 +140,10 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
 		if (!line)
 			return (ft_error(cub, "NULL line", -1, -1), NULL);
 	}
-	while (j <= cub->parse->total_height)
+	while (j <= (cub->parse->total_height - cub->parse->tmp_height))
 	{
 		line = ft_if_only_blanks(line);
-		if (line[0] == '\n' && cub->parse->tmp_height == 0)
+		if (line[0] == '\n')
 		{
 			free(line);
 			line = malloc((cub->parse->map_width + 1) * sizeof(char));
@@ -155,7 +155,7 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
 		if (ft_check_line(cub, line) == 1)
 		{
 			x = 0;
-			split = ft_mod_split(line, cub);
+			split = ft_mod_split(line, cub, 0, 0);
 			if (split == NULL)
 				return (ft_error(cub, "Split Alloc failed", -1, -1), NULL);
 			cub->map[y] = malloc(sizeof(t_cell) * (cub->parse->map_width + 1));

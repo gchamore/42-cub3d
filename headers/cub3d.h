@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/23 13:17:29 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:56:58 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	ft_print_used(t_cub *cub);
 
 //parsing_utils_1.c
 void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height);
-char	**ft_mod_split(char *str, t_cub *cub);
+char	**ft_mod_split(char *str, t_cub *cub, size_t i, int tmp);
 char	*ft_if_only_blanks(char *str);
 char	*ft_if_blanks(char *str);
 // char	*ft_if_blanks_after(char *str);
