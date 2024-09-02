@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:39:52 by tookops           #+#    #+#             */
-/*   Updated: 2024/09/02 09:22:52 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/02 10:20:39 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_handle_w(t_cub *cub)
 {
 	t_coord	new;
 	t_coord	cur;
-	
+
 	new.x = cub->player->x_cur + cub->player->delta_x * STEP_SIZE;
 	new.y = cub->player->y_cur + cub->player->delta_y * STEP_SIZE;
 	cur.x = cub->player->x_cur;
@@ -32,7 +32,7 @@ void	ft_handle_s(t_cub *cub)
 {
 	t_coord	new;
 	t_coord	cur;
-	
+
 	new.x = cub->player->x_cur - cub->player->delta_x * STEP_SIZE;
 	new.y = cub->player->y_cur - cub->player->delta_y * STEP_SIZE;
 	cur.x = cub->player->x_cur;
@@ -48,7 +48,7 @@ void	ft_handle_a(t_cub *cub)
 {
 	t_coord	new;
 	t_coord	cur;
-	
+
 	new.x = cub->player->x_cur + cub->player->delta_y * STEP_SIZE;
 	new.y = cub->player->y_cur - cub->player->delta_x * STEP_SIZE;
 	cur.x = cub->player->x_cur;
@@ -64,7 +64,7 @@ void	ft_handle_d(t_cub *cub)
 {
 	t_coord	new;
 	t_coord	cur;
-	
+
 	new.x = cub->player->x_cur - cub->player->delta_y * STEP_SIZE;
 	new.y = cub->player->y_cur + cub->player->delta_x * STEP_SIZE;
 	cur.x = cub->player->x_cur;

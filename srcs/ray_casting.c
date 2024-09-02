@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:37:13 by anferre           #+#    #+#             */
-/*   Updated: 2024/09/02 07:44:36 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/02 10:14:30 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_draw_wall *draw_wall)
 // get the shortest distance and the direction of the wall hit
 void	ft_dir_dist(t_raycasting *ray, t_draw_wall *draw_wall )
 {
-	if (ray->dist_v < ray->dist_h)
+	if (ray->dist_v < ray->dist_h - 0.0005)
 	{
 		ray->rx = ray->x_v;
 		ray->ry = ray->y_v;
@@ -79,7 +79,7 @@ void	ft_dir_dist(t_raycasting *ray, t_draw_wall *draw_wall )
 		ray->dist_f = ray->dist_v;
 		ray->wall_hit_x = fmod(ray->ry, 1.0f);
 	}
-	if (ray->dist_h <= ray->dist_v)
+	if (ray->dist_h <= ray->dist_v + 0.0005)
 	{
 		ray->rx = ray->x_h;
 		ray->ry = ray->y_h;
