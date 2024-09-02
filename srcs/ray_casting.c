@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:37:13 by anferre           #+#    #+#             */
-/*   Updated: 2024/09/02 10:14:30 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/02 11:43:42 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ void	ft_dir_dist(t_raycasting *ray, t_draw_wall *draw_wall )
 		ray->rx = ray->x_h;
 		ray->ry = ray->y_h;
 		if (ray->ra > WEST_ANGLE)
-			draw_wall->dir = NORTH;
-		else
 			draw_wall->dir = SOUTH;
+		else
+			draw_wall->dir = NORTH;
 		ray->dist_f = ray->dist_h;
 		ray->wall_hit_x = fmod(ray->rx, 1.0f);
 	}
