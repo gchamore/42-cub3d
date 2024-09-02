@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/23 17:46:37 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:36:19 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,7 @@ void	ft_check_cell(t_cub *cub, size_t y, size_t x)
 	{
 		if (ft_count(cub, y, x, '0') != 0 || ft_count(cub, y, x, 'N') != 0 || ft_count(cub, y, x, 'S') != 0 || ft_count(cub, y, x, 'W') != 0 || ft_count(cub, y, x, 'E') != 0)
 		{
-			ft_error(cub, "Invalid 0,N,S,E,W Alone", y, x);
+			ft_error(cub, "Invalid 0,N,S,E,W Alone arround", y, x);
 		}
 	}
 }
@@ -245,26 +245,26 @@ void	ft_check_borders(t_cub *cub, size_t y, size_t x)
 {
     while (y < cub->parse->map_height)
     {
-        x = 0;
-        while (x < cub->parse->map_width)
+        x = -1;
+        while (++x < cub->parse->map_width)
         {
 			ft_reset_map(cub);
 			ft_check_cell(cub, y, x);
 			if (cub->map[y][x].value == '1')
 			{
 				if(ft_check_arround_1(cub, y, x) == 1)
-					ft_error(cub, "Invalid 1 Alone", y, x);
+					ft_error(cub, "Invalid 1 Alone at", y, x);
 			}
-            if (y == 0 || x == 0 || y == cub->parse->map_height - 1 || x == cub->parse->map_width - 1)
+            if (y == 0 || x == 0 || y == cub->parse->map_height - 1 \
+				|| x == cub->parse->map_width - 1)
 			{
 				if (cub->map[y][x].value != '1' && cub->map[y][x].value != ' ')
-					ft_error(cub, "Invalid map 0", y, x);
+					ft_error(cub, "Invalid map 0 at", y, x);
 				ft_check_corners_1(cub, y, x);
 				ft_check_corners_2(cub, y, x);
 				ft_check_sides_1(cub, y, x);
 				ft_check_sides_2(cub, y, x);
 			}
-            x++;
         }
         y++;
     }
@@ -354,7 +354,7 @@ int	ft_check_line(t_cub *cub, char *line)
 			ft_error(cub, "Invalid Cell", -1, -1);
 		}
 		if (line[i] == ' ' || line[i] == '1' || line[i] == 'N' || line[i] \
-			== 'S' || line[i] == 'W' || line[i] == 'E')
+			== 'S' || line[i] == 'W' || line[i] == 'E' || line[i] == '0')
 			check = 1;
 		i++;
 	}

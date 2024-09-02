@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/23 17:38:41 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:25:28 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,6 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
 			break ;
 		j++;
 	}
-	// cub->map[y] = NULL;
 	return (cub->map);
 }
 
