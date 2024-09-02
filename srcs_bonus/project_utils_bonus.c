@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   project_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:34:07 by tookops           #+#    #+#             */
-/*   Updated: 2024/09/02 10:19:27 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/02 17:13:06 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,43 @@ int	ft_exit_mlx(t_cub *cub)
 	cub->data->mlx_ptr = NULL;
 	ft_free_cub(cub);
 	exit(EXIT_SUCCESS);
+}
+
+long	ft_get_time(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+int	ft_mouse(int x, int y, t_cub *cub)
+{
+	float	rotation_speed;
+	long	cur_time;
+
+	(void)y;
+	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGTH)
+	{
+		mlx_mouse_move(cub->data->mlx_ptr ,cub->data->win_ptr, (int)(WIN_WIDTH / 2), (int)(WIN_HEIGTH / 2));
+		cub->player->mousse_x = WIN_WIDTH / 2;
+		return (0);	
+	}
+	if (cub->player->mousse_x == -1)
+	{
+		cub->player->mousse_x = x;
+		cub->player->last_render = ft_get_time();
+		return (0);
+	}
+	rotation_speed = (x - cub->player->mousse_x) * 0.01;
+	cub->player->mousse_x = x;
+	cub->player->angle += rotation_speed;
+	ft_check_limits(&cub->player->angle);
+	cur_time = ft_get_time();
+	if (cur_time - cub->player->last_render > 25)
+	{
+		ft_render(cub);
+		cub->player->last_render = cur_time;
+	}
+	return (0);
 }

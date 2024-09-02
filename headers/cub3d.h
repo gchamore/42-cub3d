@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/02 08:58:35 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/02 17:03:43 by tookops          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <mlx.h>
+# include <sys/time.h>
 # include <fcntl.h> // Pour open
 # include <unistd.h> // Pour close, read, write
 # include <stdio.h> // Pour printf
@@ -159,6 +160,8 @@ typedef struct s_player
 	float			y_cur;
 	float 			delta_x;
 	float 			delta_y;
+	float			mousse_x;
+	long			last_render;
 	float 			angle;
 	char			dir;
 	float			minimap_scale;
@@ -267,12 +270,16 @@ void	ft_error(t_cub *cub, char *str, size_t x, size_t y);
 //project.c
 void	ft_project(t_cub *cub);
 
+//project_bonus.c
+int	ft_render(t_cub *cub);
+
 //project_utils.c
 int		ft_exit_mlx(t_cub *cub);
 void	ft_draw_tiles(t_cub *cub, float pos_x, float pos_y, int color);
 
 //project_utils_bonus.c
 int	ft_is_path_clear(t_cub *cub, t_coord start, t_coord end);
+int	ft_mouse(int x, int y, t_cub *cub);
 
 //project_key.c
 void	ft_handle_w(t_cub *cub);
