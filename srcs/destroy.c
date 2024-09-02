@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:24:45 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/27 16:57:28 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/02 08:17:38 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,28 @@ void	ft_free_map(t_cell **map, int map_height)
 	}
 }
 
+void	ft_free_pointer(void **ptr)
+{
+	if (*ptr)
+	{
+		free(*ptr);
+		*ptr = NULL;
+	}
+}
+
+void	ft_free_parse(t_cub *cub)
+{
+	if (cub->parse->NO)
+		ft_free_pointer((void **)&cub->parse->NO);
+	if (cub->parse->SO)
+		ft_free_pointer((void **)&cub->parse->SO);
+	if (cub->parse->WE)
+		ft_free_pointer((void **)&cub->parse->WE);
+	if (cub->parse->EA)
+		ft_free_pointer((void **)&cub->parse->EA);
+	ft_free_pointer((void **)&cub->parse);
+}
+
 void	ft_free_cub(t_cub *cub)
 {
 	if (cub)
@@ -40,47 +62,18 @@ void	ft_free_cub(t_cub *cub)
 			cub->map = NULL;
 		}
 		if (cub->data)
-		{
-			free(cub->data);
-			cub->data = NULL;
-		}
+			ft_free_pointer((void **)&cub->data);
 		if (cub->player)
-		{
-			free(cub->player);
-			cub->player = NULL;
-		}
+			ft_free_pointer((void **)&cub->player);
 		if (cub->parse)
-		{
-			if (cub->parse->NO)
-			{
-				free(cub->parse->NO);
-				cub->parse->NO = NULL;
-			}
-			if (cub->parse->SO)
-			{
-				free(cub->parse->SO);
-				cub->parse->SO = NULL;
-			}
-			if (cub->parse->WE)
-			{
-				free(cub->parse->WE);
-				cub->parse->WE = NULL;
-			}
-			if (cub->parse->EA)
-			{
-				free(cub->parse->EA);
-				cub->parse->EA = NULL;
-			}
-			free(cub->parse);
-			cub->parse = NULL;
-		}
+			ft_free_parse(cub);
 		if (cub->texture)
-		{
-			free(cub->texture);
-			cub->texture = NULL;
-		}
-		free(cub);
-		cub = NULL;
+			ft_free_pointer((void **)&cub->texture);
+		if (cub->ray)
+			ft_free_pointer((void **)&cub->ray);
+		if (cub->draw_wall)
+			ft_free_pointer((void **)&cub->draw_wall);
+		ft_free_pointer((void **)&cub);
 	}
 }
 

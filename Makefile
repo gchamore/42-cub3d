@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tookops <tookops@student.42.fr>            +#+  +:+       +#+         #
+#    By: anferre <anferre@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 09:49:54 by gchamore          #+#    #+#              #
-#    Updated: 2024/08/31 20:44:04 by tookops          ###   ########.fr        #
+#    Updated: 2024/09/02 06:28:23 by anferre          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ RM = rm -rf
 
 SRCS_DIR = srcs
 
-SRCS_DIR_BONUS = srcs
+SRCS_DIR_BONUS = srcs_bonus
 
 SRCS = $(addprefix $(SRCS_DIR)/,	\
 	main.c							\
@@ -43,14 +43,23 @@ SRCS = $(addprefix $(SRCS_DIR)/,	\
 	)
 
 SRCS_BONUS = $(addprefix $(SRCS_DIR_BONUS)/,	\
-	main.c							\
-	init.c							\
-	parsing.c						\
-	parsing_verif.c					\
-	parsing_utils_1.c               \
-	parsing_utils_2.c               \
-	destroy.c						\
-	error.c							\
+	main_bonus.c					\
+	init_bonus.c							\
+	parsing_bonus.c						\
+	parsing_verif_bonus.c					\
+	parsing_utils_1_bonus.c               \
+	parsing_utils_2_bonus.c               \
+	destroy_bonus.c						\
+	error_bonus.c							\
+	project_bonus.c						\
+	project_key_bonus.c					\
+	project_utils_bonus.c					\
+	mlx_utils_bonus.c						\
+	ray_casting_bonus.c					\
+	ray_casting_utils_bonus.c				\
+	ray_casting_utils_2_bonus.c			\
+	texture_bonus.c						\
+	project_minimap_bonus.c			\
 	)
 
 OBJ_DIR = objs

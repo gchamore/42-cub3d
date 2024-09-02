@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/31 20:57:08 by tookops          ###   ########.fr       */
+/*   Updated: 2024/09/02 08:58:35 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_raycasting
 	float 	player_y;
 	float 	ray_step;
 	float 	wall_hit_x;
-	float aspect_ratio;
+	float 	aspect_ratio;
 	float 	aTan;
 	float 	nTan;
 	float 	ca;
@@ -125,6 +125,12 @@ typedef struct s_rgb
 	int		g;
 	int		b;
 }	t_rgb;
+
+typedef struct s_coord
+{
+	float		x;
+	float		y;
+}	t_coord;
 
 typedef struct s_parse
 {
@@ -189,6 +195,8 @@ typedef struct s_cub
 	t_parse		*parse;
 	t_player	*player;
 	t_texture	*texture;
+	t_raycasting	*ray;
+	t_draw_wall		*draw_wall;
 }	t_cub;
 
 //////////////////////////
@@ -258,12 +266,13 @@ void	ft_error(t_cub *cub, char *str, size_t x, size_t y);
 
 //project.c
 void	ft_project(t_cub *cub);
-void 	ft_draw_line(t_img *img, float x0, float y0, float x1, float y1, int color);
 
 //project_utils.c
+int		ft_exit_mlx(t_cub *cub);
 void	ft_draw_tiles(t_cub *cub, float pos_x, float pos_y, int color);
-int	ft_handle_red_cross(t_cub *cub);
-void	ft_handle_esc(t_cub *cub);
+
+//project_utils_bonus.c
+int	ft_is_path_clear(t_cub *cub, t_coord start, t_coord end);
 
 //project_key.c
 void	ft_handle_w(t_cub *cub);
@@ -271,6 +280,9 @@ void	ft_handle_s(t_cub *cub);
 void	ft_handle_a(t_cub *cub);
 void	ft_handle_d(t_cub *cub);
 void	ft_handle_left_right(t_cub *cub, int keycode);
+
+//project_minimap_bonus.c
+void	ft_draw_map(t_cub *cub);
 
 //mlx_utils.c
 int		ft_init_mlx(t_cub *cub);
@@ -283,15 +295,14 @@ void	ft_cast_rays(t_cub *cub);
 float	ft_distance(float x0, float y0, float x1, float y1);
 int 	ft_rgb_to_int(t_rgb rgb);
 void	ft_check_limits(float *ra);
-void	ft_init_raycasting(t_cub *cub, t_raycasting **ray);
-void	ft_init_structs_raycasting(t_raycasting **ray, t_draw_wall **draw_wall, t_cub *cub);
+void	ft_init_raycasting(t_cub **cub, t_raycasting *ray);
+void	ft_init_structs_raycasting(t_cub **cub);
 
 //ray_casting_utils_2.c
 void	ft_ray_path_hor(t_cub *cub, t_raycasting *ray);
 void	ft_angle_ew(t_raycasting *ray, t_draw_wall *draw_wall);
 void	ft_ray_path_ver(t_cub *cub, t_raycasting *ray);
 void	ft_angle_ns(t_raycasting *ray, t_draw_wall *draw_wall);
-void	ft_destroy_structs_raycasting(t_raycasting **ray, t_draw_wall **draw_wall);
 
 
 //texture.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:37:13 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/31 20:57:26 by tookops          ###   ########.fr       */
+/*   Updated: 2024/09/02 07:44:36 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_dir_dist(t_raycasting *ray, t_draw_wall *draw_wall )
 	{
 		ray->rx = ray->x_v;
 		ray->ry = ray->y_v;
-		if (ray->ra > SOUTH_ANGLE || ray->ra < NORTH_ANGLE)
+		if (ray->ra > PI / 2 && ray->ra < 3 * PI / 2)
 			draw_wall->dir = EAST;
 		else
 			draw_wall->dir = WEST;
@@ -98,23 +98,25 @@ void	ft_dir_dist(t_raycasting *ray, t_draw_wall *draw_wall )
 void	ft_cast_rays(t_cub *cub)
 {
 	int				r;
-	t_raycasting	*ray;
-	t_draw_wall		*draw_wall;
 
 	r = 0;
-	ft_init_structs_raycasting(&ray, &draw_wall, cub);
-	if (!ray || !draw_wall)
-		return ;
+	if (cub->parse->map_height > cub->parse->map_width)
+		cub->ray->max_dof = cub->parse->map_height + 1;
+	else
+		cub->ray->max_dof = cub->parse->map_width + 1;
+	cub->ray->ra = cub->player->angle - RAD * 30;
+	ft_check_limits(&(cub->ray->ra));
+	cub->ray->player_x = cub->player->x_cur + 0.5;
+	cub->ray->player_y = cub->player->y_cur + 0.5;
 	while (r < WIN_WIDTH)
 	{
-		ft_horizontal_casting(cub, ray, draw_wall);
-		ft_vertical_casting(cub, ray, draw_wall);
-		ft_dir_dist(ray, draw_wall);
-		ft_calculate_tex_dist(cub, ray, draw_wall);
-		ft_draw_wall(cub, r, draw_wall);
-		ray->ra += ray->ray_step;
-		ft_check_limits(&ray->ra);
+		ft_horizontal_casting(cub, cub->ray, cub->draw_wall);
+		ft_vertical_casting(cub, cub->ray, cub->draw_wall);
+		ft_dir_dist(cub->ray, cub->draw_wall);
+		ft_calculate_tex_dist(cub, cub->ray, cub->draw_wall);
+		ft_draw_wall(cub, r, cub->draw_wall);
+		cub->ray->ra += cub->ray->ray_step;
+		ft_check_limits(&cub->ray->ra);
 		r++;
 	}
-	ft_destroy_structs_raycasting(&ray, &draw_wall);
 }

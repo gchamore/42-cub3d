@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_utils_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:42:30 by tookops           #+#    #+#             */
-/*   Updated: 2024/08/31 20:49:58 by tookops          ###   ########.fr       */
+/*   Updated: 2024/09/02 06:37:26 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,20 +104,5 @@ void	ft_angle_ns(t_raycasting *ray, t_draw_wall *draw_wall)
 		draw_wall->dir = SOUTH;
 		ray->wall_hit_x = fmod(ray->rx, 1.0f);
 		ray->dof = ray->max_dof;
-	}
-}
-
-void	ft_destroy_structs_raycasting(t_raycasting **ray, \
-t_draw_wall **draw_wall)
-{
-	if (*ray)
-	{
-		free(*ray);
-		*ray = NULL;
-	}
-	if (*draw_wall)
-	{
-		free(*draw_wall);
-		*draw_wall = NULL;
 	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_casting_utils_2.c                              :+:      :+:    :+:   */
+/*   ray_casting_utils_2_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:42:30 by tookops           #+#    #+#             */
-/*   Updated: 2024/08/31 16:43:11 by tookops          ###   ########.fr       */
+/*   Updated: 2024/09/02 08:40:50 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@ void	ft_ray_path_hor(t_cub *cub, t_raycasting *ray)
 	{
 		ray->mx = (int)(ray->rx);
 		ray->my = (int)(ray->ry);
-		if (ray->mx >= 0 && (size_t)ray->mx < cub->parse->map_width && ray->my >= 0 && (size_t)ray->my < cub->parse->map_height && cub->map[ray->my][ray->mx].value == '1')
+		if (ray->mx >= 0 && (size_t)ray->mx < cub->parse->map_width && \
+		ray->my >= 0 && (size_t)ray->my < cub->parse->map_height && \
+		cub->map[ray->my][ray->mx].value == '1')
 		{
 			ray->x_h = ray->rx;
 			ray->y_h = ray->ry;
-			ray->dist_h = ft_distance(ray->player_x, ray->player_y, ray->x_h, ray->y_h);
+			ray->dist_h = ft_distance(ray->player_x, ray->player_y, ray->x_h, \
+			ray->y_h);
 			ray->dof = ray->max_dof;
 		}
 		else
@@ -34,9 +37,9 @@ void	ft_ray_path_hor(t_cub *cub, t_raycasting *ray)
 	}
 }
 
-void	ft_angle_EW(t_raycasting *ray, t_draw_wall *draw_wall)
+void	ft_angle_ew(t_raycasting *ray, t_draw_wall *draw_wall)
 {
-	if (fabs(ray->ra) < TOL || fabs(ray->ra - 2 * PI) < TOL) // East
+	if (fabs(ray->ra) < TOL || fabs(ray->ra - 2 * PI) < TOL)
 	{
 		ray->ry = ray->player_y;
 		ray->rx = floor(ray->player_x) + 1.0;
@@ -45,7 +48,7 @@ void	ft_angle_EW(t_raycasting *ray, t_draw_wall *draw_wall)
 		draw_wall->dir = EAST;
 		ray->dof = ray->max_dof;
 	}
-	else if (fabs(ray->ra - PI) < TOL) // West
+	else if (fabs(ray->ra - PI) < TOL)
 	{
 		ray->ry = ray->player_y;
 		ray->rx = floor(ray->player_x);
@@ -55,7 +58,6 @@ void	ft_angle_EW(t_raycasting *ray, t_draw_wall *draw_wall)
 		ray->dof = ray->max_dof;
 	}
 }
-
 
 void	ft_ray_path_ver(t_cub *cub, t_raycasting *ray)
 {
@@ -82,9 +84,10 @@ void	ft_ray_path_ver(t_cub *cub, t_raycasting *ray)
 	}
 }
 
-void	ft_angle_NS(t_raycasting *ray, t_draw_wall *draw_wall)
+//NORTH and SOUTH
+void	ft_angle_ns(t_raycasting *ray, t_draw_wall *draw_wall)
 {
-	if (fabs(ray->ra - PI / 2) < TOL) // North
+	if (fabs(ray->ra - PI / 2) < TOL)
 	{
 		ray->rx = ray->player_x;
 		ray->ry = floor(ray->player_y);
@@ -93,7 +96,7 @@ void	ft_angle_NS(t_raycasting *ray, t_draw_wall *draw_wall)
 		ray->wall_hit_x = fmod(ray->rx, 1.0f);
 		ray->dof = ray->max_dof;
 	}
-	else if (fabs(ray->ra - 3 * PI / 2) < TOL) // South
+	else if (fabs(ray->ra - 3 * PI / 2) < TOL)
 	{
 		ray->rx = ray->player_x;
 		ray->ry = floor(ray->player_y) + 1.0;

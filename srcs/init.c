@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:20:35 by gchamore          #+#    #+#             */
-/*   Updated: 2024/08/31 04:35:38 by tookops          ###   ########.fr       */
+/*   Updated: 2024/09/02 08:04:16 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 void	ft_create_cub(t_cub **cub)
 {
-    *cub = malloc(sizeof(t_cub));
-    if (*cub)
-    {
+	*cub = malloc(sizeof(t_cub));
+	if (*cub)
+	{
 		(*cub)->player = malloc(sizeof(t_player));
 		if (!(*cub)->player)
 		{
 			ft_free_cub(*cub);
 			return ;
 		}
-        (*cub)->parse = malloc(sizeof(t_parse));
-        if (!(*cub)->parse)
-        {
-            ft_free_cub(*cub);
-            return ;
-        }
-        (*cub)->data = malloc(sizeof(t_data));
-        if (!(*cub)->data)
-        {
-            ft_free_cub(*cub);
-            return ;
-        }
-    }
+		(*cub)->parse = malloc(sizeof(t_parse));
+		if (!(*cub)->parse)
+		{
+			ft_free_cub(*cub);
+			return ;
+		}
+		(*cub)->data = malloc(sizeof(t_data));
+		if (!(*cub)->data)
+		{
+			ft_free_cub(*cub);
+			return ;
+		}
+	}
 }
 
 void	ft_init_structs(t_cub *cub)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   project.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:15:51 by anferre           #+#    #+#             */
-/*   Updated: 2024/08/31 20:46:20 by tookops          ###   ########.fr       */
+/*   Updated: 2024/09/02 07:50:35 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_render(t_cub *cub)
 int	ft_key_press(int keycode, t_cub *cub)
 {
 	if (keycode == XK_Escape)
-		ft_handle_esc(cub);
+		ft_exit_mlx(cub);
 	if (keycode == XK_w || keycode == XK_W)
 		ft_handle_w(cub);
 	if (keycode == XK_s || keycode == XK_S)
@@ -59,8 +59,9 @@ void	ft_init_player(t_cub *cub)
 void	ft_project(t_cub *cub)
 {
 	ft_init_player(cub);
+	ft_init_structs_raycasting(&cub);
 	ft_render(cub);
 	mlx_hook(cub->data->win_ptr, KeyPress, KeyPressMask, ft_key_press, cub);
-	mlx_hook(cub->data->win_ptr, 17, (1L << 17), ft_handle_red_cross, cub);
+	mlx_hook(cub->data->win_ptr, 17, (1L << 17), ft_exit_mlx, cub);
 	mlx_loop(cub->data->mlx_ptr);
 }
