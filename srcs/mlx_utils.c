@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:31:15 by anferre           #+#    #+#             */
-/*   Updated: 2024/09/02 08:06:38 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/02 11:52:30 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_read_texture(t_cub *cub)
 	cub->parse->EA, &(texture->width[EAST]), &(texture->height[EAST]));
 	if (!texture->img_ptr[NORTH] || !texture->img_ptr[SOUTH] || \
 	!texture->img_ptr[WEST] || !texture->img_ptr[EAST])
-		return (EXIT_FAILURE);
+		return (ft_error(cub, "Texture not found", -1, -1), EXIT_FAILURE);
 	ft_get_texture_addr(texture);
 	cub->texture = texture;
 	return (EXIT_SUCCESS);
@@ -51,19 +51,19 @@ int	ft_init_mlx(t_cub *cub)
 {
 	cub->data->mlx_ptr = mlx_init();
 	if (!cub->data->mlx_ptr)
-		return (EXIT_FAILURE);
+		return (ft_error(cub, "mlx init", -1, -1), EXIT_FAILURE);
 	cub->data->win_ptr = mlx_new_window(cub->data->mlx_ptr, WIN_WIDTH, \
 	WIN_HEIGTH, "cub3d");
 	if (!cub->data->win_ptr)
-		return (EXIT_FAILURE);
+		return (ft_error(cub, "mlx win", -1, -1), EXIT_FAILURE);
 	cub->data->img.mlx_img = mlx_new_image(cub->data->mlx_ptr, WIN_WIDTH, \
 	WIN_HEIGTH);
 	if (!cub->data->img.mlx_img)
-		return (EXIT_FAILURE);
+		return (ft_error(cub, "mlx img", -1, -1), EXIT_FAILURE);
 	cub->data->img.addr = mlx_get_data_addr(cub->data->img.mlx_img, \
 	&cub->data->img.bpp, &cub->data->img.line_len, &cub->data->img.endian);
 	if (!cub->data->img.addr)
-		return (EXIT_FAILURE);
+		return (ft_error(cub, "mlx addr", -1, -1), EXIT_FAILURE);
 	if (cub->parse->map_width > cub->parse->map_height)
 		cub->player->minimap_scale = MINIMAP_SIZE / cub->parse->map_width;
 	else
