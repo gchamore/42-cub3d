@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/02 15:32:42 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:47:01 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,32 @@ int	ft_parsing(int fd, t_cub *cub, char **argv)
 	return (EXIT_SUCCESS);
 }
 
+void	verif_fill_data(t_cub *cub, char *line, int fd)
+{
+	int i;
+
+	i = 0;
+	// printf ("line = %s\n", line);
+	while (line[i] && cub->parse->ct != 7)
+	{
+		if (line[i] == ' ' || line[i] == '\t')
+        	i++;
+		else if (cub->parse->ct < 6 && (line[i] == '1' || line[i] == '0' || (line[i] == 'N' && line[i + 1] != 'O') || (line[i] == 'S' && line[i + 1] != 'O') || (line[i] == 'W' && line[i + 1] != 'E')|| (line[i] == 'E' && line[i + 1] != 'A')))
+		{
+			free(line);
+			close(fd);
+			ft_error(cub, "Invalid data", -1, -1);
+		}
+		else if (cub->parse->ct == 6 && (line[i] == '1' || line[i] == '0' || (line[i] == 'N' && line[i + 1] != 'O') || (line[i] == 'S' && line[i + 1] != 'O') || (line[i] == 'W' && line[i + 1] != 'E')|| (line[i] == 'E' && line[i + 1] != 'A')))
+		{
+			cub->parse->total_infos = cub->parse->total_height;
+			cub->parse->ct = 7;
+		}
+		else
+			break ;
+	}
+}
+
 //Recupere les datas : NO, SO, WE, EA, F, C, map
 int	ft_get_data(char *file, t_cub *cub, char *line)
 {
@@ -38,14 +64,9 @@ int	ft_get_data(char *file, t_cub *cub, char *line)
 		return (ft_error(cub, "NULL line", -1, -1), EXIT_FAILURE);
 	while (line != NULL)
 	{
+		// printf ("line = %s\n", line);
 		line = ft_if_only_blanks(line);
-		if (cub->parse->ct == 6 && (ft_strchr(line, '1') || \
-			ft_strchr(line, '0') || ft_strchr(line, 'N') || ft_strchr(line, 'S') \
-			|| ft_strchr(line, 'W') || ft_strchr(line, 'E')))
-		{
-			cub->parse->total_infos = cub->parse->total_height;
-			cub->parse->ct = 0;
-		}
+		verif_fill_data(cub, line, fd);
 		cub->parse->total_height++;
 		ft_fill_utility(cub, line);
 		free(line);
@@ -54,9 +75,6 @@ int	ft_get_data(char *file, t_cub *cub, char *line)
 	close(fd);
 	if (cub->parse->map_height == 0 || cub->parse->map_width == 0)
 		return (ft_error(cub, "map size = 0", -1, -1), EXIT_FAILURE);
-	// printf("map_width = %zu\n", cub->parse->map_width);
-	// printf("map_height = %zu\n", cub->parse->map_height);
-	// printf("total_height = %zu\n", cub->parse->total_height);
 	return (EXIT_SUCCESS);
 }
 
@@ -134,6 +152,7 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
         cub->map[i] = NULL;
 	while (j < cub->parse->total_infos)
 	{
+		// printf ("line = %s\n", line);
 		j++;
 		free(line);
 		line = ft_get_next_line(fd);
@@ -142,6 +161,7 @@ t_cell	**ft_fill_tab(int fd, t_cub *cub)
 	}
 	while (j <= (cub->parse->total_height - cub->parse->tmp_height))
 	{
+		// printf ("line = %s\n", line);
 		line = ft_if_only_blanks(line);
 		if (line[0] == '\n')
 		{

@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/02 14:44:46 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:49:01 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,6 +354,7 @@ int	ft_check_line(t_cub *cub, char *line)
 			&& line[i] != '0' && line[i] != 'N' && line[i] \
 			!= 'S' && line[i] != 'W' && line[i] != 'E')
 		{
+			printf ("line = %s\n", line);
 			free(line);
 			ft_error(cub, "Invalid Cell", -1, -1);
 		}
