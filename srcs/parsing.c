@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/02 11:25:28 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:47:02 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ int	ft_get_data(char *file, t_cub *cub, char *line)
 	while (line != NULL)
 	{
 		line = ft_if_only_blanks(line);
-		if (cub->parse->ct == 6 && ft_strchr(line, '1'))
+		if (cub->parse->ct == 6 && (ft_strchr(line, '1') || \
+			ft_strchr(line, '0') || ft_strchr(line, 'N') || ft_strchr(line, 'S') \
+			|| ft_strchr(line, 'W') || ft_strchr(line, 'E')))
 		{
 			cub->parse->total_infos = cub->parse->total_height;
 			cub->parse->ct = 0;
@@ -52,6 +54,9 @@ int	ft_get_data(char *file, t_cub *cub, char *line)
 	close(fd);
 	if (cub->parse->map_height == 0 || cub->parse->map_width == 0)
 		return (ft_error(cub, "map size = 0", -1, -1), EXIT_FAILURE);
+	// printf("map_width = %zu\n", cub->parse->map_width);
+	// printf("map_height = %zu\n", cub->parse->map_height);
+	// printf("total_height = %zu\n", cub->parse->total_height);
 	return (EXIT_SUCCESS);
 }
 

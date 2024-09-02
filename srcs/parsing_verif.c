@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/02 11:36:19 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:08:59 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,29 @@
 void	ft_check_inside(t_cub *cub, size_t y, size_t x)
 {
 	if (cub->map[y + 1][x].value == '0' || cub->map[y + 1][x].value == 'N' || cub->map[y + 1][x].value == 'S' || cub->map[y + 1][x].value == 'W' || cub->map[y + 1][x].value == 'E')
-		ft_error(cub, "Invalid map 1", y, x);
+		ft_error(cub, "Invalid map wrong value arround", y, x);
 	else if (cub->map[y - 1][x].value == '0' || cub->map[y - 1][x].value == 'N' || cub->map[y - 1][x].value == 'S' || cub->map[y - 1][x].value == 'W' || cub->map[y - 1][x].value == 'E')
-		ft_error(cub, "Invalid map 2", y, x);
+		ft_error(cub, "Invalid map wrong value arround", y, x);
 	else if (cub->map[y][x + 1].value == '0' || cub->map[y][x + 1].value == 'N' || cub->map[y][x + 1].value == 'S' || cub->map[y][x + 1].value == 'W' || cub->map[y][x + 1].value == 'E')
-		ft_error(cub, "Invalid map 3", y, x);
+		ft_error(cub, "Invalid map wrong value arround", y, x);
 	else if (cub->map[y][x - 1].value == '0' || cub->map[y][x - 1].value == 'N' || cub->map[y][x - 1].value == 'S' || cub->map[y][x - 1].value == 'W' || cub->map[y][x - 1].value == 'E')
-		ft_error(cub, "Invalid map 4", y, x);
+		ft_error(cub, "Invalid map wrong value arround", y, x);
 }
 void	ft_check_corners_1(t_cub *cub, size_t y, size_t x)
 {
 	if (y == 0 && x == 0)
 	{
 		if (cub->map[y][x].value == ' ' && (cub->map[y + 1][x].value == '0' || cub->map[y + 1][x].value == 'N' || cub->map[y + 1][x].value == 'S' || cub->map[y + 1][x].value == 'W' || cub->map[y + 1][x].value == 'E'))
-			ft_error(cub, "Invalid map 5", y, x);
+			ft_error(cub, "Invalid map wrong value arround corner", y, x);
 		if (cub->map[y][x].value == ' ' && (cub->map[y][x + 1].value == '0' || cub->map[y][x + 1].value == 'N' || cub->map[y][x + 1].value == 'S' || cub->map[y][x + 1].value == 'W' || cub->map[y][x + 1].value == 'E'))
-			ft_error(cub, "Invalid map 6", y, x);
+			ft_error(cub, "Invalid map wrong value arround corner", y, x);
 	}
 	if (y == cub->parse->map_height - 1 && x == cub->parse->map_width - 1)
 	{
 		if (cub->map[y][x].value == ' ' && (cub->map[y - 1][x].value == '0' || cub->map[y - 1][x].value == 'N' || cub->map[y - 1][x].value == 'S' || cub->map[y - 1][x].value == 'W' || cub->map[y - 1][x].value == 'E'))
-			ft_error(cub, "Invalid map 7", y, x);
+			ft_error(cub, "Invalid map wrong value arround corner", y, x);
 		if (cub->map[y][x].value == ' ' && (cub->map[y][x - 1].value == '0' || cub->map[y][x - 1].value == 'N' || cub->map[y][x - 1].value == 'S' || cub->map[y][x - 1].value == 'W' || cub->map[y][x - 1].value == 'E'))
-			ft_error(cub, "Invalid map 8", y, x);
+			ft_error(cub, "Invalid map wrong value arround corner", y, x);
 	}
 }
 void	ft_check_corners_2(t_cub *cub, size_t y, size_t x)
@@ -45,16 +45,16 @@ void	ft_check_corners_2(t_cub *cub, size_t y, size_t x)
 	if (y == 0 && x == cub->parse->map_width - 1)
 	{
 		if (cub->map[y][x].value == ' ' && (cub->map[y + 1][x].value == '0' || cub->map[y + 1][x].value == 'N' || cub->map[y + 1][x].value == 'S' || cub->map[y + 1][x].value == 'W' || cub->map[y + 1][x].value == 'E'))
-			ft_error(cub, "Invalid map 9", y, x);
+			ft_error(cub, "Invalid map wrong value arround corner", y, x);
 		if (cub->map[y][x].value == ' ' && (cub->map[y][x - 1].value == '0' || cub->map[y][x - 1].value == 'N' || cub->map[y][x - 1].value == 'S' || cub->map[y][x - 1].value == 'W' || cub->map[y][x - 1].value == 'E'))
-			ft_error(cub, "Invalid map 10", y, x);
+			ft_error(cub, "Invalid map wrong value arround corner", y, x);
 	}
 	if (y == cub->parse->map_height - 1 && x == 0)
 	{
 		if (cub->map[y][x].value == ' ' && (cub->map[y - 1][x].value == '0' || cub->map[y - 1][x].value == 'N' || cub->map[y - 1][x].value == 'S' || cub->map[y - 1][x].value == 'W' || cub->map[y - 1][x].value == 'E'))
-			ft_error(cub, "Invalid map 11", y, x);
+			ft_error(cub, "Invalid map wrong value arround corner", y, x);
 		if (cub->map[y][x].value == ' ' && (cub->map[y][x + 1].value == '0' || cub->map[y][x + 1].value == 'N' || cub->map[y][x + 1].value == 'S' || cub->map[y][x + 1].value == 'W' || cub->map[y][x + 1].value == 'E'))
-			ft_error(cub, "Invalid map 12", y, x);
+			ft_error(cub, "Invalid map wrong value arround corner", y, x);
 	}
 }
 
@@ -63,20 +63,20 @@ void	ft_check_sides_1(t_cub *cub, size_t y, size_t x)
 	if (y == 0 && x > 0 && x < cub->parse->map_width - 1)
 	{
 		if (cub->map[y][x].value == ' ' && (cub->map[y + 1][x].value == '0' || cub->map[y + 1][x].value == 'N' || cub->map[y + 1][x].value == 'S' || cub->map[y + 1][x].value == 'W' || cub->map[y + 1][x].value == 'E'))
-			ft_error(cub, "Invalid map 13", y, x);
+			ft_error(cub, "Invalid map wrong value arround up side", y, x);
 		if (cub->map[y][x].value == ' ' && (cub->map[y][x + 1].value == '0' || cub->map[y][x + 1].value == 'N' || cub->map[y][x + 1].value == 'S' || cub->map[y][x + 1].value == 'W' || cub->map[y][x + 1].value == 'E'))
-			ft_error(cub, "Invalid map 14", y, x);
+			ft_error(cub, "Invalid map wrong value arround up side", y, x);
 		if (cub->map[y][x].value == ' ' && (cub->map[y][x - 1].value == '0' || cub->map[y][x - 1].value == 'N' || cub->map[y][x - 1].value == 'S' || cub->map[y][x - 1].value == 'W' || cub->map[y][x - 1].value == 'E'))
-			ft_error(cub, "Invalid map 15", y, x);
+			ft_error(cub, "Invalid map wrong value arround up side", y, x);
 	}
 	if (x == 0 && y > 0 && y < cub->parse->map_height - 1)
 	{
 		if (cub->map[y][x].value == ' ' && (cub->map[y + 1][x].value == '0' || cub->map[y + 1][x].value == 'N' || cub->map[y + 1][x].value == 'S' || cub->map[y + 1][x].value == 'W' || cub->map[y + 1][x].value == 'E'))
-			ft_error(cub, "Invalid map 16", y, x);
+			ft_error(cub, "Invalid map wrong value arround left side", y, x);
 		if (cub->map[y][x].value == ' ' && (cub->map[y - 1][x].value == '0' || cub->map[y - 1][x].value == 'N' || cub->map[y - 1][x].value == 'S' || cub->map[y - 1][x].value == 'W' || cub->map[y - 1][x].value == 'E'))
-			ft_error(cub, "Invalid map 17", y, x);
+			ft_error(cub, "Invalid map wrong value arround left side", y, x);
 		if (cub->map[y][x].value == ' ' && (cub->map[y][x + 1].value == '0' || cub->map[y][x + 1].value == 'N' || cub->map[y][x + 1].value == 'S' || cub->map[y][x + 1].value == 'W' || cub->map[y][x + 1].value == 'E'))
-			ft_error(cub, "Invalid map 18", y, x);
+			ft_error(cub, "Invalid map wrong value arround left side", y, x);
 	}
 }
 
@@ -85,20 +85,20 @@ void	ft_check_sides_2(t_cub *cub, size_t y, size_t x)
 	if (y == cub->parse->map_height - 1 && x > 0 && x < cub->parse->map_width - 1)
 	{
 		if (cub->map[y][x].value == ' ' && (cub->map[y - 1][x].value == '0' || cub->map[y - 1][x].value == 'N' || cub->map[y - 1][x].value == 'S' || cub->map[y - 1][x].value == 'W' || cub->map[y - 1][x].value == 'E'))
-			ft_error(cub, "Invalid map 19", y, x);
+			ft_error(cub, "Invalid map wrong value arround down side", y, x);
 		if (cub->map[y][x].value == ' ' && (cub->map[y][x + 1].value == '0' || cub->map[y][x + 1].value == 'N' || cub->map[y][x + 1].value == 'S' || cub->map[y][x + 1].value == 'W' || cub->map[y][x + 1].value == 'E'))
-			ft_error(cub, "Invalid map 20", y, x);
+			ft_error(cub, "Invalid map wrong value arround down side", y, x);
 		if (cub->map[y][x].value == ' ' && (cub->map[y][x - 1].value == '0' || cub->map[y][x - 1].value == 'N' || cub->map[y][x - 1].value == 'S' || cub->map[y][x - 1].value == 'W' || cub->map[y][x - 1].value == 'E'))
-			ft_error(cub, "Invalid map 21", y, x);
+			ft_error(cub, "Invalid map wrong value arround down side", y, x);
 	}
 	if (x == cub->parse->map_width - 1 && y > 0 && y < cub->parse->map_height - 1)
 	{
 		if (cub->map[y][x].value == ' ' && (cub->map[y + 1][x].value == '0' || cub->map[y + 1][x].value == 'N' || cub->map[y + 1][x].value == 'S' || cub->map[y + 1][x].value == 'W' || cub->map[y + 1][x].value == 'E'))
-			ft_error(cub, "Invalid map 21", y, x);
+			ft_error(cub, "Invalid map wrong value arround right side", y, x);
 		if (cub->map[y][x].value == ' ' && (cub->map[y - 1][x].value == '0' || cub->map[y - 1][x].value == 'N' || cub->map[y - 1][x].value == 'S' || cub->map[y - 1][x].value == 'W' || cub->map[y - 1][x].value == 'E'))
-			ft_error(cub, "Invalid map 22", y, x);
+			ft_error(cub, "Invalid map wrong value arround right side", y, x);
 		if (cub->map[y][x].value == ' ' && (cub->map[y][x - 1].value == '0' || cub->map[y][x - 1].value == 'N' || cub->map[y][x - 1].value == 'S' || cub->map[y][x - 1].value == 'W' || cub->map[y][x - 1].value == 'E'))
-			ft_error(cub, "Invalid map 23", y, x);
+			ft_error(cub, "Invalid map wrong value arround right side", y, x);
 	}
 }
 
@@ -258,12 +258,12 @@ void	ft_check_borders(t_cub *cub, size_t y, size_t x)
             if (y == 0 || x == 0 || y == cub->parse->map_height - 1 \
 				|| x == cub->parse->map_width - 1)
 			{
-				if (cub->map[y][x].value != '1' && cub->map[y][x].value != ' ')
-					ft_error(cub, "Invalid map 0 at", y, x);
 				ft_check_corners_1(cub, y, x);
 				ft_check_corners_2(cub, y, x);
 				ft_check_sides_1(cub, y, x);
 				ft_check_sides_2(cub, y, x);
+				if (cub->map[y][x].value != '1' && cub->map[y][x].value != ' ')
+					ft_error(cub, "Invalid map 0 at", y, x);
 			}
         }
         y++;
@@ -309,10 +309,6 @@ void	ft_check_if_valid_map(t_cub *cub)
     }
 }
 
-// void	ft_verif_textures(t_cub *cub, char *to_check)
-// {
-// 	
-// }
 
 void ft_check_data(t_cub *cub)
 {
@@ -322,10 +318,6 @@ void ft_check_data(t_cub *cub)
 	cub->parse->C.b <= -1|| cub->parse->F.r <= -1 || \
 	cub->parse->F.g <= -1 || cub->parse->F.b <= -1)
 		ft_error(cub, "Missing data", -1, -1);
-	// ft_verif_textures(cub, cub->parse->NO);
-	// ft_verif_textures(cub, cub->parse->SO);
-	// ft_verif_textures(cub, cub->parse->WE);
-	// ft_verif_textures(cub, cub->parse->EA);
 }
 
 t_cell **ft_verif_data(t_cub *cub, t_cell **map)
