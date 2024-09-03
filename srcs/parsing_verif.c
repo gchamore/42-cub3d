@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/03 18:33:47 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:40:58 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,22 +227,22 @@ int	ft_check_map_direction(t_cub *cub, size_t y, size_t x)
 	return (1);
 }
 
-int ft_check_diag(t_cub *cub, size_t y, size_t x)
+int ft_check_diag(t_cub *cub, size_t y, size_t x, char value)
 {
 	int	count;
 
 	count = 0;
-	if (y > 0 && x > 0 && cub->map[y - 1][x - 1].value == '1' && \
+	if (y > 0 && x > 0 && cub->map[y - 1][x - 1].value == value && \
 	cub->map[y - 1][x - 1].used == false)
 		count++;
 	if (y > 0 && x + 1 < cub->parse->map_width && \
-	cub->map[y - 1][x + 1].value == '1' && cub->map[y - 1][x + 1].used == false)
+	cub->map[y - 1][x + 1].value == value && cub->map[y - 1][x + 1].used == false)
 		count++;
 	if (y + 1 < cub->parse->map_height && x > 0 && \
-	cub->map[y + 1][x - 1].value == '1' && cub->map[y + 1][x - 1].used == false)
+	cub->map[y + 1][x - 1].value == value && cub->map[y + 1][x - 1].used == false)
 		count++;
 	if (y + 1 < cub->parse->map_height && x + 1 < cub->parse->map_width && \
-	cub->map[y + 1][x + 1].value == '1' && cub->map[y + 1][x + 1].used == false)
+	cub->map[y + 1][x + 1].value == value && cub->map[y + 1][x + 1].used == false)
 		count++;
 	return (count);
 }
@@ -264,8 +264,7 @@ int	ft_count(t_cub *cub, size_t y, size_t x, char value)
 	if (y > 0 && cub->map[y - 1][x].value == value && \
 		cub->map[y - 1][x].count == 0 && cub->map[y - 1][x].used == false)
 		count++;
-	if (value == '1')
-		count += ft_check_diag(cub, y, x);
+	count += ft_check_diag(cub, y, x, value);
 	return (count);
 }
 
