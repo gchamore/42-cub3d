@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/03 13:42:27 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:27:44 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,23 @@ typedef struct s_cell
 	int			count_0;
 }	t_cell;
 
+typedef struct s_verif
+{
+	int			NO;
+	int			SO;
+	int			WE;
+	int			EA;
+	int			F;
+	int			C;
+}	t_verif;
+
 typedef struct s_cub
 {
 	t_cell		**map;
 	t_data		*data;
 	t_parse		*parse;
 	t_player	*player;
+	t_verif		verif;
 	int			fd;
 }	t_cub;
 

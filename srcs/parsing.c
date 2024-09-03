@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/03 15:27:39 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:04:42 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,60 @@ int	ft_parsing(t_cub *cub, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-void	verif_if_double(t_cub *cub, char *line)
+int	ft_checker(char *line, char one, char two)
 {
 	int i;
 
 	i = 0;
 	while (line[i])
 	{
-		if (((line[i] == 'N' && line[i + 1] == 'O') && cub->parse->NO != NULL) || ((line[i] == 'S' && line[i + 1] == 'O') && cub->parse->SO != NULL) || ((line[i] == 'W' && line[i + 1] == 'E') && cub->parse->WE != NULL) || ((line[i] == 'E' && line[i + 1] == 'A') && cub->parse->EA != NULL))
+		if (line[i] == one)
 		{
-			free(line);
-			ft_error(cub, "double data", -1, -1);
+			if (two == '\0')
+				return (1);
+			else
+			{
+				if (line[i + 1] == two)
+					return (1);
+				else
+				{
+					i++;
+					continue ;
+				}
+			}
 		}
-		else
-			i++;
+		i++;
+	}
+	return (0);
+}
+
+void	verif_if_double_and_valid(t_cub *cub, char *line)
+{
+	if (line[0] != '\n' && line[0] != '\0' && !ft_strchr(line, '1') && \
+	!ft_strchr(line, '0') && !ft_strchr(line, 'N') && !ft_strchr(line, 'S') \
+	&& !ft_strchr(line, 'W') && !ft_strchr(line, 'E') && !ft_strchr(line, 'F') \
+	&& !ft_strchr(line, 'C'))
+	{
+		free(line);
+		ft_error(cub, "wrong data", -1, -1);
+	}
+	else if (ft_checker(line, 'N', 'O') == 1 && cub->parse->ct <= 6)
+		cub->verif.NO++;
+	else if (ft_checker(line, 'S', 'O') == 1 && cub->parse->ct <= 6)
+		cub->verif.SO++;
+	else if (ft_checker(line, 'W', 'E') == 1 && cub->parse->ct <= 6)
+		cub->verif.WE++;
+	else if (ft_checker(line, 'E', 'A') == 1 && cub->parse->ct <= 6)
+		cub->verif.EA++;
+	else if (ft_checker(line, 'F', '\0') == 1 && cub->parse->ct <= 6)
+		cub->verif.F++;
+	else if (ft_checker(line, 'C', '\0') == 1 && cub->parse->ct <= 6)
+		cub->verif.C++;
+	if (cub->verif.NO > 1 || cub->verif.SO > 1 || cub->verif.WE > 1 || \
+	cub->verif.EA > 1 || cub->verif.F > 1 || cub->verif.C > 1)
+	{
+		free(line);
+		ft_error(cub, "Double info", -1, -1);
 	}
 }
 
@@ -47,7 +87,7 @@ void	verif_fill_data(t_cub *cub, char *line)
 	int i;
 
 	i = 0;
-	verif_if_double(cub, line);
+	verif_if_double_and_valid(cub, line);
 	while (line[i] && cub->parse->ct != 7)
 	{
 		if (line[i] == ' ' || line[i] == '\t')
@@ -111,8 +151,7 @@ void	ft_fill_utility_map(t_cub *cub, char *line, char *tmp)
 		tmp = ft_strtrim(line, "\n");
 		if (cub->parse->map_width < ft_strlen(tmp) && ft_strlen(tmp) != 0)
 			cub->parse->map_width = ft_strlen(tmp);
-		cub->parse->map_height = ((cub->parse->map_height + cub->parse->tmp_height) + 1);
-		cub->parse->tmp_height = 0;
+		cub->parse->map_height++;
 		cub->parse->check_newline = 1;
 		free(tmp);
 	}
