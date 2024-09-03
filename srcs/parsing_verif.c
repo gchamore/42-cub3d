@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/03 18:40:58 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:10:55 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ int	ft_verif_right(t_cub *cub, size_t y, size_t x)
 int	ft_verif_right_down(t_cub *cub, size_t y, size_t x)
 {
 	if (y + 1 < cub->parse->map_height && x + 1 < cub->parse->map_width && \
-	cub->map[y + 1][x + 1].value != '\0' && cub->map[y + 1][x + 1].value == '1' && \
+	cub->map[y + 1][x + 1].value != '\0' && \
+	cub->map[y + 1][x + 1].value == '1' && \
 	cub->map[y + 1][x + 1].used == false && cub->map[y][x].count >= 1)
 	{
 		cub->map[y][x].count--;
@@ -145,8 +146,8 @@ int	ft_verif_down(t_cub *cub, size_t y, size_t x)
 int	ft_verif_left_down(t_cub *cub, size_t y, size_t x)
 {
 	if (y + 1 < cub->parse->map_height && x > 0 && \
-	cub->map[y + 1][x - 1].value == '1' && cub->map[y + 1][x - 1].used == false && \
-	cub->map[y][x].count >= 1)
+	cub->map[y + 1][x - 1].value == '1' && \
+	cub->map[y + 1][x - 1].used == false && cub->map[y][x].count >= 1)
 	{
 		cub->map[y][x].count--;
 		if (ft_check_arround_1(cub, y + 1, x - 1) == 0)
@@ -168,7 +169,7 @@ int	ft_verif_left(t_cub *cub, size_t y, size_t x)
 	return (1);
 }
 
-int ft_verif_left_up(t_cub *cub, size_t y, size_t x)
+int	ft_verif_left_up(t_cub *cub, size_t y, size_t x)
 {
 	if (y > 0 && x > 0 && cub->map[y - 1][x - 1].value == '1' && \
 	cub->map[y - 1][x - 1].used == false && cub->map[y][x].count >= 1)
@@ -193,11 +194,11 @@ int	ft_verif_up(t_cub *cub, size_t y, size_t x)
 	return (1);
 }
 
-int ft_verif_right_up(t_cub *cub, size_t y, size_t x)
+int	ft_verif_right_up(t_cub *cub, size_t y, size_t x)
 {
 	if (y > 0 && x + 1 < cub->parse->map_width && \
-	cub->map[y - 1][x + 1].value == '1' && cub->map[y - 1][x + 1].used == false && \
-	cub->map[y][x].count >= 1)
+	cub->map[y - 1][x + 1].value == '1' && \
+	cub->map[y - 1][x + 1].used == false && cub->map[y][x].count >= 1)
 	{
 		cub->map[y][x].count--;
 		if (ft_check_arround_1(cub, y - 1, x + 1) == 0)
@@ -227,7 +228,7 @@ int	ft_check_map_direction(t_cub *cub, size_t y, size_t x)
 	return (1);
 }
 
-int ft_check_diag(t_cub *cub, size_t y, size_t x, char value)
+int	ft_check_diag(t_cub *cub, size_t y, size_t x, char value)
 {
 	int	count;
 
@@ -236,13 +237,16 @@ int ft_check_diag(t_cub *cub, size_t y, size_t x, char value)
 	cub->map[y - 1][x - 1].used == false)
 		count++;
 	if (y > 0 && x + 1 < cub->parse->map_width && \
-	cub->map[y - 1][x + 1].value == value && cub->map[y - 1][x + 1].used == false)
+	cub->map[y - 1][x + 1].value == value && \
+	cub->map[y - 1][x + 1].used == false)
 		count++;
 	if (y + 1 < cub->parse->map_height && x > 0 && \
-	cub->map[y + 1][x - 1].value == value && cub->map[y + 1][x - 1].used == false)
+	cub->map[y + 1][x - 1].value == value && \
+	cub->map[y + 1][x - 1].used == false)
 		count++;
 	if (y + 1 < cub->parse->map_height && x + 1 < cub->parse->map_width && \
-	cub->map[y + 1][x + 1].value == value && cub->map[y + 1][x + 1].used == false)
+	cub->map[y + 1][x + 1].value == value && \
+	cub->map[y + 1][x + 1].used == false)
 		count++;
 	return (count);
 }
@@ -434,7 +438,6 @@ int	ft_check_line(t_cub *cub, char *line)
 			&& line[i] != '0' && line[i] != 'N' && line[i] \
 			!= 'S' && line[i] != 'W' && line[i] != 'E')
 		{
-			// printf ("line = %s\n", line);
 			free(line);
 			ft_error(cub, "Invalid Cell", -1, -1);
 		}

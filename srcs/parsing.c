@@ -6,15 +6,12 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/03 19:00:23 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:46:56 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// Parse le fichier .cub
-// je commente verif map pour que tu es une version fonctionnelle. je suis en train de taff sur 
-// la verif de la map
 int	ft_parsing(t_cub *cub, char **argv)
 {
 	if (ft_get_data(argv[1], cub, NULL) == EXIT_FAILURE)
@@ -27,7 +24,7 @@ int	ft_parsing(t_cub *cub, char **argv)
 
 int	ft_checker(char *line, char one, char two)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i])
@@ -82,10 +79,10 @@ void	verif_fill_data(t_cub *cub, char *line, int i)
 	while (line[i] && cub->parse->ct != 7)
 	{
 		if (line[i] == ' ' || line[i] == '\t')
-        	i++;
+			i++;
 		else if (cub->parse->ct < 6 && (line[i] == '1' || line[i] == '0' || \
 		(line[i] == 'N' && line[i + 1] != 'O') || (line[i] == 'S' && \
-		line[i + 1] != 'O') || (line[i] == 'W' && line[i + 1] != 'E')|| \
+		line[i + 1] != 'O') || (line[i] == 'W' && line[i + 1] != 'E') || \
 		(line[i] == 'E' && line[i + 1] != 'A')))
 		{
 			free(line);
@@ -93,7 +90,7 @@ void	verif_fill_data(t_cub *cub, char *line, int i)
 		}
 		else if (cub->parse->ct == 6 && (line[i] == '1' || line[i] == '0' || \
 		(line[i] == 'N' && line[i + 1] != 'O') || (line[i] == 'S' && \
-		line[i + 1] != 'O') || (line[i] == 'W' && line[i + 1] != 'E')|| \
+		line[i + 1] != 'O') || (line[i] == 'W' && line[i + 1] != 'E') || \
 		(line[i] == 'E' && line[i + 1] != 'A')))
 		{
 			cub->parse->total_infos = cub->parse->total_height;
@@ -117,7 +114,7 @@ int	ft_get_data(char *file, t_cub *cub, char *line)
 	{
 		line = ft_if_only_blanks(line);
 		verif_fill_data(cub, line, 0);
-		if (cub->verif.NO > 1 || cub->verif.SO > 1 || cub->verif.WE > 1 ||
+		if (cub->verif.NO > 1 || cub->verif.SO > 1 || cub->verif.WE > 1 || \
 			cub->verif.EA > 1 || cub->verif.F > 1 || cub->verif.C > 1)
 		{
 			free(line);
@@ -142,14 +139,15 @@ void	ft_fill_utility_map(t_cub *cub, char *line, char *tmp)
 		if (cub->parse->check_newline == 1)
 			cub->parse->check_newline = 2;
 	}
-	else if (line[0] != '\n' && (ft_strchr(line, '1') || ft_strchr(line, '0') || ft_strchr(line, 'N') || ft_strchr(line, 'S') || ft_strchr(line, 'W') || ft_strchr(line, 'E')))
+	else if (line[0] != '\n' && (ft_strchr(line, '1') || \
+	ft_strchr(line, '0') || ft_strchr(line, 'N') || ft_strchr(line, 'S') || \
+	ft_strchr(line, 'W') || ft_strchr(line, 'E')))
 	{
 		if (cub->parse->check_newline == 2)
 		{
 			free(line);
 			ft_error(cub, "Invalid Newline inside map", -1, -1);
 		}
-		//possibility to remove blanks before and after the map
 		tmp = ft_strtrim(line, "\n");
 		if (cub->parse->map_width < ft_strlen(tmp) && ft_strlen(tmp) != 0)
 			cub->parse->map_width = ft_strlen(tmp);
@@ -162,7 +160,7 @@ void	ft_fill_utility_map(t_cub *cub, char *line, char *tmp)
 //Rempli les variables NO, SO, WE, EA, F, C, map
 int	ft_fill_utility(t_cub *cub, char *line)
 {
-	char *tmp;
+	char	*tmp;
 
 	if (ft_checker(line, 'N', 'O'))
 		return (cub->parse->NO = ft_if_blanks(ft_substr(ft_strnstr(line, \
@@ -199,8 +197,8 @@ void	ft_init_map(t_cub *cub, size_t y, size_t x, char val)
 
 void	ft_fill_map(t_cub *cub, char *line, char **split, size_t j)
 {
-	size_t x;
-	size_t y;
+	size_t	x;
+	size_t	y;
 
 	y = (j - cub->parse->total_infos);
 	if (ft_check_line(cub, line) == 1)
@@ -216,7 +214,7 @@ void	ft_fill_map(t_cub *cub, char *line, char **split, size_t j)
 		if (!cub->map[y])
 		{
 			free(line);
-            ft_error(cub, "Map Alloc failed", -1, -1);
+			ft_error(cub, "Map Alloc failed", -1, -1);
 		}
 		while (++x < cub->parse->map_width)
 			ft_init_map(cub, y, x, *split[x]);
@@ -226,7 +224,7 @@ void	ft_fill_map(t_cub *cub, char *line, char **split, size_t j)
 	}
 }
 
-void ft_prepare(t_cub *cub, char *line, size_t j)
+void	ft_prepare(t_cub *cub, char *line, size_t j)
 {
 	if (j < cub->parse->total_infos)
 	{
@@ -258,7 +256,7 @@ void	ft_init_cub_map(t_cub *cub)
 		ft_error(cub, "Map Alloc failed", -1, -1);
 	while (i <= cub->parse->map_height)
 	{
-        cub->map[i] = NULL;
+		cub->map[i] = NULL;
 		i++;
 	}
 }
@@ -267,7 +265,7 @@ void	ft_init_cub_map(t_cub *cub)
 t_cell	**ft_fill_all(char *file, t_cub *cub)
 {
 	char	*line;
-	size_t		j;
+	size_t	j;
 
 	j = 0;
 	cub->fd = open(file, O_RDONLY);
@@ -289,4 +287,3 @@ t_cell	**ft_fill_all(char *file, t_cub *cub)
 	close(cub->fd);
 	return (cub->map);
 }
-

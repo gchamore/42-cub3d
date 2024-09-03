@@ -6,14 +6,14 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/03 18:54:48 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:17:42 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 // imprime la map
-void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height)
+void    ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height)
 {
     int	y;
     int	x;
@@ -69,63 +69,63 @@ void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height)
 // split la map
 char	**ft_mod_split(char *str, t_cub *cub, size_t i, int tmp)
 {
-    char	**split;
-    size_t	len;
+	char	**split;
+	size_t	len;
 
-    len = cub->parse->map_width;
-    split = (char **)malloc(sizeof(char *) * (len + 1));
-    if (!split)
-        return (NULL);
-    while (i < len)
-    {
-        split[i] = (char *)malloc(sizeof(char) * 2);
-        if (!split[i])
-            return (ft_free_split(split), NULL);
+	len = cub->parse->map_width;
+	split = (char **)malloc(sizeof(char *) * (len + 1));
+	if (!split)
+		return (NULL);
+	while (i < len)
+	{
+		split[i] = (char *)malloc(sizeof(char) * 2);
+		if (!split[i])
+			return (ft_free_split(split), NULL);
 		if (((i >= ft_strlen(str) || str[i] == '\n' || str[i] == '\0') && \
-        (i < len)) || tmp == 1)
+		(i < len)) || tmp == 1)
 		{
 			split[i][0] = ' ';
 			tmp = 1;
 		}
 		else
 			split[i][0] = str[i];
-    	split[i][1] = '\0';
+		split[i][1] = '\0';
 		i++;
-    }
-    split[len] = NULL;
+	}
+	split[len] = NULL;
 	return (split);
 }
 
 // SI QUE ESPACES ET TABS DANS LA LIGNE ALORS ON LES SUPPRIME
 char	*ft_if_only_blanks(char *str)
 {
-    int	i;
-    char *tmp;
-    int	check;
+	int		i;
+	char	*tmp;
+	int		check;
 
-    i = 0;
-    tmp = str;
-    check = 0;
-    while (tmp[i] && (tmp[i] == ' ' || tmp[i] == '\t'))
+	i = 0;
+	tmp = str;
+	check = 0;
+	while (tmp[i] && (tmp[i] == ' ' || tmp[i] == '\t'))
 	{
-        i++;
+		i++;
 	}
-    if (tmp[i] != '\0' && tmp[i] != '\n' && !ft_is_delimiter(tmp[i]))
-        check = 1;
-    i = 0;
-    if (check == 0)
-    {
-        str = ft_strtrim(tmp, " \t");
-        free(tmp);
-    }
-    return (str);
+	if (tmp[i] != '\0' && tmp[i] != '\n' && !ft_is_delimiter(tmp[i]))
+		check = 1;
+	i = 0;
+	if (check == 0)
+	{
+		str = ft_strtrim(tmp, " \t");
+		free(tmp);
+	}
+	return (str);
 }
 
 // TRIM LES ESPACES ET TABS DE LA LIGNES AVANT ET APRES LE TEXTE
 char	*ft_if_blanks(char *str)
 {
-	int	i;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	if (str == NULL)
