@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/03 15:32:54 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:33:47 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,19 @@ int	ft_verif_right(t_cub *cub, size_t y, size_t x)
 	return (1);
 }
 
+int	ft_verif_right_down(t_cub *cub, size_t y, size_t x)
+{
+	if (y + 1 < cub->parse->map_height && x + 1 < cub->parse->map_width && \
+	cub->map[y + 1][x + 1].value != '\0' && cub->map[y + 1][x + 1].value == '1' && \
+	cub->map[y + 1][x + 1].used == false && cub->map[y][x].count >= 1)
+	{
+		cub->map[y][x].count--;
+		if (ft_check_arround_1(cub, y + 1, x + 1) == 0)
+			return (0);
+	}
+	return (1);
+}
+
 int	ft_verif_down(t_cub *cub, size_t y, size_t x)
 {
 	if (y + 1 < cub->parse->map_height && cub->map[y + 1][x].value != '\0' && \
@@ -124,6 +137,19 @@ int	ft_verif_down(t_cub *cub, size_t y, size_t x)
 	{
 		cub->map[y][x].count--;
 		if (ft_check_arround_1(cub, y + 1, x) == 0)
+			return (0);
+	}
+	return (1);
+}
+
+int	ft_verif_left_down(t_cub *cub, size_t y, size_t x)
+{
+	if (y + 1 < cub->parse->map_height && x > 0 && \
+	cub->map[y + 1][x - 1].value == '1' && cub->map[y + 1][x - 1].used == false && \
+	cub->map[y][x].count >= 1)
+	{
+		cub->map[y][x].count--;
+		if (ft_check_arround_1(cub, y + 1, x - 1) == 0)
 			return (0);
 	}
 	return (1);
@@ -142,6 +168,18 @@ int	ft_verif_left(t_cub *cub, size_t y, size_t x)
 	return (1);
 }
 
+int ft_verif_left_up(t_cub *cub, size_t y, size_t x)
+{
+	if (y > 0 && x > 0 && cub->map[y - 1][x - 1].value == '1' && \
+	cub->map[y - 1][x - 1].used == false && cub->map[y][x].count >= 1)
+	{
+		cub->map[y][x].count--;
+		if (ft_check_arround_1(cub, y - 1, x - 1) == 0)
+			return (0);
+	}
+	return (1);
+}
+
 int	ft_verif_up(t_cub *cub, size_t y, size_t x)
 {
 	if (y > 0 && cub->map[y][x].value == '1' && \
@@ -155,17 +193,58 @@ int	ft_verif_up(t_cub *cub, size_t y, size_t x)
 	return (1);
 }
 
+int ft_verif_right_up(t_cub *cub, size_t y, size_t x)
+{
+	if (y > 0 && x + 1 < cub->parse->map_width && \
+	cub->map[y - 1][x + 1].value == '1' && cub->map[y - 1][x + 1].used == false && \
+	cub->map[y][x].count >= 1)
+	{
+		cub->map[y][x].count--;
+		if (ft_check_arround_1(cub, y - 1, x + 1) == 0)
+			return (0);
+	}
+	return (1);
+}
+
 int	ft_check_map_direction(t_cub *cub, size_t y, size_t x)
 {
 	if (ft_verif_right(cub, y, x) == 0)
 		return (0);
+	if (ft_verif_right_down(cub, y, x) == 0)
+		return (0);
 	if (ft_verif_down(cub, y, x) == 0)
+		return (0);
+	if (ft_verif_left_down(cub, y, x) == 0)
 		return (0);
 	if (ft_verif_left(cub, y, x) == 0)
 		return (0);
+	if (ft_verif_left_up(cub, y, x) == 0)
+		return (0);
 	if (ft_verif_up(cub, y, x) == 0)
 		return (0);
+	if (ft_verif_right_up(cub, y, x) == 0)
+		return (0);
 	return (1);
+}
+
+int ft_check_diag(t_cub *cub, size_t y, size_t x)
+{
+	int	count;
+
+	count = 0;
+	if (y > 0 && x > 0 && cub->map[y - 1][x - 1].value == '1' && \
+	cub->map[y - 1][x - 1].used == false)
+		count++;
+	if (y > 0 && x + 1 < cub->parse->map_width && \
+	cub->map[y - 1][x + 1].value == '1' && cub->map[y - 1][x + 1].used == false)
+		count++;
+	if (y + 1 < cub->parse->map_height && x > 0 && \
+	cub->map[y + 1][x - 1].value == '1' && cub->map[y + 1][x - 1].used == false)
+		count++;
+	if (y + 1 < cub->parse->map_height && x + 1 < cub->parse->map_width && \
+	cub->map[y + 1][x + 1].value == '1' && cub->map[y + 1][x + 1].used == false)
+		count++;
+	return (count);
 }
 
 int	ft_count(t_cub *cub, size_t y, size_t x, char value)
@@ -185,6 +264,8 @@ int	ft_count(t_cub *cub, size_t y, size_t x, char value)
 	if (y > 0 && cub->map[y - 1][x].value == value && \
 		cub->map[y - 1][x].count == 0 && cub->map[y - 1][x].used == false)
 		count++;
+	if (value == '1')
+		count += ft_check_diag(cub, y, x);
 	return (count);
 }
 
