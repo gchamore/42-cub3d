@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/02 14:56:58 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/03 13:42:27 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_cub
 	t_data		*data;
 	t_parse		*parse;
 	t_player	*player;
+	int			fd;
 }	t_cub;
 
 //////////////////////////
@@ -120,10 +121,10 @@ void	ft_init_structs(t_cub *cub);
 //////////////////////////
 
 //parsing.c
-int	ft_parsing(int fd, t_cub *cub, char **argv);
+int	ft_parsing(t_cub *cub, char **argv);
 int	ft_get_data(char *file, t_cub *cub, char *line);
 int	ft_fill_utility(t_cub *cub, char *line);
-t_cell	**ft_fill_tab(int fd, t_cub *cub);
+t_cell	**ft_fill_all(char *file, t_cub *cub);
 
 //parsing_verif.c
 int	ft_check_arround_1(t_cub *cub, size_t y, size_t x);

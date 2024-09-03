@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/02 16:49:01 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:32:54 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,7 +287,7 @@ void	ft_get_player(t_cub *cub, size_t y, size_t x)
 	{
 		if (cub->player->y_start != 0 || cub->player->x_start != 0 || \
 		cub->player->dir != 0)
-			ft_error(cub, "Invalid map already a player", -1, -1);
+			ft_error(cub, "Invalid map to much players", -1, -1);
 		cub->player->dir = cub->map[y][x].value;
 		cub->player->y_start = y;
 		cub->player->x_start = x;
@@ -354,7 +354,7 @@ int	ft_check_line(t_cub *cub, char *line)
 			&& line[i] != '0' && line[i] != 'N' && line[i] \
 			!= 'S' && line[i] != 'W' && line[i] != 'E')
 		{
-			printf ("line = %s\n", line);
+			// printf ("line = %s\n", line);
 			free(line);
 			ft_error(cub, "Invalid Cell", -1, -1);
 		}
