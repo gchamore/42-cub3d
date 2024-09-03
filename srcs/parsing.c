@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/03 18:13:34 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:00:23 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,30 +74,27 @@ void	verif_if_double_and_valid(t_cub *cub, char *line)
 		cub->verif.F++;
 	else if (ft_checker(line, 'C', '\0') == 1 && cub->parse->ct <= 6)
 		cub->verif.C++;
-	if (cub->verif.NO > 1 || cub->verif.SO > 1 || cub->verif.WE > 1 || \
-	cub->verif.EA > 1 || cub->verif.F > 1 || cub->verif.C > 1)
-	{
-		free(line);
-		ft_error(cub, "Double info", -1, -1);
-	}
 }
 
-void	verif_fill_data(t_cub *cub, char *line)
+void	verif_fill_data(t_cub *cub, char *line, int i)
 {
-	int i;
-
-	i = 0;
 	verif_if_double_and_valid(cub, line);
 	while (line[i] && cub->parse->ct != 7)
 	{
 		if (line[i] == ' ' || line[i] == '\t')
         	i++;
-		else if (cub->parse->ct < 6 && (line[i] == '1' || line[i] == '0' || (line[i] == 'N' && line[i + 1] != 'O') || (line[i] == 'S' && line[i + 1] != 'O') || (line[i] == 'W' && line[i + 1] != 'E')|| (line[i] == 'E' && line[i + 1] != 'A')))
+		else if (cub->parse->ct < 6 && (line[i] == '1' || line[i] == '0' || \
+		(line[i] == 'N' && line[i + 1] != 'O') || (line[i] == 'S' && \
+		line[i + 1] != 'O') || (line[i] == 'W' && line[i + 1] != 'E')|| \
+		(line[i] == 'E' && line[i + 1] != 'A')))
 		{
 			free(line);
 			ft_error(cub, "Invalid data", -1, -1);
 		}
-		else if (cub->parse->ct == 6 && (line[i] == '1' || line[i] == '0' || (line[i] == 'N' && line[i + 1] != 'O') || (line[i] == 'S' && line[i + 1] != 'O') || (line[i] == 'W' && line[i + 1] != 'E')|| (line[i] == 'E' && line[i + 1] != 'A')))
+		else if (cub->parse->ct == 6 && (line[i] == '1' || line[i] == '0' || \
+		(line[i] == 'N' && line[i + 1] != 'O') || (line[i] == 'S' && \
+		line[i + 1] != 'O') || (line[i] == 'W' && line[i + 1] != 'E')|| \
+		(line[i] == 'E' && line[i + 1] != 'A')))
 		{
 			cub->parse->total_infos = cub->parse->total_height;
 			cub->parse->ct = 7;
@@ -118,9 +115,14 @@ int	ft_get_data(char *file, t_cub *cub, char *line)
 		return (ft_error(cub, "NULL line", -1, -1), EXIT_FAILURE);
 	while (line != NULL)
 	{
-		// printf ("line = %s\n", line);
 		line = ft_if_only_blanks(line);
-		verif_fill_data(cub, line);
+		verif_fill_data(cub, line, 0);
+		if (cub->verif.NO > 1 || cub->verif.SO > 1 || cub->verif.WE > 1 ||
+			cub->verif.EA > 1 || cub->verif.F > 1 || cub->verif.C > 1)
+		{
+			free(line);
+			ft_error(cub, "Double info", -1, -1);
+		}
 		cub->parse->total_height++;
 		ft_fill_utility(cub, line);
 		free(line);
@@ -162,23 +164,23 @@ int	ft_fill_utility(t_cub *cub, char *line)
 {
 	char *tmp;
 
-	if (ft_strnstr(line, "NO ", ft_strlen(line)))
+	if (ft_checker(line, 'N', 'O'))
 		return (cub->parse->NO = ft_if_blanks(ft_substr(ft_strnstr(line, \
 		"NO ", ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
-	else if (ft_strnstr(line, "SO ", ft_strlen(line)))
+	else if (ft_checker(line, 'S', 'O'))
 		return (cub->parse->SO = ft_if_blanks(ft_substr(ft_strnstr(line, \
 		"SO ", ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
-	else if (ft_strnstr(line, "WE ", ft_strlen(line)))
+	else if (ft_checker(line, 'W', 'E'))
 		return (cub->parse->WE = ft_if_blanks(ft_substr(ft_strnstr(line, \
 		"WE ", ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
-	else if (ft_strnstr(line, "EA ", ft_strlen(line)))
+	else if (ft_checker(line, 'E', 'A'))
 		return (cub->parse->EA = ft_if_blanks(ft_substr(ft_strnstr(line, \
 		"EA ", ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
-	else if (ft_strnstr(line, "F ", ft_strlen(line)))
+	else if (ft_checker(line, 'F', '\0'))
 		return (tmp = ft_substr(ft_strnstr(line, "F ", ft_strlen(line)), 2, \
 		ft_strlen(line) - 2), cub->parse->F = ft_get_rgb(cub->parse->F, tmp), \
 		cub->parse->ct++, free(tmp), 1);
-	else if (ft_strnstr(line, "C ", ft_strlen(line)))
+	else if (ft_checker(line, 'C', '\0'))
 		return (tmp = ft_substr(ft_strnstr(line, "C ", ft_strlen(line)), 2, \
 		ft_strlen(line) - 2), cub->parse->C = ft_get_rgb(cub->parse->C, tmp), \
 		cub->parse->ct++, free(tmp), 1);
@@ -203,7 +205,7 @@ void	ft_fill_map(t_cub *cub, char *line, char **split, size_t j)
 	y = (j - cub->parse->total_infos);
 	if (ft_check_line(cub, line) == 1)
 	{
-		x = 0;
+		x = -1;
 		split = ft_mod_split(line, cub, 0, 0);
 		if (split == NULL)
 		{
@@ -216,11 +218,8 @@ void	ft_fill_map(t_cub *cub, char *line, char **split, size_t j)
 			free(line);
             ft_error(cub, "Map Alloc failed", -1, -1);
 		}
-		while (x < cub->parse->map_width)
-		{
+		while (++x < cub->parse->map_width)
 			ft_init_map(cub, y, x, *split[x]);
-			x++;
-		}
 		ft_init_map(cub, y, x, '\0');
 		ft_free_split(split);
 		y++;
@@ -249,6 +248,21 @@ void ft_prepare(t_cub *cub, char *line, size_t j)
 	}
 }
 
+void	ft_init_cub_map(t_cub *cub)
+{
+	size_t	i;
+
+	i = 0;
+	cub->map = malloc(sizeof(t_cell *) * (cub->parse->map_height + 1));
+	if (!cub->map)
+		ft_error(cub, "Map Alloc failed", -1, -1);
+	while (i <= cub->parse->map_height)
+	{
+        cub->map[i] = NULL;
+		i++;
+	}
+}
+
 //Rempli le tableau map
 t_cell	**ft_fill_all(char *file, t_cub *cub)
 {
@@ -259,15 +273,7 @@ t_cell	**ft_fill_all(char *file, t_cub *cub)
 	cub->fd = open(file, O_RDONLY);
 	if (cub->fd == -1)
 		return (ft_error(cub, "Invalid fd", -1, -1), NULL);
-	cub->map = malloc(sizeof(t_cell *) * (cub->parse->map_height + 1));
-	if (!cub->map)
-		return (ft_error(cub, "Map Alloc failed", -1, -1), NULL);
-	while (j <= cub->parse->map_height)
-	{
-        cub->map[j] = NULL;
-		j++;
-	}
-	j = 0;
+	ft_init_cub_map(cub);
 	while (j < cub->parse->total_height)
 	{
 		line = ft_get_next_line(cub->fd);
