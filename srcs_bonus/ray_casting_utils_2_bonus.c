@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:42:30 by tookops           #+#    #+#             */
-/*   Updated: 2024/09/02 08:40:50 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/03 13:48:21 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,29 @@ void	ft_angle_ns(t_raycasting *ray, t_draw_wall *draw_wall)
 		ray->wall_hit_x = fmod(ray->rx, 1.0f);
 		ray->dof = ray->max_dof;
 	}
+}
+
+//Check if the ray is on a block intersection
+int	ft_is_intersection(t_raycasting *ray)
+{
+	float	tolerance;
+	bool	intersection_h;
+	bool	intersection_v;
+
+	tolerance = 0.001f;
+	intersection_h = false;
+	intersection_v = false;
+	if ((fabs(fmod(ray->x_h, 1.0f)) < tolerance || \
+	fabs(fmod(ray->x_h, 1.0f) - 1.0f) < tolerance) && \
+	(fabs(fmod(ray->y_h, 1.0f)) < tolerance || \
+	fabs(fmod(ray->y_h, 1.0f) - 1.0f) < tolerance))
+		intersection_h = true;
+	if ((fabs(fmod(ray->x_v, 1.0f)) < tolerance || \
+	fabs(fmod(ray->x_v, 1.0f) - 1.0f) < tolerance) && \
+	(fabs(fmod(ray->y_v, 1.0f)) < tolerance || \
+	fabs(fmod(ray->y_v, 1.0f) - 1.0f) < tolerance))
+		intersection_v = true;
+	if (intersection_h && intersection_v)
+		return (1);
+	return (0);
 }

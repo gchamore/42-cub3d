@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:37:13 by anferre           #+#    #+#             */
-/*   Updated: 2024/09/02 11:43:42 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/03 11:18:11 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,38 @@ t_draw_wall *draw_wall)
 	ft_ray_path_ver(cub, ray);
 }
 
-// get the shortest distance and the direction of the wall hit
-void	ft_dir_dist(t_raycasting *ray, t_draw_wall *draw_wall )
+void	ft_dist_v_smaller(t_raycasting	*ray, t_draw_wall *draw_wall, \
+t_cub *cub)
 {
-	if (ray->dist_v < ray->dist_h - 0.0005)
-	{
-		ray->rx = ray->x_v;
-		ray->ry = ray->y_v;
-		if (ray->ra > PI / 2 && ray->ra < 3 * PI / 2)
-			draw_wall->dir = EAST;
-		else
-			draw_wall->dir = WEST;
-		ray->dist_f = ray->dist_v;
-		ray->wall_hit_x = fmod(ray->ry, 1.0f);
-	}
-	if (ray->dist_h <= ray->dist_v + 0.0005)
+	ray->rx = ray->x_v;
+	ray->ry = ray->y_v;
+	if (ray->ra > PI / 2 && ray->ra < 3 * PI / 2)
+		draw_wall->dir = WEST;
+	else
+		draw_wall->dir = EAST;
+	ray->dist_f = ray->dist_v;
+	ray->wall_hit_x = fmod(ray->ry, 1.0f);
+	cub->player->last_dist = ray->dist_f;
+}
+
+// get the shortest distance and the direction of the wall hit
+void	ft_dir_dist(t_raycasting *ray, t_draw_wall *draw_wall, t_cub *cub)
+{
+	if (ft_is_intersection(ray))
+		ray->dist_f = cub->player->last_dist;
+	else if (ray->dist_v <= ray->dist_h)
+		ft_dist_v_smaller(ray, draw_wall, cub);
+	else
 	{
 		ray->rx = ray->x_h;
 		ray->ry = ray->y_h;
 		if (ray->ra > WEST_ANGLE)
-			draw_wall->dir = SOUTH;
-		else
 			draw_wall->dir = NORTH;
+		else
+			draw_wall->dir = SOUTH;
 		ray->dist_f = ray->dist_h;
 		ray->wall_hit_x = fmod(ray->rx, 1.0f);
+		cub->player->last_dist = ray->dist_f;
 	}
 	if (isnan(ray->wall_hit_x))
 		ray->wall_hit_x = 0.0f;
@@ -112,7 +120,7 @@ void	ft_cast_rays(t_cub *cub)
 	{
 		ft_horizontal_casting(cub, cub->ray, cub->draw_wall);
 		ft_vertical_casting(cub, cub->ray, cub->draw_wall);
-		ft_dir_dist(cub->ray, cub->draw_wall);
+		ft_dir_dist(cub->ray, cub->draw_wall, cub);
 		ft_calculate_tex_dist(cub, cub->ray, cub->draw_wall);
 		ft_draw_wall(cub, r, cub->draw_wall);
 		cub->ray->ra += cub->ray->ray_step;

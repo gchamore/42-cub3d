@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/02 17:49:08 by tookops          ###   ########.fr       */
+/*   Updated: 2024/09/03 11:12:05 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ typedef struct s_player
 	float			y_cur;
 	float 			delta_x;
 	float 			delta_y;
+	float			last_dist;
 	float			mousse_x;
 	long			last_render;
 	float 			angle;
@@ -281,6 +282,9 @@ void	ft_draw_tiles(t_cub *cub, float pos_x, float pos_y, int color);
 int	ft_is_path_clear(t_cub *cub, t_coord start, t_coord end);
 int	ft_mouse(int x, int y, t_cub *cub);
 
+//project_utils_2_bonus.c
+int	ft_mouse(int x, int y, t_cub *cub);
+
 //project_key.c
 void	ft_handle_w(t_cub *cub);
 void	ft_handle_s(t_cub *cub);
@@ -299,13 +303,14 @@ void	ft_mpp(t_img *img, int x, int y, int color);
 void	ft_cast_rays(t_cub *cub);
 
 //ray_casting_utils.c
-float	ft_distance(float x0, float y0, float x1, float y1);
 int 	ft_rgb_to_int(t_rgb rgb);
+float	ft_distance(float x0, float y0, float x1, float y1);
 void	ft_check_limits(float *ra);
 void	ft_init_raycasting(t_cub **cub, t_raycasting *ray);
 void	ft_init_structs_raycasting(t_cub **cub);
 
 //ray_casting_utils_2.c
+int		ft_is_intersection(t_raycasting *ray);
 void	ft_ray_path_hor(t_cub *cub, t_raycasting *ray);
 void	ft_angle_ew(t_raycasting *ray, t_draw_wall *draw_wall);
 void	ft_ray_path_ver(t_cub *cub, t_raycasting *ray);

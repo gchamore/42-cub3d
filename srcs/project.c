@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   project.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tookops <tookops@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:15:51 by anferre           #+#    #+#             */
-/*   Updated: 2024/09/02 16:12:05 by tookops          ###   ########.fr       */
+/*   Updated: 2024/09/03 11:18:24 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ft_init_player(t_cub *cub)
 		cub->player->angle = EAST_ANGLE;
 	cub->player->delta_x = cos(cub->player->angle);
 	cub->player->delta_y = sin(cub->player->angle);
+	cub->player->last_dist = 0;
 }
 
 void	ft_project(t_cub *cub)
