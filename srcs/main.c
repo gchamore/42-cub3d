@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:25:07 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 16:53:09 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/04 17:01:25 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	main(int argc, char **argv)
 	if (ft_init_mlx(cub) == EXIT_FAILURE)
 		return (ft_free_cub(cub), 0);
 	ft_project(cub);
-	close(fd);
 	ft_free_cub(cub);
-	printf("ALL OK\n");
 	return (0);
 }

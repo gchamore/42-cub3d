@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:24:45 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/02 08:43:21 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/04 16:57:29 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	ft_free_cub(t_cub *cub)
 			ft_free_pointer((void **)&cub->ray);
 		if (cub->draw_wall)
 			ft_free_pointer((void **)&cub->draw_wall);
+		close(cub->fd);
 		ft_free_pointer((void **)&cub);
 	}
 }

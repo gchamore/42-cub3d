@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:20:35 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 16:52:50 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/04 17:29:10 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ void	ft_create_cub(t_cub **cub)
 			ft_free_cub(*cub);
 			return ;
 		}
+		(*cub)->texture = NULL;
+		(*cub)->ray = NULL;
+		(*cub)->draw_wall = NULL;
 	}
 }
 

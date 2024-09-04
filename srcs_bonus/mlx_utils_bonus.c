@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:31:15 by anferre           #+#    #+#             */
-/*   Updated: 2024/09/02 11:53:08 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/04 17:45:21 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	ft_read_texture(t_cub *cub)
 	cub->parse->EA, &(texture->width[EAST]), &(texture->height[EAST]));
 	if (!texture->img_ptr[NORTH] || !texture->img_ptr[SOUTH] || \
 	!texture->img_ptr[WEST] || !texture->img_ptr[EAST])
-		return (ft_error(cub, "Texture not found", -1, -1), EXIT_FAILURE);
+		return (printf("Error \n: Texture\n"), free(texture), ft_exit_mlx(cub), \
+		EXIT_FAILURE);
 	ft_get_texture_addr(texture);
 	cub->texture = texture;
 	return (EXIT_SUCCESS);

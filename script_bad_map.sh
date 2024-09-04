@@ -10,7 +10,7 @@ for mapfile in "$MAPS_DIR"*.cub; do
     echo "Terminé avec la map $mapfile"
     echo # Ajoute un retour à la ligne
     # Décommentez la ligne suivante si vous souhaitez une pause entre chaque exécution
-    read -p "Appuyez sur [Enter] pour continuer avec la prochaine map..."
+    # read -p "Appuyez sur [Enter] pour continuer avec la prochaine map..."
 done
 
 # valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes 

@@ -33,3 +33,61 @@ Map maps/joyeux/maps/invalid_mandatory_unclosed_3.cub: PAS DE FUITES DE MÉMOIRE
 Map maps/joyeux/maps/invalid_mandatory_unclosed_3.cub: AUCUNE ERREUR
 Map maps/joyeux/maps/invalid_mandatory_unclosed.cub: PAS DE FUITES DE MÉMOIRE
 Map maps/joyeux/maps/invalid_mandatory_unclosed.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_map_first.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_map_first.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_map_for_bonus.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_map_for_bonus.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_map_w_emptyLine.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_map_w_emptyLine.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_multiple_player_position.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_multiple_player_position.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_not_set_C.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_not_set_C.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_not_set_EA.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_not_set_EA.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_not_set_F.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_not_set_F.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_not_set_NO.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_not_set_NO.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_not_set_SO.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_not_set_SO.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_not_set_WE.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_not_set_WE.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_overflow.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_overflow.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_permission.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_permission.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_spaceincard.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_spaceincard.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_texture2id.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_texture2id.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_textureid.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_textureid.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_texturemissingid.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_texturemissingid.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_texturepath.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_texturepath.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_toosmall.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_toosmall.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/invalid_wrongcharinmap.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/invalid_wrongcharinmap.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/valid_big.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/valid_big.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/valid_closed_internal.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/valid_closed_internal.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/valid_color_formatting.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/valid_color_formatting.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/valid_emptylines.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/valid_emptylines.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/valid_mandatory.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/valid_mandatory.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/valid_minimal.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/valid_minimal.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/valid_not_in_order.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/valid_not_in_order.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/valid_smallest.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/valid_smallest.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/valid_texture_formatting.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/valid_texture_formatting.cub: AUCUNE ERREUR
+Map maps/joyeux/maps/valid_unclosed.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/maps/valid_unclosed.cub: AUCUNE ERREUR
