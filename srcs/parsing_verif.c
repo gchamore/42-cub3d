@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 09:45:40 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:20:46 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -417,6 +417,13 @@ void	ft_check_data(t_cub *cub, char *line)
 	{
 		free(line);
 		ft_error(cub, "Missing data", -1, -1);
+	}
+	if (cub->parse->C.r > 255 || cub->parse->C.g > 255 || \
+	cub->parse->C.b > 255 || cub->parse->F.r > 255 || \
+	cub->parse->F.g > 255 || cub->parse->F.b > 255)
+	{
+		free(line);
+		ft_error(cub, "Invalid RGB too high value", -1, -1);
 	}
 }
 

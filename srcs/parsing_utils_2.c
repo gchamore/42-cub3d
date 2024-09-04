@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:03 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 09:50:12 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:24:42 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,30 @@ int	ft_is_delimiter(char c)
 }
 
 // PERMET DE RECUPERER LES COULEURS RGB DANS C ET F
-int	ft_extract_and_trim_value(char *str, int start, int end)
+int	ft_extract_value(char *str, int start, int end)
 {
-	char	*temp;
-	int		value;
-	char	*trimmed;
+    char *temp;
+    int temp_index = 0;
+    int new_value;
+	int i;
 
-	temp = ft_strndup(str + start, end - start + 1);
-	if (!temp)
-		return (-1);
-	trimmed = ft_strtrim(temp, " \t");
-	free(temp);
-	if (!trimmed || ft_strcmp(trimmed, "\n") == 0 || ft_strcmp(trimmed, "") == 0)
-	{
-		free(trimmed);
-		return (-1);
-	}
-	value = ft_atoi(trimmed);
-	free(trimmed);
-	return (value);
+    i = start;
+    temp = (char *)malloc((end - start + 2) * sizeof(char));
+    if (!temp)
+        return (-1);
+    while (i <= end)
+    {
+        if (!ft_is_delimiter(str[i]))
+        {
+            temp[temp_index] = str[i];
+            temp_index++;
+        }
+		i++;
+    }
+    temp[temp_index] = '\0';
+    new_value = ft_atoi(temp);
+    free(temp);
+    return (new_value);
 }
 
 void	ft_assign_rgb_value(t_rgb *rgb, int value_index, int value)
@@ -50,32 +55,76 @@ void	ft_assign_rgb_value(t_rgb *rgb, int value_index, int value)
 		rgb->b = value;
 }
 
-t_rgb	ft_get_rgb(t_rgb rgb, char *str, int i, int start)
+int	ft_get_start(char *str, int i, int start)
 {
-	int	value_index;
-	int	value;
-	int	end;
-
-	value_index = 0;
-	while (str[i] != '\0')
+	if (start == -1)
 	{
-		if ((str[i] == ',' && str[i + 1] != '\0') || str[i + 1] == '\0')
+		if (str[i] >= '0' && str[i] <= '9')
+			start = i;
+	}
+	return (start);
+}
+
+int ft_get_end(char *str, int i, int start)
+{
+	int end;
+
+	end = -1;
+	if (start != -1)
+	{
+		if (str[i + 1] == '\0' || str[i + 1] == ',' || str[i + 1] == '\n')
+			end = i;
+	}
+	return (end);
+}
+
+int	ft_extract(char *str, int start, int end)
+{
+	int value;
+
+	value = 0;
+	if (start != -1 && end != -1)
+	{
+		value = ft_extract_value(str, start, end);
+		if (value == -1)
+			ft_error(NULL, "Invalid RGB building", -1, -1);
+	}
+	return (value);
+}
+
+t_rgb	ft_get_rgb(t_rgb rgb, char *str, int i, int value_index)
+{
+	int	value;
+	int start;
+	int end;
+
+	start = -1;
+	end = -1;
+	while (value_index <= 2)
+	{
+		if ((str[i] < '0' || str[i] > '9') && str[i] != ',' && !ft_is_delimiter(str[i]) && str[i] != '\0')
+			ft_error(NULL, "Invalid RGB building", -1, -1);
+		else if ((str[i] >= '0' && str[i] <= '9') || ft_is_delimiter(str[i]))
 		{
-			if (str[i + 1] == '\0' && str[i] != ',')
-				end = i;
-			else
-				end = i - 1;
-			value = ft_extract_and_trim_value(str, start, end);
-			if (value == -1)
-				return (rgb);
+			start = ft_get_start(str, i, start);
+			end = ft_get_end(str, i, start);
+			value = ft_extract(str, start, end);
+			if (start != -1 && end != -1)
+				i = end;
+		}
+		else if (str[i] == ',' || str[i] == '\0' || str[i] == '\n')
+		{
 			ft_assign_rgb_value(&rgb, value_index, value);
+			start = -1;
+			end = -1;
 			value_index++;
-			start = i + 1;
 		}
 		i++;
 	}
 	return (rgb);
 }
+
+
 // t_rgb	ft_get_rgb(t_rgb rgb, char *str)
 // {
 //     int i;

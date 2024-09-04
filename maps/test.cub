@@ -9,11 +9,8 @@ WE textures/test/west.xpm
 
 EA textures/test/e.xpm 
    
-F 20,20,20 
-C 200,200,200
-
-
-
+F 45, 9   3,  20
+C 76,87,25
 
 NO textures/test/north.xpm
 
