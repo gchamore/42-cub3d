@@ -1,0 +1,5 @@
+Résumé des tests Valgrind
+=========================
+
+Map maps/joyeux/*.cub: PAS DE FUITES DE MÉMOIRE
+Map maps/joyeux/*.cub: AUCUNE ERREUR

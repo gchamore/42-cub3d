@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 12:20:46 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:13:35 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,6 +277,10 @@ int	ft_check_arround_1(t_cub *cub, size_t y, size_t x)
 {
 	cub->map[y][x].used = true;
 	cub->map[y][x].count_0 = ft_count(cub, y, x, '0');
+	cub->map[y][x].count_0 += ft_count(cub, y, x, 'N');
+	cub->map[y][x].count_0 += ft_count(cub, y, x, 'S');
+	cub->map[y][x].count_0 += ft_count(cub, y, x, 'W');
+	cub->map[y][x].count_0 += ft_count(cub, y, x, 'E');
 	cub->map[y][x].count = ft_count(cub, y, x, '1');
 	if (cub->map[y][x].count_0 != 0)
 		return (0);
@@ -416,7 +420,7 @@ void	ft_check_data(t_cub *cub, char *line)
 	cub->parse->F.g <= -1 || cub->parse->F.b <= -1)
 	{
 		free(line);
-		ft_error(cub, "Missing data", -1, -1);
+		ft_error(cub, "Wrong data infos", -1, -1);
 	}
 	if (cub->parse->C.r > 255 || cub->parse->C.g > 255 || \
 	cub->parse->C.b > 255 || cub->parse->F.r > 255 || \

@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 12:47:49 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:28:25 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,11 +176,11 @@ int	ft_fill_utility(t_cub *cub, char *line)
 		"EA ", ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
 	else if (ft_strnstr(line, "F ", ft_strlen(line)))
 		return (tmp = ft_substr(ft_strnstr(line, "F ", ft_strlen(line)), 2, \
-		ft_strlen(line) - 2), cub->parse->F = ft_get_rgb(cub->parse->F, tmp, 0, 0), \
+		ft_strlen(line) - 2), cub->parse->F = ft_get_rgb(cub->parse->F, tmp), \
 		cub->parse->ct++, free(tmp), 1);
 	else if (ft_strnstr(line, "C ", ft_strlen(line)))
 		return (tmp = ft_substr(ft_strnstr(line, "C ", ft_strlen(line)), 2, \
-		ft_strlen(line) - 2), cub->parse->C = ft_get_rgb(cub->parse->C, tmp, 0, 0), \
+		ft_strlen(line) - 2), cub->parse->C = ft_get_rgb(cub->parse->C, tmp), \
 		cub->parse->ct++, free(tmp), 1);
 	else
 		ft_fill_utility_map(cub, line, NULL);
