@@ -6,7 +6,7 @@
 #    By: anferre <anferre@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 09:49:54 by gchamore          #+#    #+#              #
-#    Updated: 2024/09/03 11:11:43 by anferre          ###   ########.fr        #
+#    Updated: 2024/09/04 16:48:31 by anferre          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,12 +26,20 @@ SRCS_DIR_BONUS = srcs_bonus
 SRCS = $(addprefix $(SRCS_DIR)/,	\
 	main.c							\
 	init.c							\
-	parsing.c						\
-	parsing_verif.c					\
-	parsing_utils_1.c               \
-	parsing_utils_2.c               \
-	destroy.c						\
 	error.c							\
+	destroy.c						\
+	parsing.c						\
+	parse_data.c					\
+	parse_fill.c					\
+	parse_rgb.c						\
+	parse_utils.c					\
+	utils_a_delete.c				\
+	verif_algo_direction_1.c		\
+	verif_algo_direction_2.c		\
+	verif_algo.c					\
+	verif_arround_map.c				\
+	verif_utils.c					\
+	verif.c							\
 	project.c						\
 	project_key.c					\
 	project_utils.c					\

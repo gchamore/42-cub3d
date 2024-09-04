@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:24:45 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/02 08:17:38 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/04 16:51:17 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ void	ft_free_map(t_cell **map, int map_height)
 	{
 		while (i < map_height)
 		{
-			free(map[i]);
-			map[i] = NULL;
+			if (map[i])
+			{
+				free(map[i]);
+				map[i] = NULL;
+			}
 			i++;
 		}
 		free(map);
@@ -73,6 +76,7 @@ void	ft_free_cub(t_cub *cub)
 			ft_free_pointer((void **)&cub->ray);
 		if (cub->draw_wall)
 			ft_free_pointer((void **)&cub->draw_wall);
+		close(cub->fd);
 		ft_free_pointer((void **)&cub);
 	}
 }
@@ -82,13 +86,16 @@ void	ft_free_split(char **split)
 	int	i;
 
 	i = 0;
-	if (split)
+	if (split && split[i])
 	{
 		while (split[i] != NULL)
 		{
 			free(split[i]);
+			split[i] = NULL;
 			i++;
 		}
 		free(split);
+		split = NULL;
 	}
 }
+

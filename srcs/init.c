@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:20:35 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/02 08:04:16 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/04 16:52:50 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,11 @@ void	ft_create_cub(t_cub **cub)
 void	ft_init_structs(t_cub *cub)
 {
 	cub->map = NULL;
+	cub->i = 0;
 	cub->player->y_start = 0;
 	cub->player->x_start = 0;
 	cub->player->y_cur = 0;
 	cub->player->x_cur = 0;
-	cub->parse->NO = NULL;
-	cub->parse->SO = NULL;
-	cub->parse->WE = NULL;
-	cub->parse->EA = NULL;
 	cub->parse->map_height = 0;
 	cub->parse->map_width = 0;
 	cub->parse->tmp_height = 0;
@@ -58,11 +55,49 @@ void	ft_init_structs(t_cub *cub)
 	cub->parse->total_infos = 0;
 	cub->parse->check_newline = 0;
 	cub->parse->ct = 0;
+	ft_init_info(cub);
+}
+
+void	ft_init_info(t_cub *cub)
+{
+	cub->parse->NO = NULL;
+	cub->parse->SO = NULL;
+	cub->parse->WE = NULL;
+	cub->parse->EA = NULL;
 	cub->parse->F.b = -1;
 	cub->parse->F.g = -1;
 	cub->parse->F.r = -1;
 	cub->parse->C.b = -1;
 	cub->parse->C.g = -1;
 	cub->parse->C.r = -1;
+	cub->verif.NO = 0;
+	cub->verif.SO = 0;
+	cub->verif.WE = 0;
+	cub->verif.EA = 0;
+	cub->verif.F = 0;
+	cub->verif.C = 0;
 	cub->player->dir = 0;
+}
+
+void	ft_init_map(t_cub *cub, size_t y, size_t x, char val)
+{
+	cub->map[y][x].value = val;
+	cub->map[y][x].used = false;
+	cub->map[y][x].count = 0;
+	cub->map[y][x].count_0 = 0;
+}
+
+void	ft_init_cub_map(t_cub *cub)
+{
+	size_t	i;
+
+	i = 0;
+	cub->map = malloc(sizeof(t_cell *) * (cub->parse->map_height + 1));
+	if (!cub->map)
+		ft_error(cub, "Map Alloc failed", -1, -1);
+	while (i <= cub->parse->map_height)
+	{
+		cub->map[i] = NULL;
+		i++;
+	}
 }

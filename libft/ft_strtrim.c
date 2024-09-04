@@ -3,88 +3,100 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:10:49 by gchamore          #+#    #+#             */
-/*   Updated: 2024/05/17 15:07:33 by anferre          ###   ########.fr       */
+/*   Updated: 2024/08/23 17:41:36 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_tri1(char const*s1, char const *set, int i)
+size_t    ft_checkstarttrim(char const *s1, char const *set)
 {
-	int		y;
-	int		count;
+    unsigned int    i;
+    unsigned int    j;
+    unsigned int    found;
 
-	y = 0;
-	count = 0;
-	while (s1[i] && count == 0)
-	{
-		while (s1[i] != set[y])
-		{
-			y++;
-			if (set[y] == '\0')
-			{
-				count = 1;
-				break ;
-			}
-		}
-		y = 0;
-		if (count == 0)
-			i++;
-	}
-	return (i);
+    i = 0;
+    j = 0;
+    found = 1;
+    while (s1[i] && found == 1)
+    {
+        j = 0;
+        found = 0;
+        while (set[j])
+        {
+            if (s1[i] == set[j])
+            {
+                found = 1;
+                i++;
+                break ;
+            }
+            j++;
+        }
+    }
+    return (i);
 }
 
-static int	ft_tri2(char const*s1, char const *set, int j)
+unsigned int    ft_checkendtrim(char const *s1, char const *set)
 {
-	int		y;
-	int		count;
+    unsigned int    i;
+    unsigned int    j;
+    unsigned int    found;
 
-	y = 0;
-	count = 0;
-	while (s1[j])
-		j++;
-	j = j - 1;
-	while (s1[j] && count == 0)
-	{
-		while (s1[j] != set[y])
-		{
-			y++;
-			if (set[y] == '\0')
-			{
-				count = 1;
-				break ;
-			}
-		}
-		y = 0;
-		if (count == 0)
-			j--;
-	}
-	j = j + 2;
-	return (j);
+    i = ft_strlen(s1) - 1;
+    j = 0;
+    found = 1;
+    while (s1[i] && found == 1)
+    {
+        j = 0;
+        found = 0;
+        while (set[j])
+        {
+            if (s1[i] == set[j])
+            {
+                found = 1;
+                i--;
+                break ;
+            }
+            j++;
+        }
+    }
+    return (i + 1);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char    *ft_strtrim(char const *s1, char const *set)
 {
-	int		i;
-	int		j;
-	size_t	substr_len;
+    unsigned int    starttrim;
+    unsigned int    endtrim;
+    unsigned int    i;
+    char            *str;
 
-	i = 0;
-	j = 0;
-	if (!s1 || !set)
-		return ((char *)s1);
-	if (set[0] == '\0')
-		return (ft_strdup((char *)s1));
-	i = ft_tri1(s1, set, 0);
-	j = ft_tri2(s1, set, 0);
-	if (i >= j)
-		return (ft_strdup(""));
-	substr_len = j - i - 1;
-	return (ft_substr((char *)s1, i, substr_len));
+    i = 0;
+    if (!s1)
+        return (NULL);
+    if (!set || set[i] == '\0')
+        return (ft_strdup((char *)s1));
+    starttrim = ft_checkstarttrim(s1, set);
+    if (!(starttrim < ft_strlen(s1)))
+        return (ft_strdup(""));
+    endtrim = ft_checkendtrim(s1, set);
+    str = (char *)malloc((endtrim - starttrim + 1) * sizeof(char));
+    if (!str)
+        return (NULL);
+    while (starttrim < endtrim)
+    {
+        str[i] = s1[starttrim];
+        i++;
+        starttrim++;
+    }
+    str[i] = '\0';
+    return (str);
 }
+//  returns an allocated copy of’s1’ with the characters specified
+//  in ’set’ removed from the beginning and the end of the string
+//if (!(starttrim < ft_strlen(s1))) means we only found set char in *s1
 
 //	La fonction ft_strtrim prend une chaîne de caractères
 //	s1 et supprime les caractères spécifiés dans l'ensemble
