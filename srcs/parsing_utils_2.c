@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:03 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 14:54:30 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:20:01 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,6 @@ int	ft_is_delimiter(char c)
 
 // PERMET DE RECUPERER LES COULEURS RGB DANS C ET F
 
-char	*ft_trim_inside(char *str, int i, int len)
-{
-	int	j;
-	char *trimmed;
-
-	while (str[i])
-	{
-		if (!ft_is_delimiter(str[i++]))
-			len++;
-	}
-	trimmed = (char *)malloc((len + 1) * sizeof(char));
-	if (!trimmed)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (ft_is_delimiter(str[i]))
-			i++;
-		else
-			trimmed[j++] = str[i++];
-	}
-	trimmed[j] = '\0';
-	return (trimmed);
-}
-
 char	*ft_verify_rgb(char *str)
 {
 	int	i;
@@ -55,20 +29,16 @@ char	*ft_verify_rgb(char *str)
 	if (!trimmed)
 		return (NULL);
 	free(str);
-	str = ft_trim_inside(trimmed, 0, 0);
-	if (!str)
-		return (NULL);
-	free(trimmed);
-	if (str[0] == '\0')
-		return (free(str), NULL);
+	if (trimmed[0] == '\0')
+		return (free(trimmed), NULL);
 	i = 0;
-	while (str[i])
+	while (trimmed[i])
 	{
-		if (str[i] < '0' || str[i] > '9')
-			return (free(str), NULL);
+		if (trimmed[i] < '0' || trimmed[i] > '9' || ft_is_delimiter(trimmed[i]))
+			return (free(trimmed), NULL);
 		i++;
 	}
-	return (str);
+	return (trimmed);
 }
 
 t_rgb	ft_get_rgb(t_rgb rgb, char *str)
