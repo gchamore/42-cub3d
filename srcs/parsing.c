@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/03 19:46:56 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:21:35 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,25 +162,25 @@ int	ft_fill_utility(t_cub *cub, char *line)
 {
 	char	*tmp;
 
-	if (ft_checker(line, 'N', 'O'))
+	if (ft_strnstr(line, "NO ", ft_strlen(line)))
 		return (cub->parse->NO = ft_if_blanks(ft_substr(ft_strnstr(line, \
 		"NO ", ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
-	else if (ft_checker(line, 'S', 'O'))
+	else if (ft_strnstr(line, "SO ", ft_strlen(line)))
 		return (cub->parse->SO = ft_if_blanks(ft_substr(ft_strnstr(line, \
 		"SO ", ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
-	else if (ft_checker(line, 'W', 'E'))
+	else if (ft_strnstr(line, "WE ", ft_strlen(line)))
 		return (cub->parse->WE = ft_if_blanks(ft_substr(ft_strnstr(line, \
 		"WE ", ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
-	else if (ft_checker(line, 'E', 'A'))
+	else if (ft_strnstr(line, "EA ", ft_strlen(line)))
 		return (cub->parse->EA = ft_if_blanks(ft_substr(ft_strnstr(line, \
 		"EA ", ft_strlen(line)), 3, ft_strlen(line) - 3)), cub->parse->ct++, 1);
-	else if (ft_checker(line, 'F', '\0'))
+	else if (ft_strnstr(line, "F ", ft_strlen(line)))
 		return (tmp = ft_substr(ft_strnstr(line, "F ", ft_strlen(line)), 2, \
-		ft_strlen(line) - 2), cub->parse->F = ft_get_rgb(cub->parse->F, tmp), \
+		ft_strlen(line) - 2), cub->parse->F = ft_get_rgb(cub->parse->F, tmp, 0, 0), \
 		cub->parse->ct++, free(tmp), 1);
-	else if (ft_checker(line, 'C', '\0'))
+	else if (ft_strnstr(line, "C ", ft_strlen(line)))
 		return (tmp = ft_substr(ft_strnstr(line, "C ", ft_strlen(line)), 2, \
-		ft_strlen(line) - 2), cub->parse->C = ft_get_rgb(cub->parse->C, tmp), \
+		ft_strlen(line) - 2), cub->parse->C = ft_get_rgb(cub->parse->C, tmp, 0, 0), \
 		cub->parse->ct++, free(tmp), 1);
 	else
 		ft_fill_utility_map(cub, line, NULL);

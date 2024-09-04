@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/03 19:46:26 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:21:03 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ char	*ft_if_blanks(char *str);
 
 //parsing_utils_2.c
 int	ft_is_delimiter(char c);
-t_rgb	ft_get_rgb(t_rgb rgb, char *str);
+t_rgb	ft_get_rgb(t_rgb rgb, char *str, int i, int start);
 
 //////////////////////////
 //        DESTROY       //

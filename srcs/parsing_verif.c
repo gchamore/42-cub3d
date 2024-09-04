@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/03 19:10:55 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/04 09:45:40 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,7 +268,8 @@ int	ft_count(t_cub *cub, size_t y, size_t x, char value)
 	if (y > 0 && cub->map[y - 1][x].value == value && \
 		cub->map[y - 1][x].count == 0 && cub->map[y - 1][x].used == false)
 		count++;
-	count += ft_check_diag(cub, y, x, value);
+	if (value == '1')
+		count += ft_check_diag(cub, y, x, value);
 	return (count);
 }
 
@@ -331,7 +332,10 @@ void	ft_check_cell(t_cub *cub, size_t y, size_t x)
 		if (ft_count(cub, y, x, '0') != 0 || ft_count(cub, y, x, 'N') != 0 || \
 		ft_count(cub, y, x, 'S') != 0 || ft_count(cub, y, x, 'W') != 0 || \
 		ft_count(cub, y, x, 'E') != 0)
+		{
+			printf("cube->map[y][x].value = %c\n", cub->map[y][x].value);
 			ft_error(cub, "Invalid 0,N,S,E,W Alone arround", y, x);
+		}
 	}
 }
 
