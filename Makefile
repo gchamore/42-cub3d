@@ -6,7 +6,7 @@
 #    By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 09:49:54 by gchamore          #+#    #+#              #
-#    Updated: 2024/07/19 12:40:25 by gchamore         ###   ########.fr        #
+#    Updated: 2024/09/04 16:31:16 by gchamore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,23 +26,38 @@ SRCS_DIR_BONUS = srcs
 SRCS = $(addprefix $(SRCS_DIR)/,	\
 	main.c							\
 	init.c							\
-	parsing.c						\
-	parsing_verif.c					\
-	parsing_utils_1.c               \
-	parsing_utils_2.c               \
-	destroy.c						\
 	error.c							\
+	destroy.c						\
+	parsing.c						\
+	parse_data.c					\
+	parse_fill.c					\
+	parse_rgb.c						\
+	parse_utils.c					\
+	utils_a_delete.c				\
+	verif_algo_direction_1.c		\
+	verif_algo_direction_2.c		\
+	verif_algo.c					\
+	verif_arround_map.c				\
+	verif_utils.c					\
+	verif.c							\
 	)
 
 SRCS_BONUS = $(addprefix $(SRCS_DIR_BONUS)/,	\
 	main.c							\
 	init.c							\
-	parsing.c						\
-	parsing_verif.c					\
-	parsing_utils_1.c               \
-	parsing_utils_2.c               \
-	destroy.c						\
 	error.c							\
+	parsing.c						\
+	parse_data.c					\
+	parse_fill.c					\
+	parse_rgb.c						\
+	parse_utils.c					\
+	utils_a_delete.c				\
+	verif_algo_direction_1.c		\
+	verif_algo_direction_2.c		\
+	verif_algo.c					\
+	verif_arround_map.c				\
+	verif_utils.c					\
+	verif.c							\
 	)
 
 OBJ_DIR = objs

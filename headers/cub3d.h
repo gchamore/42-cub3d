@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 12:58:37 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 13:37:14 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:30:28 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,9 @@ int	main(int argc, char **argv);
 //init.c
 void	ft_create_cub(t_cub **cub);
 void	ft_init_structs(t_cub *cub);
+void	ft_init_info(t_cub *cub);
+void	ft_init_map(t_cub *cub, size_t y, size_t x, char val);
+void	ft_init_cub_map(t_cub *cub);
 
 //////////////////////////
 //        PARSING       //
@@ -135,36 +138,78 @@ void	ft_init_structs(t_cub *cub);
 //parsing.c
 int	ft_parsing(t_cub *cub, char **argv);
 int	ft_get_data(char *file, t_cub *cub, char *line);
-int	ft_fill_utility(t_cub *cub, char *line);
 t_cell	**ft_fill_all(char *file, t_cub *cub);
+t_cell	**ft_verif_data(t_cub *cub, t_cell **map);
 
-//parsing_verif.c
-int	ft_check_arround_1(t_cub *cub, size_t y, size_t x);
-void	ft_check_if_valid_map(t_cub *cub);
-t_cell **ft_verif_data(t_cub *cub, t_cell **map);
+//parse_data.c
+void	verif_fill_data(t_cub *cub, char *line, int i);
+void	verif_if_double_and_valid(t_cub *cub, char *line);
+int		ft_fill_utility(t_cub *cub, char *line);
+void	ft_fill_utility_map(t_cub *cub, char *line, char *tmp);
+
+//parse_fill.c
+void	ft_prepare(t_cub *cub, char *line, size_t j);
+void	ft_fill_map(t_cub *cub, char *line, char **split, size_t j);
 int	ft_check_line(t_cub *cub, char *line);
-void	ft_reset_map(t_cub *cub);
-void	ft_print_used(t_cub *cub);
+void	ft_check_data(t_cub *cub, char *line);
 
+//parse_rgb.c
+char	*ft_verify_rgb(char *str);
+t_rgb	ft_get_rgb(t_rgb rgb, char *str);
 
-//parsing_utils_1.c
-void	ft_print_map(t_cub *cub, t_cell **map, int map_width, int map_height);
+//parse_utils.c
+int		ft_checker(char *line, char one, char two);
 char	**ft_mod_split(char *str, t_cub *cub, size_t i, int tmp);
 char	*ft_if_only_blanks(char *str);
 char	*ft_if_blanks(char *str);
-// char	*ft_if_blanks_after(char *str);
+int		ft_is_delimiter(char c);
 
-//parsing_utils_2.c
-int	ft_is_delimiter(char c);
-t_rgb	ft_get_rgb(t_rgb rgb, char *str);
+//////////////////////////
+//        VERIFS        //
+//////////////////////////
+
+//verif.c
+void	ft_check_if_valid_map(t_cub *cub);
+void	ft_check_inside(t_cub *cub, size_t y, size_t x);
+int	ft_is_valid(t_cub *cub, size_t y, size_t x);
+void	ft_get_player(t_cub *cub, size_t y, size_t x);
+
+//verif_arround_map.c
+void	ft_check_borders(t_cub *cub, size_t y, size_t x);
+void	ft_check_corners_1(t_cub *cub, size_t y, size_t x);
+void	ft_check_corners_2(t_cub *cub, size_t y, size_t x);
+void	ft_check_sides_1(t_cub *cub, size_t y, size_t x);
+void	ft_check_sides_2(t_cub *cub, size_t y, size_t x);
+
+//verif_algo.c
+int	ft_check_arround_1(t_cub *cub, size_t y, size_t x);
+int	ft_check_map_direction(t_cub *cub, size_t y, size_t x);
+int	ft_count(t_cub *cub, size_t y, size_t x, char value);
+int	ft_check_diag(t_cub *cub, size_t y, size_t x, char value);
+
+//verif_algo_direction_1.c
+int	ft_verif_right(t_cub *cub, size_t y, size_t x);
+int	ft_verif_right_down(t_cub *cub, size_t y, size_t x);
+int	ft_verif_down(t_cub *cub, size_t y, size_t x);
+int	ft_verif_left_down(t_cub *cub, size_t y, size_t x);
+
+//verif_algo_direction_2.c
+int	ft_verif_left(t_cub *cub, size_t y, size_t x);
+int	ft_verif_left_up(t_cub *cub, size_t y, size_t x);
+int	ft_verif_up(t_cub *cub, size_t y, size_t x);
+int	ft_verif_right_up(t_cub *cub, size_t y, size_t x);
+
+//verif_utils.c
+void	ft_reset_map(t_cub *cub);
+void	ft_check_cell(t_cub *cub, size_t y, size_t x);
 
 //////////////////////////
 //        DESTROY       //
 //////////////////////////
 
 //destroy.c
-void	ft_free_cub(t_cub *cub);
 void	ft_free_map(t_cell **map, int map_height);
+void	ft_free_cub(t_cub *cub);
 void	ft_free_split(char **split);
 
 //////////////////////////

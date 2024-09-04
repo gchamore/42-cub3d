@@ -6,24 +6,18 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:03 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 15:23:15 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:50:18 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// Retourne 1 si c est un delimiteur, 0 sinon
-int	ft_is_delimiter(char c)
-{
-	return (c == ' ' || c == '\n' || c == '\t');
-}
-
 // PERMET DE RECUPERER LES COULEURS RGB DANS C ET F
 
 char	*ft_verify_rgb(char *str)
 {
-	int	i;
-	char *trimmed;
+	int		i;
+	char	*trimmed;
 
 	trimmed = ft_strtrim(str, " \t\n");
 	if (!trimmed)
@@ -45,10 +39,10 @@ char	*ft_verify_rgb(char *str)
 
 t_rgb	ft_get_rgb(t_rgb rgb, char *str)
 {
-	char **split;
-	char *temp;
-	char *temp2;
-	char *temp3;
+	char	**split;
+	char	*temp;
+	char	*temp2;
+	char	*temp3;
 
 	split = ft_split(str, ',');
 	if (!split)
