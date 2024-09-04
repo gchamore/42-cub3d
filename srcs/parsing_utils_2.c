@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:03 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 15:20:01 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:23:15 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	*ft_verify_rgb(char *str)
 			return (free(trimmed), NULL);
 		i++;
 	}
+	if (ft_strlen(trimmed) > 4)
+		return (free(trimmed), NULL);
 	return (trimmed);
 }
 

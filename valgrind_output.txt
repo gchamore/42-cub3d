@@ -1,16 +1,105 @@
-==2797669== Memcheck, a memory error detector
-==2797669== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==2797669== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==2797669== Command: ./cub3D maps/joyeux/*.cub
-==2797669== Parent PID: 2797668
-==2797669== 
-==2797669== Warning: invalid file descriptor -1 in syscall close()
-==2797669== 
-==2797669== HEAP SUMMARY:
-==2797669==     in use at exit: 0 bytes in 0 blocks
-==2797669==   total heap usage: 5 allocs, 5 frees, 1,304 bytes allocated
-==2797669== 
-==2797669== All heap blocks were freed -- no leaks are possible
-==2797669== 
-==2797669== For lists of detected and suppressed errors, rerun with: -s
-==2797669== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2801041== Memcheck, a memory error detector
+==2801041== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2801041== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==2801041== Command: ./cub3D maps/joyeux/maps/valid_big.cub
+==2801041== Parent PID: 2800880
+==2801041== 
+==2801041== 
+==2801041== Process terminating with default action of signal 2 (SIGINT)
+==2801041==    at 0x403716: ft_check_arround_1 (parsing_verif.c:283)
+==2801041==    by 0x4035C6: ft_verif_right (parsing_verif.c:113)
+==2801041==    by 0x404004: ft_check_map_direction (parsing_verif.c:212)
+==2801041==    by 0x4037A4: ft_check_arround_1 (parsing_verif.c:287)
+==2801041==    by 0x4035C6: ft_verif_right (parsing_verif.c:113)
+==2801041==    by 0x404004: ft_check_map_direction (parsing_verif.c:212)
+==2801041==    by 0x4037A4: ft_check_arround_1 (parsing_verif.c:287)
+==2801041==    by 0x4035C6: ft_verif_right (parsing_verif.c:113)
+==2801041==    by 0x404004: ft_check_map_direction (parsing_verif.c:212)
+==2801041==    by 0x4037A4: ft_check_arround_1 (parsing_verif.c:287)
+==2801041==    by 0x4035C6: ft_verif_right (parsing_verif.c:113)
+==2801041==    by 0x404004: ft_check_map_direction (parsing_verif.c:212)
+==2801041== 
+==2801041== HEAP SUMMARY:
+==2801041==     in use at exit: 189,469 bytes in 126 blocks
+==2801041==   total heap usage: 17,316 allocs, 17,190 frees, 483,737 bytes allocated
+==2801041== 
+==2801041== 27 bytes in 1 blocks are still reachable in loss record 1 of 10
+==2801041==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2801041==    by 0x4067ED: ft_strtrim (ft_strtrim.c:85)
+==2801041==    by 0x405775: ft_if_blanks (parsing_utils_1.c:134)
+==2801041==    by 0x4020A6: ft_fill_utility (parsing.c:166)
+==2801041==    by 0x4017AB: ft_get_data (parsing.c:124)
+==2801041==    by 0x4015D4: ft_parsing (parsing.c:17)
+==2801041==    by 0x40122B: main (main.c:26)
+==2801041== 
+==2801041== 27 bytes in 1 blocks are still reachable in loss record 2 of 10
+==2801041==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2801041==    by 0x4067ED: ft_strtrim (ft_strtrim.c:85)
+==2801041==    by 0x405775: ft_if_blanks (parsing_utils_1.c:134)
+==2801041==    by 0x40222C: ft_fill_utility (parsing.c:172)
+==2801041==    by 0x4017AB: ft_get_data (parsing.c:124)
+==2801041==    by 0x4015D4: ft_parsing (parsing.c:17)
+==2801041==    by 0x40122B: main (main.c:26)
+==2801041== 
+==2801041== 27 bytes in 1 blocks are still reachable in loss record 3 of 10
+==2801041==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2801041==    by 0x4067ED: ft_strtrim (ft_strtrim.c:85)
+==2801041==    by 0x405775: ft_if_blanks (parsing_utils_1.c:134)
+==2801041==    by 0x4022EF: ft_fill_utility (parsing.c:175)
+==2801041==    by 0x4017AB: ft_get_data (parsing.c:124)
+==2801041==    by 0x4015D4: ft_parsing (parsing.c:17)
+==2801041==    by 0x40122B: main (main.c:26)
+==2801041== 
+==2801041== 28 bytes in 1 blocks are still reachable in loss record 4 of 10
+==2801041==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2801041==    by 0x4067ED: ft_strtrim (ft_strtrim.c:85)
+==2801041==    by 0x405775: ft_if_blanks (parsing_utils_1.c:134)
+==2801041==    by 0x402169: ft_fill_utility (parsing.c:169)
+==2801041==    by 0x4017AB: ft_get_data (parsing.c:124)
+==2801041==    by 0x4015D4: ft_parsing (parsing.c:17)
+==2801041==    by 0x40122B: main (main.c:26)
+==2801041== 
+==2801041== 40 bytes in 1 blocks are still reachable in loss record 5 of 10
+==2801041==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2801041==    by 0x4012F7: ft_create_cub (init.c:20)
+==2801041==    by 0x4011D6: main (main.c:20)
+==2801041== 
+==2801041== 48 bytes in 1 blocks are still reachable in loss record 6 of 10
+==2801041==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2801041==    by 0x40136D: ft_create_cub (init.c:32)
+==2801041==    by 0x4011D6: main (main.c:20)
+==2801041== 
+==2801041== 64 bytes in 1 blocks are still reachable in loss record 7 of 10
+==2801041==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2801041==    by 0x4012D5: ft_create_cub (init.c:17)
+==2801041==    by 0x4011D6: main (main.c:20)
+==2801041== 
+==2801041== 128 bytes in 1 blocks are still reachable in loss record 8 of 10
+==2801041==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2801041==    by 0x401332: ft_create_cub (init.c:26)
+==2801041==    by 0x4011D6: main (main.c:20)
+==2801041== 
+==2801041== 944 bytes in 1 blocks are still reachable in loss record 9 of 10
+==2801041==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2801041==    by 0x402AAC: ft_init_cub_map (parsing.c:254)
+==2801041==    by 0x4018AE: ft_fill_all (parsing.c:274)
+==2801041==    by 0x4015FA: ft_parsing (parsing.c:19)
+==2801041==    by 0x40122B: main (main.c:26)
+==2801041== 
+==2801041== 188,136 bytes in 117 blocks are still reachable in loss record 10 of 10
+==2801041==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2801041==    by 0x40288A: ft_fill_map (parsing.c:213)
+==2801041==    by 0x402A68: ft_prepare (parsing.c:245)
+==2801041==    by 0x401947: ft_fill_all (parsing.c:283)
+==2801041==    by 0x4015FA: ft_parsing (parsing.c:19)
+==2801041==    by 0x40122B: main (main.c:26)
+==2801041== 
+==2801041== LEAK SUMMARY:
+==2801041==    definitely lost: 0 bytes in 0 blocks
+==2801041==    indirectly lost: 0 bytes in 0 blocks
+==2801041==      possibly lost: 0 bytes in 0 blocks
+==2801041==    still reachable: 189,469 bytes in 126 blocks
+==2801041==         suppressed: 0 bytes in 0 blocks
+==2801041== 
+==2801041== For lists of detected and suppressed errors, rerun with: -s
+==2801041== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

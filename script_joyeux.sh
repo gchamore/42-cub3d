@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Chemin vers le répertoire contenant les fichiers .cub
-MAPS_DIR="maps/joyeux/"
+MAPS_DIR="maps/joyeux/maps/"
 
 # Fichier de sortie pour le résumé
 SUMMARY_FILE="valgrind_summary.txt"

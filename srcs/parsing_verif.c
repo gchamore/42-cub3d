@@ -6,7 +6,7 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:22:42 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 15:13:35 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:32:30 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	ft_is_valid(t_cub *cub, size_t y, size_t x)
 {
-	if (cub->map[y][x].value == '0' || cub->map[y][x].value == 'N' || \
-	cub->map[y][x].value == 'S' || cub->map[y][x].value == 'W' || \
-	cub->map[y][x].value == 'E')
+	if (y > 0 && y < cub->parse->map_height && x > 0 && \
+	x < cub->parse->map_width && (cub->map[y][x].value == '0' || \
+	cub->map[y][x].value == 'N' || cub->map[y][x].value == 'S' || \
+	cub->map[y][x].value == 'W' || cub->map[y][x].value == 'E'))
 		return (1);
 	return (0);
 }
