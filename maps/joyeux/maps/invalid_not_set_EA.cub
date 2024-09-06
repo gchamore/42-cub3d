@@ -1,6 +1,6 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-EA ./path_to_the_east_texture
+NO textures/xpm/wood.xpm
+SO textures/xpm/eagle.xpm
+EA textures/xpm/mossy.xpm
 
 C 200, 200, 200
 F 200, 200, 200

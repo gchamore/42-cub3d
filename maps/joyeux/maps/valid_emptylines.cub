@@ -1,11 +1,14 @@
-NO ./path_to_the_north_texture
+NO textures/xpm/wood.xpm
 
 
-SO ./path_to_the_south_texture
+SO textures/xpm/eagle.xpm
 
-WE ./path_to_the_west_texture
+WE textures/xpm/redbrick.xpm
 
-EA ./path_to_the_east_texture
+
+
+EA textures/xpm/mossy.xpm
+
 
 
 F 220,100,0

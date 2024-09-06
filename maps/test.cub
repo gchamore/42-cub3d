@@ -2,26 +2,50 @@
 
 
 
-SO textures/test/south.xpm
-
-WE textures/test/west.xpm
+SO textures/xpm/eagle.xpm
 
 
-EA textures/test/e.xpm 
-   
-F 4     5,  93, 2  0   
-C    76,   8  7,2  5    
-
-NO textures/test/north.xpm
 
 
+WE               textures/xpm/redbrick.xpm
+
+
+
+
+EA textures/xpm/mossy.xpm
+
+
+
+
+
+
+
+
+
+
+
+
+F 45,  93,                		 20   
+
+
+
+
+
+C    76,   87,25           			   
+
+
+
+
+
+
+NO                            textures/xpm/wood.xpm   
 
 
         11111
      1 11111111
       110000001
        11000011
- 1     111111
+        111111
   111
  10001
  10001
@@ -35,4 +59,14 @@ NO textures/test/north.xpm
  10101
  10N11   
  11111
+
+
+
+
+
+
+
+
+
+
 
