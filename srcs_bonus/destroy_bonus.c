@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:24:45 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/06 11:38:14 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/06 12:12:10 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	ft_free_cub(t_cub *cub)
 			ft_free_pointer((void **)&cub->ray);
 		if (cub->draw_wall)
 			ft_free_pointer((void **)&cub->draw_wall);
-		close(cub->fd);
+		if (cub->fd != -1)
+			close(cub->fd);
 		ft_free_pointer((void **)&cub);
 	}
 }

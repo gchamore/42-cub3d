@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/06 11:36:20 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/06 12:13:03 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 
 int	ft_parsing(t_cub *cub, char **argv)
 {
+	int	i;
+
+	i = 0;
+	while (argv[1][i])
+		i++;
+	if (strcmp(&argv[1][i - 4], ".cub"))
+		return (ft_error(cub, "not terminated with .cub", -1, -1), \
+		EXIT_FAILURE);
 	if (ft_get_data(argv[1], cub, NULL) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (ft_fill_all(argv[1], cub) == NULL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:31:15 by anferre           #+#    #+#             */
-/*   Updated: 2024/09/06 11:38:32 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/06 12:24:07 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	ft_get_texture_addr(t_texture *texture)
 {
-	texture->addr[NORTH] = mlx_get_data_addr(texture->img_ptr[NORTH], \
-	&texture->bpp[NORTH], &texture->line_len[NORTH], &texture->endian[NORTH]);
-	texture->addr[SOUTH] = mlx_get_data_addr(texture->img_ptr[SOUTH], \
-	&texture->bpp[SOUTH], &texture->line_len[SOUTH], &texture->endian[SOUTH]);
-	texture->addr[WEST] = mlx_get_data_addr(texture->img_ptr[WEST], \
-	&texture->bpp[WEST], &texture->line_len[WEST], &texture->endian[WEST]);
-	texture->addr[EAST] = mlx_get_data_addr(texture->img_ptr[EAST], \
-	&texture->bpp[EAST], &texture->line_len[EAST], &texture->endian[EAST]);
+	texture->addr[SOUTH] = mlx_get_data_addr(texture->img_ptr[NORTH], \
+	&texture->bpp[SOUTH], &texture->line_len[NORTH], &texture->endian[NORTH]);
+	texture->addr[NORTH] = mlx_get_data_addr(texture->img_ptr[SOUTH], \
+	&texture->bpp[NORTH], &texture->line_len[SOUTH], &texture->endian[SOUTH]);
+	texture->addr[EAST] = mlx_get_data_addr(texture->img_ptr[WEST], \
+	&texture->bpp[EAST], &texture->line_len[WEST], &texture->endian[WEST]);
+	texture->addr[WEST] = mlx_get_data_addr(texture->img_ptr[EAST], \
+	&texture->bpp[WEST], &texture->line_len[EAST], &texture->endian[EAST]);
 }
 
 int	ft_read_texture(t_cub *cub)

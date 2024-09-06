@@ -1,23 +1,14 @@
+NO          textures/xpm/wood.xpm
+
+
+SO            textures/xpm/eagle.xpm
+
+
+WE           textures/xpm/redbrick.xpm
 
 
 
-
-
-
-
-
-NO textures/test/north.xpm
-
-
-
-
-
-
-
-
-SO textures/test/south.xpm
-                        WE textures/test/west.xpm
-        EA textures/test/east.xpm            
+EA           textures/xpm/mossy.xpm          
 
         F 20,           20,             20
 C 200,          200,200

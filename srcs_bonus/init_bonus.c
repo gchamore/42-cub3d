@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:20:35 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/06 11:35:58 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/06 12:12:33 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_init_structs(t_cub *cub)
 {
 	cub->map = NULL;
 	cub->i = 0;
+	cub->fd = -1;
 	cub->player->y_start = 0;
 	cub->player->x_start = 0;
 	cub->player->y_cur = 0;

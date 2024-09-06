@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:25:07 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 17:01:25 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/06 12:30:33 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int	main(int argc, char **argv)
 	t_cub	*cub;
 
 	cub = NULL;
+	if (argc != 2)
+		return (ft_error(cub, "wrong nb of arguments", -1, -1), 0);
 	ft_create_cub(&cub);
 	if (!cub)
 		return (ft_free_cub(cub), 0);
 	ft_init_structs(cub);
-	if (argc != 2)
-		return (ft_free_cub(cub), 0);
 	if (ft_parsing(cub, argv) == EXIT_FAILURE)
 		return (0);
 	if (!cub->map)
