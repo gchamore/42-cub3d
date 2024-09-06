@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 15:37:13 by anferre           #+#    #+#             */
-/*   Updated: 2024/09/03 11:09:02 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/06 11:38:56 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@ t_draw_wall *draw_wall)
 	ray->dof = 0;
 	ray->dist_h = 1000;
 	ray->dist_f = 0;
-	ray->aTan = -1 / tan(ray->ra);
+	ray->atan = -1 / tan(ray->ra);
 	if (ray->ra > PI + TOL)
 	{
 		ray->ry = floor(ray->player_y) - 0.0001;
-		ray->rx = (ray->player_y - ray->ry) * ray->aTan + ray->player_x;
+		ray->rx = (ray->player_y - ray->ry) * ray->atan + ray->player_x;
 		ray->yo = -1;
-		ray->xo = -ray->yo * ray->aTan;
+		ray->xo = -ray->yo * ray->atan;
 	}
 	else if (ray->ra < PI - TOL)
 	{
 		ray->ry = floor(ray->player_y) + 1.0;
-		ray->rx = (ray->player_y - ray->ry) * ray->aTan + ray->player_x;
+		ray->rx = (ray->player_y - ray->ry) * ray->atan + ray->player_x;
 		ray->yo = 1;
-		ray->xo = -ray->yo * ray->aTan;
+		ray->xo = -ray->yo * ray->atan;
 	}
 	else
 		ft_angle_ew(ray, draw_wall);
@@ -45,20 +45,20 @@ t_draw_wall *draw_wall)
 	ray->dist_v = 1000;
 	ray->x_v = ray->player_x;
 	ray->y_v = ray->player_y;
-	ray->nTan = -tan(ray->ra);
+	ray->ntan = -tan(ray->ra);
 	if (ray->ra > SOUTH_ANGLE + TOL && ray->ra < NORTH_ANGLE - TOL)
 	{
 		ray->rx = floor(ray->player_x) - 0.0001;
-		ray->ry = (ray->player_x - ray->rx) * ray->nTan + ray->player_y;
+		ray->ry = (ray->player_x - ray->rx) * ray->ntan + ray->player_y;
 		ray->xo = -1;
-		ray->yo = -ray->xo * ray->nTan;
+		ray->yo = -ray->xo * ray->ntan;
 	}
 	else if (ray->ra < SOUTH_ANGLE - TOL || ray->ra > NORTH_ANGLE + TOL)
 	{
 		ray->rx = floor(ray->player_x) + 1.0;
-		ray->ry = (ray->player_x - ray->rx) * ray->nTan + ray->player_y;
+		ray->ry = (ray->player_x - ray->rx) * ray->ntan + ray->player_y;
 		ray->xo = 1;
-		ray->yo = -ray->xo * ray->nTan;
+		ray->yo = -ray->xo * ray->ntan;
 	}
 	else
 		ft_angle_ns(ray, draw_wall);

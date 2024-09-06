@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:30:00 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 16:33:56 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/06 11:36:20 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	ft_get_data(char *file, t_cub *cub, char *line)
 	{
 		line = ft_if_only_blanks(line);
 		verif_fill_data(cub, line, 0);
-		if (cub->verif.NO > 1 || cub->verif.SO > 1 || cub->verif.WE > 1 || \
-			cub->verif.EA > 1 || cub->verif.F > 1 || cub->verif.C > 1)
+		if (cub->verif.no > 1 || cub->verif.so > 1 || cub->verif.we > 1 || \
+			cub->verif.ea > 1 || cub->verif.f > 1 || cub->verif.c > 1)
 		{
 			free(line);
 			ft_error(cub, "Double info", -1, -1);

@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:40:10 by tookops           #+#    #+#             */
-/*   Updated: 2024/09/02 10:39:59 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/06 11:33:48 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	ft_draw_wall(t_cub *cub, int x, t_draw_wall *draw_wall)
 	while (y < WIN_HEIGTH)
 	{
 		if (y < draw_wall->y_start)
-			ft_mpp(&cub->data->img, x, y, ft_rgb_to_int(cub->parse->C));
+			ft_mpp(&cub->data->img, x, y, ft_rgb_to_int(cub->parse->c));
 		else if (y >= draw_wall->y_end)
-			ft_mpp(&cub->data->img, x, y, ft_rgb_to_int(cub->parse->F));
+			ft_mpp(&cub->data->img, x, y, ft_rgb_to_int(cub->parse->f));
 		y++;
 	}
 }

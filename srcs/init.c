@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:20:35 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 17:29:10 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/06 11:26:09 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,22 @@ void	ft_init_structs(t_cub *cub)
 
 void	ft_init_info(t_cub *cub)
 {
-	cub->parse->NO = NULL;
-	cub->parse->SO = NULL;
-	cub->parse->WE = NULL;
-	cub->parse->EA = NULL;
-	cub->parse->F.b = -1;
-	cub->parse->F.g = -1;
-	cub->parse->F.r = -1;
-	cub->parse->C.b = -1;
-	cub->parse->C.g = -1;
-	cub->parse->C.r = -1;
-	cub->verif.NO = 0;
-	cub->verif.SO = 0;
-	cub->verif.WE = 0;
-	cub->verif.EA = 0;
-	cub->verif.F = 0;
-	cub->verif.C = 0;
+	cub->parse->no = NULL;
+	cub->parse->so = NULL;
+	cub->parse->we = NULL;
+	cub->parse->ea = NULL;
+	cub->parse->f.b = -1;
+	cub->parse->f.g = -1;
+	cub->parse->f.r = -1;
+	cub->parse->c.b = -1;
+	cub->parse->c.g = -1;
+	cub->parse->c.r = -1;
+	cub->verif.no = 0;
+	cub->verif.so = 0;
+	cub->verif.we = 0;
+	cub->verif.ea = 0;
+	cub->verif.f = 0;
+	cub->verif.c = 0;
 	cub->player->dir = 0;
 }
 

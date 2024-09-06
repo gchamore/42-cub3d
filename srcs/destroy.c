@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:24:45 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 17:44:59 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/06 11:26:38 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ void	ft_free_pointer(void **ptr)
 
 void	ft_free_parse(t_cub *cub)
 {
-	if (cub->parse->NO)
-		ft_free_pointer((void **)&cub->parse->NO);
-	if (cub->parse->SO)
-		ft_free_pointer((void **)&cub->parse->SO);
-	if (cub->parse->WE)
-		ft_free_pointer((void **)&cub->parse->WE);
-	if (cub->parse->EA)
-		ft_free_pointer((void **)&cub->parse->EA);
+	if (cub->parse->no)
+		ft_free_pointer((void **)&cub->parse->no);
+	if (cub->parse->so)
+		ft_free_pointer((void **)&cub->parse->so);
+	if (cub->parse->we)
+		ft_free_pointer((void **)&cub->parse->we);
+	if (cub->parse->ea)
+		ft_free_pointer((void **)&cub->parse->ea);
 	ft_free_pointer((void **)&cub->parse);
 }
 

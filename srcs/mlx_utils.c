@@ -6,7 +6,7 @@
 /*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:31:15 by anferre           #+#    #+#             */
-/*   Updated: 2024/09/04 17:40:49 by anferre          ###   ########.fr       */
+/*   Updated: 2024/09/06 11:32:44 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int	ft_read_texture(t_cub *cub)
 	if (!texture)
 		return (EXIT_FAILURE);
 	texture->img_ptr[NORTH] = mlx_xpm_file_to_image(cub->data->mlx_ptr, \
-	cub->parse->NO, &(texture->width[NORTH]), &(texture->height[NORTH]));
+	cub->parse->no, &(texture->width[NORTH]), &(texture->height[NORTH]));
 	texture->img_ptr[SOUTH] = mlx_xpm_file_to_image(cub->data->mlx_ptr, \
-	cub->parse->SO, &(texture->width[SOUTH]), &(texture->height[SOUTH]));
+	cub->parse->so, &(texture->width[SOUTH]), &(texture->height[SOUTH]));
 	texture->img_ptr[WEST] = mlx_xpm_file_to_image(cub->data->mlx_ptr, \
-	cub->parse->WE, &(texture->width[WEST]), &(texture->height[WEST]));
+	cub->parse->we, &(texture->width[WEST]), &(texture->height[WEST]));
 	texture->img_ptr[EAST] = mlx_xpm_file_to_image(cub->data->mlx_ptr, \
-	cub->parse->EA, &(texture->width[EAST]), &(texture->height[EAST]));
+	cub->parse->ea, &(texture->width[EAST]), &(texture->height[EAST]));
 	if (!texture->img_ptr[NORTH] || !texture->img_ptr[SOUTH] || \
 	!texture->img_ptr[WEST] || !texture->img_ptr[EAST])
 		return (printf("Error \n: Texture\n"), free(texture), ft_exit_mlx(cub), \

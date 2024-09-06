@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anferre <anferre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:39:56 by gchamore          #+#    #+#             */
-/*   Updated: 2024/09/04 16:34:54 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/09/06 11:32:28 by anferre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,18 +93,18 @@ int	ft_check_line(t_cub *cub, char *line)
 
 void	ft_check_data(t_cub *cub, char *line)
 {
-	if (!cub->parse->NO || !cub->parse->SO || \
-	!cub->parse->WE || !cub->parse->EA || \
-	cub->parse->C.r <= -1 || cub->parse->C.g <= -1 || \
-	cub->parse->C.b <= -1 || cub->parse->F.r <= -1 || \
-	cub->parse->F.g <= -1 || cub->parse->F.b <= -1)
+	if (!cub->parse->no || !cub->parse->so || \
+	!cub->parse->we || !cub->parse->ea || \
+	cub->parse->c.r <= -1 || cub->parse->c.g <= -1 || \
+	cub->parse->c.b <= -1 || cub->parse->f.r <= -1 || \
+	cub->parse->f.g <= -1 || cub->parse->f.b <= -1)
 	{
 		free(line);
 		ft_error(cub, "Wrong data infos", -1, -1);
 	}
-	if (cub->parse->C.r > 255 || cub->parse->C.g > 255 || \
-	cub->parse->C.b > 255 || cub->parse->F.r > 255 || \
-	cub->parse->F.g > 255 || cub->parse->F.b > 255)
+	if (cub->parse->c.r > 255 || cub->parse->c.g > 255 || \
+	cub->parse->c.b > 255 || cub->parse->f.r > 255 || \
+	cub->parse->f.g > 255 || cub->parse->f.b > 255)
 	{
 		free(line);
 		ft_error(cub, "Invalid RGB too high value", -1, -1);
